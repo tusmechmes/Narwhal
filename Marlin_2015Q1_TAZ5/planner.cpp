@@ -57,6 +57,7 @@
 #include "temperature.h"
 #include "ultralcd.h"
 #include "language.h"
+#include "SystemInfo.h"
 
 //===========================================================================
 //=============================public variables ============================
@@ -485,44 +486,48 @@ void check_axes_activity()
     disable_e2(); 
   }
 #if defined(FAN_PIN) && FAN_PIN > -1
-  #ifdef FAN_KICKSTART_TIME
-    static unsigned long fan_kick_end;
-    if (tail_fan_speed) {
-      if (fan_kick_end == 0) {
-        // Just starting up fan - run at full power.
-        fan_kick_end = millis() + FAN_KICKSTART_TIME;
-        tail_fan_speed = 255;
-      } else if (fan_kick_end > millis())
-        // Fan still spinning up.
-        tail_fan_speed = 255;
-    } else {
-      fan_kick_end = 0;
-    }
-  #endif//FAN_KICKSTART_TIME
-  #ifdef FAN_SOFT_PWM
-  fanSpeedSoftPwm = tail_fan_speed;
-  fanSpeedSoftPwm1 = tail_fan_speed1;
-  #else
-     #if defined(EXTRUDER_FAN_SETUP) && EXTRUDER_FAN_SETUP > -1
-	    #if EXTRUDER_FAN_SETUP == 1 || EXTRUDER_FAN_SETUP == 4     // EXTRUDER_FAN_SETUP = 1 OR 4
-		    analogWrite(EX_FAN_0,tail_fan_speed);
-		#endif 
-	    #if EXTRUDER_FAN_SETUP == 2                           // EXTRUDER_FAN_SETUP =2
-			if (active_FAN == 0){                                       // Sets EX_FAN_0 to speed set by M106/M107 and turns off EX_FAN_1
-				analogWrite(EX_FAN_0,tail_fan_speed);
-				analogWrite(EX_FAN_1,0);
-			}
-			else if  (active_FAN == 1){                                 // Sets EX_FAN_0 to speed set by M106/M107 and turns off EX_FAN_1
-				analogWrite(EX_FAN_0,0);
-				analogWrite(EX_FAN_1,tail_fan_speed);
-			}
-		#endif 
-		#if EXTRUDER_FAN_SETUP == 3                           // EXTRUDER_FAN_SETUP = 3
-			analogWrite(EX_FAN_0,tail_fan_speed);
-			analogWrite(EX_FAN_1,tail_fan_speed1);
-	    #endif 
-	 #endif  // EXTRUDER_FAN_SETUP
-  #endif //!FAN_SOFT_PWM
+  if (FAN_KICKSTART_TIME != 0)
+  {
+      static unsigned long fan_kick_end;
+      if (tail_fan_speed) {
+          if (fan_kick_end == 0) {
+              // Just starting up fan - run at full power.
+              fan_kick_end = millis() + FAN_KICKSTART_TIME;
+              tail_fan_speed = 255;
+          }
+          else if (fan_kick_end > millis())
+              // Fan still spinning up.
+              tail_fan_speed = 255;
+      }
+      else {
+          fan_kick_end = 0;
+      }
+  }
+  if (FAN_SOFT_PWM)
+  {
+      fanSpeedSoftPwm = tail_fan_speed;
+      fanSpeedSoftPwm1 = tail_fan_speed1;
+      //} else {   // this line was commented out after merging with the dual_fan dual_control version of the firmware. not sure if its a bug or not.
+    #if defined(EXTRUDER_FAN_SETUP) && EXTRUDER_FAN_SETUP > -1
+    #if EXTRUDER_FAN_SETUP == 1 || EXTRUDER_FAN_SETUP == 4     // EXTRUDER_FAN_SETUP = 1 OR 4
+        analogWrite(EX_FAN_0,tail_fan_speed);
+    #endif 
+    #if EXTRUDER_FAN_SETUP == 2                           // EXTRUDER_FAN_SETUP =2
+        if (active_FAN == 0){                                       // Sets EX_FAN_0 to speed set by M106/M107 and turns off EX_FAN_1
+            analogWrite(EX_FAN_0,tail_fan_speed);
+            analogWrite(EX_FAN_1,0);
+        }
+        else if  (active_FAN == 1){                                 // Sets EX_FAN_0 to speed set by M106/M107 and turns off EX_FAN_1
+            analogWrite(EX_FAN_0,0);
+            analogWrite(EX_FAN_1,tail_fan_speed);
+        }
+    #endif 
+    #if EXTRUDER_FAN_SETUP == 3                           // EXTRUDER_FAN_SETUP = 3
+        analogWrite(EX_FAN_0, tail_fan_speed);
+        analogWrite(EX_FAN_1, tail_fan_speed1);
+    #endif 
+    #endif  // EXTRUDER_FAN_SETUP
+  }
 #endif//FAN_PIN > -1
 
 #ifdef AUTOTEMP

@@ -379,14 +379,14 @@ static void lcd_implementation_status_screen()
 
 #if LCD_WIDTH < 20
     lcd.setCursor(0, 0);
-    lcd.print(itostr3(tHotend));
+    lcd.print(int3_tostr(tHotend));
     lcd.print('/');
-    lcd.print(itostr3left(tTarget));
+    lcd.print(int3_tostrleft(tTarget));
 
-# if EXTRUDERS > 1 || TEMP_SENSOR_BED != 0
+# if MAX_EXTRUDERS > 1 || TEMP_SENSOR_BED != 0
     //If we have an 2nd extruder or heated bed, show that in the top right corner
     lcd.setCursor(8, 0);
-#  if EXTRUDERS > 1
+#  if MAX_EXTRUDERS > 1
     tHotend = int(degHotend(1) + 0.5);
     tTarget = int(degTargetHotend(1) + 0.5);
     lcd.print(LCD_STR_THERMOMETER[0]);
@@ -395,25 +395,25 @@ static void lcd_implementation_status_screen()
     tTarget=int(degTargetBed() + 0.5);
     lcd.print(LCD_STR_BEDTEMP[0]);
 #  endif
-    lcd.print(itostr3(tHotend));
+    lcd.print(int3_tostr(tHotend));
     lcd.print('/');
-    lcd.print(itostr3left(tTarget));
-# endif//EXTRUDERS > 1 || TEMP_SENSOR_BED != 0
+    lcd.print(int3_tostrleft(tTarget));
+# endif//MAX_EXTRUDERS > 1 || TEMP_SENSOR_BED != 0
 
 #else//LCD_WIDTH > 19
     lcd.setCursor(0, 0);
     lcd.print(LCD_STR_THERMOMETER[0]);
-    lcd.print(itostr3(tHotend));
+    lcd.print(int3_tostr(tHotend));
     lcd.print('/');
-    lcd.print(itostr3left(tTarget));
+    lcd.print(int3_tostrleft(tTarget));
     lcd_printPGM(PSTR(LCD_STR_DEGREE " "));
     if (tTarget < 10)
         lcd.print(' ');
 
-# if EXTRUDERS > 1 || TEMP_SENSOR_BED != 0
+# if MAX_EXTRUDERS > 1 || TEMP_SENSOR_BED != 0
     //If we have an 2nd extruder or heated bed, show that in the top right corner
     lcd.setCursor(10, 0);
-#  if EXTRUDERS > 1
+#  if MAX_EXTRUDERS > 1
     tHotend = int(degHotend(1) + 0.5);
     tTarget = int(degTargetHotend(1) + 0.5);
     lcd.print(LCD_STR_THERMOMETER[0]);
@@ -422,13 +422,13 @@ static void lcd_implementation_status_screen()
     tTarget=int(degTargetBed() + 0.5);
     lcd.print(LCD_STR_BEDTEMP[0]);
 #  endif
-    lcd.print(itostr3(tHotend));
+    lcd.print(int3_tostr(tHotend));
     lcd.print('/');
-    lcd.print(itostr3left(tTarget));
+    lcd.print(int3_tostrleft(tTarget));
     lcd_printPGM(PSTR(LCD_STR_DEGREE " "));
     if (tTarget < 10)
         lcd.print(' ');
-# endif//EXTRUDERS > 1 || TEMP_SENSOR_BED != 0
+# endif//MAX_EXTRUDERS > 1 || TEMP_SENSOR_BED != 0
 #endif//LCD_WIDTH > 19
 
 #if LCD_HEIGHT > 2
@@ -438,49 +438,49 @@ static void lcd_implementation_status_screen()
     lcd.setCursor(0, 2);
     lcd_printPGM(PSTR("SD"));
     if (IS_SD_PRINTING)
-        lcd.print(itostr3(card.percentDone()));
+        lcd.print(int3_tostr(card.percentDone()));
     else
         lcd_printPGM(PSTR("---"));
     lcd.print('%');
 #  endif//SDSUPPORT
 # else//LCD_WIDTH > 19
-#  if EXTRUDERS > 1 && TEMP_SENSOR_BED != 0
+#  if MAX_EXTRUDERS > 1 && TEMP_SENSOR_BED != 0
     //If we both have a 2nd extruder and a heated bed, show the heated bed temp on the 2nd line on the left, as the first line is filled with extruder temps
     tHotend=int(degBed() + 0.5);
     tTarget=int(degTargetBed() + 0.5);
 
     lcd.setCursor(0, 1);
     lcd.print(LCD_STR_BEDTEMP[0]);
-    lcd.print(itostr3(tHotend));
+    lcd.print(int3_tostr(tHotend));
     lcd.print('/');
-    lcd.print(itostr3left(tTarget));
+    lcd.print(int3_tostrleft(tTarget));
     lcd_printPGM(PSTR(LCD_STR_DEGREE " "));
     if (tTarget < 10)
         lcd.print(' ');
 #  else
     lcd.setCursor(0,1);
     lcd.print('X');
-    lcd.print(ftostr3(current_position[X_AXIS]));
+    lcd.print(float3_tostr(current_position[X_AXIS]));
     lcd_printPGM(PSTR(" Y"));
-    lcd.print(ftostr3(current_position[Y_AXIS]));
-#  endif//EXTRUDERS > 1 || TEMP_SENSOR_BED != 0
+    lcd.print(float3_tostr(current_position[Y_AXIS]));
+#  endif//MAX_EXTRUDERS > 1 || TEMP_SENSOR_BED != 0
 # endif//LCD_WIDTH > 19
     lcd.setCursor(LCD_WIDTH - 8, 1);
     lcd.print('Z');
-    lcd.print(ftostr32(current_position[Z_AXIS]));
+    lcd.print(float3_tostr2(current_position[Z_AXIS]));
 #endif//LCD_HEIGHT > 2
 
 #if LCD_HEIGHT > 3
     lcd.setCursor(0, 2);
     lcd.print(LCD_STR_FEEDRATE[0]);
-    lcd.print(itostr3(feedmultiply));
+    lcd.print(int3_tostr(feedmultiply));
     lcd.print('%');
 # if LCD_WIDTH > 19
 #  ifdef SDSUPPORT
     lcd.setCursor(7, 2);
     lcd_printPGM(PSTR("SD"));
     if (IS_SD_PRINTING)
-        lcd.print(itostr3(card.percentDone()));
+        lcd.print(int3_tostr(card.percentDone()));
     else
         lcd_printPGM(PSTR("---"));
     lcd.print('%');
@@ -491,9 +491,9 @@ static void lcd_implementation_status_screen()
     if(starttime != 0)
     {
         uint16_t time = millis()/60000 - starttime/60000;
-        lcd.print(itostr2(time/60));
+        lcd.print(int2_tostr(time / 60));
         lcd.print(':');
-        lcd.print(itostr2(time%60));
+        lcd.print(int2_tostr(time % 60));
     }else{
         lcd_printPGM(PSTR("--:--"));
     }
@@ -547,62 +547,9 @@ static void lcd_implementation_drawmenu_setting_edit_generic(uint8_t row, const 
         lcd.print(' ');
     lcd.print(data);
 }
-static void lcd_implementation_drawmenu_setting_edit_generic_P(uint8_t row, const char* pstr, char pre_char, const char* data)
-{
-    char c;
-    //Use all characters in narrow LCDs
-  #if LCD_WIDTH < 20
-      uint8_t n = LCD_WIDTH - 1 - 1 - strlen_P(data);
-    #else
-      uint8_t n = LCD_WIDTH - 1 - 2 - strlen_P(data);
-  #endif
-    lcd.setCursor(0, row);
-    lcd.print(pre_char);
-    while( ((c = pgm_read_byte(pstr)) != '\0') && (n>0) )
-    {
-        lcd.print(c);
-        pstr++;
-        n--;
-    }
-    lcd.print(':');
-    while(n--)
-        lcd.print(' ');
-    lcd_printPGM(data);
-}
-#define lcd_implementation_drawmenu_setting_edit_int3_selected(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', itostr3(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_int3(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', itostr3(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_float3_selected(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr3(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_float3(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr3(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_float32_selected(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr32(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_float32(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr32(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_float5_selected(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr5(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_float5(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr5(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_float52_selected(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr52(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_float52(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr52(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_float51_selected(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr51(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_float51(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr51(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_long5_selected(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr5(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_long5(row, pstr, pstr2, data, minValue, maxValue) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr5(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_bool_selected(row, pstr, pstr2, data) lcd_implementation_drawmenu_setting_edit_generic_P(row, pstr, '>', (*(data))?PSTR(MSG_ON):PSTR(MSG_OFF))
-#define lcd_implementation_drawmenu_setting_edit_bool(row, pstr, pstr2, data) lcd_implementation_drawmenu_setting_edit_generic_P(row, pstr, ' ', (*(data))?PSTR(MSG_ON):PSTR(MSG_OFF))
 
-//Add version for callback functions
-#define lcd_implementation_drawmenu_setting_edit_callback_int3_selected(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', itostr3(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_int3(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', itostr3(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_float3_selected(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr3(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_float3(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr3(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_float32_selected(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr32(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_float32(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr32(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_float5_selected(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr5(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_float5(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr5(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_float52_selected(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr52(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_float52(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr52(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_float51_selected(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr51(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_float51(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr51(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_long5_selected(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', ftostr5(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_long5(row, pstr, pstr2, data, minValue, maxValue, callback) lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', ftostr5(*(data)))
-#define lcd_implementation_drawmenu_setting_edit_callback_bool_selected(row, pstr, pstr2, data, callback) lcd_implementation_drawmenu_setting_edit_generic_P(row, pstr, '>', (*(data))?PSTR(MSG_ON):PSTR(MSG_OFF))
-#define lcd_implementation_drawmenu_setting_edit_callback_bool(row, pstr, pstr2, data, callback) lcd_implementation_drawmenu_setting_edit_generic_P(row, pstr, ' ', (*(data))?PSTR(MSG_ON):PSTR(MSG_OFF))
+#define lcd_implementation_drawmenu_setting_edit(type, row, pstr, isEditMode, data, args...)              lcd_implementation_drawmenu_setting_edit_generic(row, pstr, ' ', type ## _tostr (*(data)))
+#define lcd_implementation_drawmenu_setting_edit_selected(type, row, pstr, isEditMode, data, args...)     lcd_implementation_drawmenu_setting_edit_generic(row, pstr, '>', type ## _tostr (*(data)))
 
 
 void lcd_implementation_drawedit(const char* pstr, char* value)
@@ -738,7 +685,7 @@ static void lcd_implementation_update_indicators()
     if (target_temperature_bed > 0) leds |= LED_A;
     if (target_temperature[0] > 0) leds |= LED_B;
     if (fanSpeed) leds |= LED_C;
-    #if EXTRUDERS > 1  
+    #if MAX_EXTRUDERS > 1  
       if (target_temperature[1] > 0) leds |= LED_C;
     #endif
     if (leds != ledsprev) {

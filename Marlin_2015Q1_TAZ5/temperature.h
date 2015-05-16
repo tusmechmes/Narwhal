@@ -33,10 +33,10 @@ void manage_heater(); //it is critical that this is called periodically.
 
 // low level conversion routines
 // do not use these routines and variables outside of temperature.cpp
-extern int target_temperature[EXTRUDERS];  
-extern float current_temperature[EXTRUDERS];
+extern int target_temperature[MAX_EXTRUDERS];  
+extern float current_temperature[MAX_EXTRUDERS];
 #ifdef SHOW_TEMP_ADC_VALUES
-  extern int current_temperature_raw[EXTRUDERS];
+  extern int current_temperature_raw[MAX_EXTRUDERS];
   extern int current_temperature_bed_raw;
 #endif
 extern int target_temperature_bed;
@@ -50,17 +50,15 @@ extern float current_temperature_bed;
 #endif
 
 #ifdef PIDTEMP
-  extern float Kp,Ki,Kd,Kc;
   float scalePID_i(float i);
   float scalePID_d(float d);
   float unscalePID_i(float i);
   float unscalePID_d(float d);
-
 #endif
+
 #ifdef PIDTEMPBED
   extern float bedKp,bedKi,bedKd;
 #endif
-  
   
 #ifdef BABYSTEPPING
   extern volatile int babystepsTodo[3];
@@ -125,7 +123,7 @@ FORCE_INLINE bool isCoolingBed() {
 #define setTargetHotend0(_celsius) setTargetHotend((_celsius), 0)
 #define isHeatingHotend0() isHeatingHotend(0)
 #define isCoolingHotend0() isCoolingHotend(0)
-#if EXTRUDERS > 1
+#if MAX_EXTRUDERS > 1
 #define degHotend1() degHotend(1)
 #define degTargetHotend1() degTargetHotend(1)
 #define setTargetHotend1(_celsius) setTargetHotend((_celsius), 1)
@@ -134,7 +132,7 @@ FORCE_INLINE bool isCoolingBed() {
 #else
 #define setTargetHotend1(_celsius) do{}while(0)
 #endif
-#if EXTRUDERS > 2
+#if MAX_EXTRUDERS > 2
 #define degHotend2() degHotend(2)
 #define degTargetHotend2() degTargetHotend(2)
 #define setTargetHotend2(_celsius) setTargetHotend((_celsius), 2)
@@ -143,7 +141,7 @@ FORCE_INLINE bool isCoolingBed() {
 #else
 #define setTargetHotend2(_celsius) do{}while(0)
 #endif
-#if EXTRUDERS > 3
+#if MAX_EXTRUDERS > 3
 #error Invalid number of extruders
 #endif
 

@@ -1003,7 +1003,7 @@
 
 #define FAN_PIN            -1
  #if FAN_PIN == 12 || FAN_PIN ==13
-  #define FAN_SOFT_PWM
+  //#define FAN_SOFT_PWM
 #endif
 
 #ifdef MELZI
@@ -2487,12 +2487,12 @@
 
 //List of pins which to ignore when asked to change by gcode, 0 and 1 are RX and TX, do not mess with those!
 #define _E0_PINS E0_STEP_PIN, E0_DIR_PIN, E0_ENABLE_PIN, HEATER_0_PIN,
-#if EXTRUDERS > 1
+#if MAX_EXTRUDERS > 1
   #define _E1_PINS E1_STEP_PIN, E1_DIR_PIN, E1_ENABLE_PIN, HEATER_1_PIN,
 #else
   #define _E1_PINS
 #endif
-#if EXTRUDERS > 2
+#if MAX_EXTRUDERS > 2
   #define _E2_PINS E2_STEP_PIN, E2_DIR_PIN, E2_ENABLE_PIN, HEATER_2_PIN,
 #else
   #define _E2_PINS
