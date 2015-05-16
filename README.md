@@ -1,6 +1,7 @@
 # Narwhal
 A Marlin (2015Q1) fork for LulzBot TAZ 4+ printers
 
+## Goals
 After buying my dual extruder for my LulzBot TAZ4 I realized that I'd need to re-flash the firmware everytime I change exturders. Really annoying. So I've decided to upgrade the firmware and add a few features of my own. Overall I think that LulzBot is awesome and have great products and it's about time they have their own dedicated firmware as well.
 
 All the base features of Marlin ar kept intact, what I plan to do is slowly erode non-TAZ printers #defines to make the code more readible and add features to make the UI and navigation better.
@@ -9,7 +10,7 @@ Please note that this is unsupported work! so if I happen to introduce a bug tha
 
 Lastly, I would love if other developers want to contribute and improve the firmware. 
 
-Added features:
+## Added features:
   - "System" MENU (this is a major feature and the main reason to fork the firmware). This gives the ability to describe the "current setup" of the system:
     - Select the extruder settings for each extruder #: type, nozzle size, loaded fillament, E steps per mm (not yet impl).
     - Ability to edit the fillament temp configuration inline.
@@ -22,7 +23,7 @@ Added features:
   - Rearanged some menus to improve accessibility to more common features faster
   - Many small code simplifications and comments here and ther to keep track of the crazy #ifdef world of the code.
   
-Planned features:
+## Planned features:
   - Long filenames 'ticker' (when highlighted the filename would slowly shift left to reveal the entire name). I found it that many times I'd name my files with a bunch of descriptions like (Fillament, nozzle dia, resolution etc) this makes a long enough filename for the LCD to handle, in addition many times I'd have more than 1 filename that starts exactly the same but ends just with 1 config change (e.g. resolution) this makes it extra hard to figure out which is which.
   - Ability to override settigns from the gcode file, i.e. trust the system over the file.
   - Save named extruder settings. I plan to buy more extruders (Flexy etc.) so it would be great to save the properties of say extruder "A", "B", and "C". Then physically mark the extruders with labels so everytime I change an extruder I can load the default configs without editing the values again. (this is mostly for the type and E_Steps but I'm sure more configs will come in)
