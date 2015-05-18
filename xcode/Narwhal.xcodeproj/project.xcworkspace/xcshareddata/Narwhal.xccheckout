@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7F8F90AD-70DF-446C-901D-4D22A17A0FCC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Narwhal</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8BC7FF4F23036514EF674C1EA70FA8FACFF35321</key>
+		<string>https://github.com/tusmechmes/Narwhal.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>xcode/Narwhal.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8BC7FF4F23036514EF674C1EA70FA8FACFF35321</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/tusmechmes/Narwhal.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8BC7FF4F23036514EF674C1EA70FA8FACFF35321</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8BC7FF4F23036514EF674C1EA70FA8FACFF35321</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Narwhal</string>
+		</dict>
+	</array>
+</dict>
+</plist>
