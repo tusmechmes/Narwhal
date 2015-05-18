@@ -177,8 +177,13 @@ endif
 
 # LOCAL sources
 #
-LOCAL_LIB_PATH  = .
-#LOCAL_LIB_PATH  = $(CURRENT_DIR)
+# OMER - Added the abiity to use a Sketch Referenced Dir
+ifndef SKETCH_DIR
+    LOCAL_LIB_PATH  = .
+    #LOCAL_LIB_PATH  = $(CURRENT_DIR)
+else
+    LOCAL_LIB_PATH = $(SKETCH_DIR)/.
+endif
 
 ifndef LOCAL_LIBS_LIST
     s206            = $(sort $(dir $(wildcard $(LOCAL_LIB_PATH)/*/*.h))) # */
@@ -193,7 +198,9 @@ endif
 
 # Core main function check
 s209             = $(wildcard $(patsubst %,%/*.cpp,$(LOCAL_LIBS))) $(wildcard $(LOCAL_LIB_PATH)/*.cpp) # */
-LOCAL_CPP_SRCS   = $(filter-out %$(PROJECT_NAME_AS_IDENTIFIER).cpp, $(s209))
+LOCAL_CPP_SRCS   = ./main.cpp $(filter-out %$(PROJECT_NAME_AS_IDENTIFIER).cpp, $(s209))
+$(error cpp: $(LOCAL_CPP_SRCS))
+
 
 LOCAL_CC_SRCS    = $(wildcard $(patsubst %,%/*.cc,$(LOCAL_LIBS))) $(wildcard $(LOCAL_LIB_PATH)/*.cc) # */
 LOCAL_C_SRCS     = $(wildcard $(patsubst %,%/*.c,$(LOCAL_LIBS))) $(wildcard $(LOCAL_LIB_PATH)/*.c) # */
@@ -500,6 +507,66 @@ $(OBJDIR)/%.d: %.s
 	$(call TRACE,"4-LOCAL",$@,$<)
 	@mkdir -p $(dir $@)
 	$(CC) -MM $(CPPFLAGS) $(ASFLAGS) $< -MF $@ -MT $(@:.d=.s.o)
+
+
+# 44- LOCAL_LIB_PATH sources
+# .o rules are for objects, .d for dependency tracking
+#
+ifneq ($(LOCAL_LIB_PATH), '.')
+$(OBJDIR)/%.c.o: $(LOCAL_LIB_PATH)/%.c
+	$(call SHOW,"4.1-LOCAL_LIB_PATH",$@,$<)
+	$(call TRACE,"4-LOCAL_LIB_PATH",$@,$<)
+	@mkdir -p $(dir $@)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $< $(OUT_PREPOSITION)$@
+
+$(OBJDIR)/%.cc.o: $(LOCAL_LIB_PATH)/%.cc
+	$(call SHOW,"44.2-LOCAL_LIB_PATH",$@,$<)
+	$(call TRACE,"44-LOCAL_LIB_PATH",$@,$<)
+	@mkdir -p $(dir $@)
+	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< $(OUT_PREPOSITION)$@
+
+$(OBJDIR)/%.cpp.o: 	$(LOCAL_LIB_PATH)/%.cpp
+	$(call SHOW,"44.3-LOCAL_LIB_PATH",$@,$<)
+	$(call TRACE,"44-LOCAL_LIB_PATH",$@,$<)
+	@mkdir -p $(dir $@)
+	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< $(OUT_PREPOSITION)$@
+
+$(OBJDIR)/%.S.o: $(LOCAL_LIB_PATH)/%.S
+	$(call SHOW,"44.4-LOCAL_LIB_PATH",$@,$<)
+	$(call TRACE,"44-LOCAL_LIB_PATH",$@,$<)
+	@mkdir -p $(dir $@)
+	$(CC) -c $(CPPFLAGS) $(ASFLAGS) $< $(OUT_PREPOSITION)$@
+
+$(OBJDIR)/%.s.o: $(LOCAL_LIB_PATH)/%.s
+	$(call SHOW,"44.5-LOCAL_LIB_PATH",$@,$<)
+	$(call TRACE,"44-LOCAL_LIB_PATH",$@,$<)
+	@mkdir -p $(dir $@)
+	$(CC) -c $(CPPFLAGS) $(ASFLAGS) $< $(OUT_PREPOSITION)$@
+
+$(OBJDIR)/%.d: $(LOCAL_LIB_PATH)/%.c
+	$(call SHOW,"44.6-LOCAL_LIB_PATH",$@,$<)
+	$(call TRACE,"44-LOCAL_LIB_PATH",$@,$<)
+	@mkdir -p $(dir $@)
+	$(CC) -MM $(CPPFLAGS) $(CFLAGS) $< -MF $@ -MT $(@:.d=.c.o)
+
+$(OBJDIR)/%.d: $(LOCAL_LIB_PATH)/%.cpp
+	$(call SHOW,"44.7-LOCAL_LIB_PATH",$@,$<)
+	$(call TRACE,"44-LOCAL_LIB_PATH",$@,$<)
+	@mkdir -p $(dir $@)
+	$(CXX) -MM $(CPPFLAGS) $(CXXFLAGS) $< -MF $@ -MT $(@:.d=.cpp.o)
+
+$(OBJDIR)/%.d: $(LOCAL_LIB_PATH)/%.S
+	$(call SHOW,"44.8-LOCAL_LIB_PATH",$@,$<)
+	$(call TRACE,"44-LOCAL_LIB_PATH",$@,$<)
+	@mkdir -p $(dir $@)
+	$(CC) -MM $(CPPFLAGS) $(ASFLAGS) $< -MF $@ -MT $(@:.d=.S.o)
+
+$(OBJDIR)/%.d: $(LOCAL_LIB_PATH)/%.s
+	$(call SHOW,"44.9-LOCAL_LIB_PATH",$@,$<)
+	$(call TRACE,"44-LOCAL_LIB_PATH",$@,$<)
+	@mkdir -p $(dir $@)
+	$(CC) -MM $(CPPFLAGS) $(ASFLAGS) $< -MF $@ -MT $(@:.d=.s.o)
+endif
 
 
 # 5- SKETCH pde/ino -> cpp -> o file

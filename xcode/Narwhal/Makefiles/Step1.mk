@@ -10,23 +10,27 @@
 #
 # Last update: Mar 27, 2015 release 284
 
-
+ifndef SKETCH_DIR
+    SKETCH_SEARCH_DIR = ./
+else
+    SKETCH_SEARCH_DIR = $(SKETCH_DIR)/
+endif
 
 # Sketch unicity test and extension
 # ----------------------------------
 #
 ifndef SKETCH_EXTENSION
-    ifeq ($(words $(wildcard *.pde) $(wildcard *.ino)), 0)
+    ifeq ($(words $(wildcard $(SKETCH_SEARCH_DIR)*.pde) $(wildcard $(SKETCH_SEARCH_DIR)*.ino)), 0)
         $(error No pde or ino sketch)
     endif
 
-    ifneq ($(words $(wildcard *.pde) $(wildcard *.ino)), 1)
+    ifneq ($(words $(wildcard $(SKETCH_SEARCH_DIR)*.pde) $(wildcard $(SKETCH_SEARCH_DIR)*.ino)), 1)
         $(error More than 1 pde or ino sketch)
     endif
 
-    ifneq ($(wildcard *.pde),)
+    ifneq ($(wildcard $(SKETCH_SEARCH_DIR)*.pde),)
         SKETCH_EXTENSION := pde
-    else ifneq ($(wildcard *.ino),)
+    else ifneq ($(wildcard $(SKETCH_SEARCH_DIR)*.ino),)
         SKETCH_EXTENSION := ino
     else
         $(error Extension error)
@@ -37,12 +41,12 @@ ifneq ($(MULTI_INO),1)
 ifneq ($(SKETCH_EXTENSION),__main_cpp_only__)
     ifneq ($(SKETCH_EXTENSION),_main_cpp_only_)
         ifneq ($(SKETCH_EXTENSION),cpp)
-            ifeq ($(words $(wildcard *.$(SKETCH_EXTENSION))), 0)
-                $(error No $(SKETCH_EXTENSION) sketch)
+            ifeq ($(words $(wildcard $(SKETCH_SEARCH_DIR)*.$(SKETCH_EXTENSION))), 0)
+                $(error No $(SKETCH_SEARCH_DIR)*.$(SKETCH_EXTENSION) sketch)
             endif
 
-            ifneq ($(words $(wildcard *.$(SKETCH_EXTENSION))), 1)
-                $(error More than one $(SKETCH_EXTENSION) sketch)
+            ifneq ($(words $(wildcard $(SKETCH_SEARCH_DIR)*.$(SKETCH_EXTENSION))), 1)
+                $(error More than one $(SKETCH_SEARCH_DIR)*.$(SKETCH_EXTENSION) sketch)
             endif
         endif
     endif

@@ -39,6 +39,12 @@ USER_LIBS_LIST = U8glib
 #
 #EXCLUDE_LIBS = Firmata WiFi Esplora OneWire Robot_Control Robot_Control/utility Robot_Motor
 
+# Local Sketch (the actual application) path. use this to keep a clean separation from the embedXcode files.
+#   that way the Sketch dir could be a pure Arduino files without any templating additions.
+# the path for the local sources (default is .)
+# see also Step2.mk
+SKETCH_DIR  = ../../Narwhal
+
 
 # Parameters
 # ----------------------------------

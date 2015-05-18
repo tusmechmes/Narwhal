@@ -7,31 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1726A7991B08414C00FDBE19 /* Narwhal.ino in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7991B08414C00FDBE19 /* Narwhal.ino */; };
-		1746A7EA1B08424B00FDBE19 /* BlinkM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7AE1B08424B00FDBE19 /* BlinkM.cpp */; };
-		1746A7EB1B08424B00FDBE19 /* cardreader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7B01B08424B00FDBE19 /* cardreader.cpp */; };
-		1746A7EC1B08424B00FDBE19 /* Configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7B31B08424B00FDBE19 /* Configuration.cpp */; };
-		1746A7ED1B08424B00FDBE19 /* ConfigurationStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7B51B08424B00FDBE19 /* ConfigurationStore.cpp */; };
-		1746A7EE1B08424B00FDBE19 /* LiquidCrystalRus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7BC1B08424B00FDBE19 /* LiquidCrystalRus.cpp */; };
-		1746A7EF1B08424B00FDBE19 /* Marlin_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7BE1B08424B00FDBE19 /* Marlin_main.cpp */; };
-		1746A7F01B08424B00FDBE19 /* MarlinSerial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7C01B08424B00FDBE19 /* MarlinSerial.cpp */; };
-		1746A7F11B08424B00FDBE19 /* motion_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7C21B08424B00FDBE19 /* motion_control.cpp */; };
-		1746A7F21B08424B00FDBE19 /* planner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7C61B08424B00FDBE19 /* planner.cpp */; };
-		1746A7F31B08424B00FDBE19 /* qr_solve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7C81B08424B00FDBE19 /* qr_solve.cpp */; };
-		1746A7F41B08424B00FDBE19 /* Sd2Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7CA1B08424B00FDBE19 /* Sd2Card.cpp */; };
-		1746A7F51B08424B00FDBE19 /* SdBaseFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7CD1B08424B00FDBE19 /* SdBaseFile.cpp */; };
-		1746A7F61B08424B00FDBE19 /* SdFatUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7D11B08424B00FDBE19 /* SdFatUtil.cpp */; };
-		1746A7F71B08424B00FDBE19 /* SdFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7D31B08424B00FDBE19 /* SdFile.cpp */; };
-		1746A7F81B08424B00FDBE19 /* SdVolume.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7D61B08424B00FDBE19 /* SdVolume.cpp */; };
-		1746A7F91B08424B00FDBE19 /* Servo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7D81B08424B00FDBE19 /* Servo.cpp */; };
-		1746A7FA1B08424B00FDBE19 /* stepper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7DB1B08424B00FDBE19 /* stepper.cpp */; };
-		1746A7FB1B08424B00FDBE19 /* SystemInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7DD1B08424B00FDBE19 /* SystemInfo.cpp */; };
-		1746A7FC1B08424B00FDBE19 /* temperature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7DF1B08424B00FDBE19 /* temperature.cpp */; };
-		1746A7FD1B08424B00FDBE19 /* ultralcd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7E41B08424B00FDBE19 /* ultralcd.cpp */; };
-		1746A7FE1B08424B00FDBE19 /* vector_3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7E61B08424B00FDBE19 /* vector_3.cpp */; };
-		1746A7FF1B08424B00FDBE19 /* watchdog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1746A7E81B08424B00FDBE19 /* watchdog.cpp */; };
 		1746A8041B084C7700FDBE19 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 1746A8031B084C7700FDBE19 /* Makefile */; };
-		17F7D41A1B085D9A00F0ED53 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17F7D4191B085D9A00F0ED53 /* main.cpp */; };
+		17DE93441B0AA5F1004D6D13 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93431B0AA5F1004D6D13 /* main.cpp */; };
 		AA2A150516202601AA000006 /* abi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150516202601AA000006 /* abi.cpp */; };
 		AA2A150516202601AA000007 /* Arduino.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150516202601AA000007 /* Arduino.h */; };
 		AA2A150516202601AA000008 /* binary.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150516202601AA000008 /* binary.h */; };
@@ -524,69 +501,9 @@
 		1746A7961B08414C00FDBE19 /* embedXcode_chrono */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = embedXcode_chrono; path = Utilities/embedXcode_chrono; sourceTree = "<group>"; };
 		1746A7971B08414C00FDBE19 /* TemplateIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TemplateIcon.icns; path = Utilities/TemplateIcon.icns; sourceTree = "<group>"; };
 		1746A7981B08414C00FDBE19 /* uploader_izmir.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = uploader_izmir.sh; path = Utilities/uploader_izmir.sh; sourceTree = "<group>"; };
-		1746A7991B08414C00FDBE19 /* Narwhal.ino */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; path = Narwhal.ino; sourceTree = "<group>"; };
-		1746A7AE1B08424B00FDBE19 /* BlinkM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BlinkM.cpp; sourceTree = "<group>"; };
-		1746A7AF1B08424B00FDBE19 /* BlinkM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlinkM.h; sourceTree = "<group>"; };
-		1746A7B01B08424B00FDBE19 /* cardreader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cardreader.cpp; sourceTree = "<group>"; };
-		1746A7B11B08424B00FDBE19 /* cardreader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cardreader.h; sourceTree = "<group>"; };
-		1746A7B21B08424B00FDBE19 /* Configuration_adv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration_adv.h; sourceTree = "<group>"; };
-		1746A7B31B08424B00FDBE19 /* Configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Configuration.cpp; sourceTree = "<group>"; };
-		1746A7B41B08424B00FDBE19 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
-		1746A7B51B08424B00FDBE19 /* ConfigurationStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfigurationStore.cpp; sourceTree = "<group>"; };
-		1746A7B61B08424B00FDBE19 /* ConfigurationStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationStore.h; sourceTree = "<group>"; };
-		1746A7B71B08424B00FDBE19 /* dogm_font_data_marlin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dogm_font_data_marlin.h; sourceTree = "<group>"; };
-		1746A7B81B08424B00FDBE19 /* dogm_lcd_implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dogm_lcd_implementation.h; sourceTree = "<group>"; };
-		1746A7B91B08424B00FDBE19 /* DOGMbitmaps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOGMbitmaps.h; sourceTree = "<group>"; };
-		1746A7BA1B08424B00FDBE19 /* fastio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fastio.h; sourceTree = "<group>"; };
-		1746A7BB1B08424B00FDBE19 /* language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = language.h; sourceTree = "<group>"; };
-		1746A7BC1B08424B00FDBE19 /* LiquidCrystalRus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LiquidCrystalRus.cpp; sourceTree = "<group>"; };
-		1746A7BD1B08424B00FDBE19 /* LiquidCrystalRus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiquidCrystalRus.h; sourceTree = "<group>"; };
-		1746A7BE1B08424B00FDBE19 /* Marlin_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Marlin_main.cpp; sourceTree = "<group>"; };
-		1746A7BF1B08424B00FDBE19 /* Marlin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marlin.h; sourceTree = "<group>"; };
-		1746A7C01B08424B00FDBE19 /* MarlinSerial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MarlinSerial.cpp; sourceTree = "<group>"; };
-		1746A7C11B08424B00FDBE19 /* MarlinSerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarlinSerial.h; sourceTree = "<group>"; };
-		1746A7C21B08424B00FDBE19 /* motion_control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = motion_control.cpp; sourceTree = "<group>"; };
-		1746A7C31B08424B00FDBE19 /* motion_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = motion_control.h; sourceTree = "<group>"; };
-		1746A7C41B08424B00FDBE19 /* pins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pins.h; sourceTree = "<group>"; };
-		1746A7C51B08424B00FDBE19 /* pitches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pitches.h; sourceTree = "<group>"; };
-		1746A7C61B08424B00FDBE19 /* planner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = planner.cpp; sourceTree = "<group>"; };
-		1746A7C71B08424B00FDBE19 /* planner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = planner.h; sourceTree = "<group>"; };
-		1746A7C81B08424B00FDBE19 /* qr_solve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = qr_solve.cpp; sourceTree = "<group>"; };
-		1746A7C91B08424B00FDBE19 /* qr_solve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qr_solve.h; sourceTree = "<group>"; };
-		1746A7CA1B08424B00FDBE19 /* Sd2Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sd2Card.cpp; sourceTree = "<group>"; };
-		1746A7CB1B08424B00FDBE19 /* Sd2Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sd2Card.h; sourceTree = "<group>"; };
-		1746A7CC1B08424B00FDBE19 /* Sd2PinMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sd2PinMap.h; sourceTree = "<group>"; };
-		1746A7CD1B08424B00FDBE19 /* SdBaseFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SdBaseFile.cpp; sourceTree = "<group>"; };
-		1746A7CE1B08424B00FDBE19 /* SdBaseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SdBaseFile.h; sourceTree = "<group>"; };
-		1746A7CF1B08424B00FDBE19 /* SdFatConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SdFatConfig.h; sourceTree = "<group>"; };
-		1746A7D01B08424B00FDBE19 /* SdFatStructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SdFatStructs.h; sourceTree = "<group>"; };
-		1746A7D11B08424B00FDBE19 /* SdFatUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SdFatUtil.cpp; sourceTree = "<group>"; };
-		1746A7D21B08424B00FDBE19 /* SdFatUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SdFatUtil.h; sourceTree = "<group>"; };
-		1746A7D31B08424B00FDBE19 /* SdFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SdFile.cpp; sourceTree = "<group>"; };
-		1746A7D41B08424B00FDBE19 /* SdFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SdFile.h; sourceTree = "<group>"; };
-		1746A7D51B08424B00FDBE19 /* SdInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SdInfo.h; sourceTree = "<group>"; };
-		1746A7D61B08424B00FDBE19 /* SdVolume.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SdVolume.cpp; sourceTree = "<group>"; };
-		1746A7D71B08424B00FDBE19 /* SdVolume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SdVolume.h; sourceTree = "<group>"; };
-		1746A7D81B08424B00FDBE19 /* Servo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Servo.cpp; sourceTree = "<group>"; };
-		1746A7D91B08424B00FDBE19 /* Servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Servo.h; sourceTree = "<group>"; };
-		1746A7DA1B08424B00FDBE19 /* speed_lookuptable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speed_lookuptable.h; sourceTree = "<group>"; };
-		1746A7DB1B08424B00FDBE19 /* stepper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stepper.cpp; sourceTree = "<group>"; };
-		1746A7DC1B08424B00FDBE19 /* stepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stepper.h; sourceTree = "<group>"; };
-		1746A7DD1B08424B00FDBE19 /* SystemInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SystemInfo.cpp; sourceTree = "<group>"; };
-		1746A7DE1B08424B00FDBE19 /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemInfo.h; sourceTree = "<group>"; };
-		1746A7DF1B08424B00FDBE19 /* temperature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = temperature.cpp; sourceTree = "<group>"; };
-		1746A7E01B08424B00FDBE19 /* temperature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = temperature.h; sourceTree = "<group>"; };
-		1746A7E11B08424B00FDBE19 /* thermistortables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thermistortables.h; sourceTree = "<group>"; };
-		1746A7E21B08424B00FDBE19 /* ultralcd_implementation_hitachi_HD44780.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ultralcd_implementation_hitachi_HD44780.h; sourceTree = "<group>"; };
-		1746A7E31B08424B00FDBE19 /* ultralcd_st7920_u8glib_rrd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ultralcd_st7920_u8glib_rrd.h; sourceTree = "<group>"; };
-		1746A7E41B08424B00FDBE19 /* ultralcd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ultralcd.cpp; sourceTree = "<group>"; };
-		1746A7E51B08424B00FDBE19 /* ultralcd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ultralcd.h; sourceTree = "<group>"; };
-		1746A7E61B08424B00FDBE19 /* vector_3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector_3.cpp; sourceTree = "<group>"; };
-		1746A7E71B08424B00FDBE19 /* vector_3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector_3.h; sourceTree = "<group>"; };
-		1746A7E81B08424B00FDBE19 /* watchdog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = watchdog.cpp; sourceTree = "<group>"; };
-		1746A7E91B08424B00FDBE19 /* watchdog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = watchdog.h; sourceTree = "<group>"; };
 		1746A8031B084C7700FDBE19 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		17F7D4191B085D9A00F0ED53 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		17DE93431B0AA5F1004D6D13 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
+		17F7D4C71B0867EF00F0ED53 /* Narwhal */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Narwhal; path = ../../Narwhal; sourceTree = "<group>"; };
 		AAAA150516202601AA000006 /* abi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = abi.cpp; sourceTree = "<group>"; };
 		AAAA150516202601AA000007 /* Arduino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arduino.h; sourceTree = "<group>"; };
 		AAAA150516202601AA000008 /* binary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = binary.h; sourceTree = "<group>"; };
@@ -997,75 +914,15 @@
 		1746A7261B08414C00FDBE19 /* Narwhal */ = {
 			isa = PBXGroup;
 			children = (
+				17F7D4C71B0867EF00F0ED53 /* Narwhal */,
 				1746A8031B084C7700FDBE19 /* Makefile */,
-				1746A7AE1B08424B00FDBE19 /* BlinkM.cpp */,
-				1746A7AF1B08424B00FDBE19 /* BlinkM.h */,
-				1746A7B01B08424B00FDBE19 /* cardreader.cpp */,
-				1746A7B11B08424B00FDBE19 /* cardreader.h */,
-				1746A7B21B08424B00FDBE19 /* Configuration_adv.h */,
-				1746A7B31B08424B00FDBE19 /* Configuration.cpp */,
-				1746A7B41B08424B00FDBE19 /* Configuration.h */,
-				1746A7B51B08424B00FDBE19 /* ConfigurationStore.cpp */,
-				1746A7B61B08424B00FDBE19 /* ConfigurationStore.h */,
-				1746A7B71B08424B00FDBE19 /* dogm_font_data_marlin.h */,
-				1746A7B81B08424B00FDBE19 /* dogm_lcd_implementation.h */,
-				1746A7B91B08424B00FDBE19 /* DOGMbitmaps.h */,
-				1746A7BA1B08424B00FDBE19 /* fastio.h */,
-				1746A7BB1B08424B00FDBE19 /* language.h */,
-				1746A7BC1B08424B00FDBE19 /* LiquidCrystalRus.cpp */,
-				1746A7BD1B08424B00FDBE19 /* LiquidCrystalRus.h */,
-				1746A7BE1B08424B00FDBE19 /* Marlin_main.cpp */,
-				1746A7BF1B08424B00FDBE19 /* Marlin.h */,
-				1746A7C01B08424B00FDBE19 /* MarlinSerial.cpp */,
-				1746A7C11B08424B00FDBE19 /* MarlinSerial.h */,
-				1746A7C21B08424B00FDBE19 /* motion_control.cpp */,
-				1746A7C31B08424B00FDBE19 /* motion_control.h */,
-				1746A7C41B08424B00FDBE19 /* pins.h */,
-				1746A7C51B08424B00FDBE19 /* pitches.h */,
-				1746A7C61B08424B00FDBE19 /* planner.cpp */,
-				1746A7C71B08424B00FDBE19 /* planner.h */,
-				1746A7C81B08424B00FDBE19 /* qr_solve.cpp */,
-				1746A7C91B08424B00FDBE19 /* qr_solve.h */,
-				1746A7CA1B08424B00FDBE19 /* Sd2Card.cpp */,
-				1746A7CB1B08424B00FDBE19 /* Sd2Card.h */,
-				1746A7CC1B08424B00FDBE19 /* Sd2PinMap.h */,
-				1746A7CD1B08424B00FDBE19 /* SdBaseFile.cpp */,
-				1746A7CE1B08424B00FDBE19 /* SdBaseFile.h */,
-				1746A7CF1B08424B00FDBE19 /* SdFatConfig.h */,
-				1746A7D01B08424B00FDBE19 /* SdFatStructs.h */,
-				1746A7D11B08424B00FDBE19 /* SdFatUtil.cpp */,
-				1746A7D21B08424B00FDBE19 /* SdFatUtil.h */,
-				1746A7D31B08424B00FDBE19 /* SdFile.cpp */,
-				1746A7D41B08424B00FDBE19 /* SdFile.h */,
-				1746A7D51B08424B00FDBE19 /* SdInfo.h */,
-				1746A7D61B08424B00FDBE19 /* SdVolume.cpp */,
-				1746A7D71B08424B00FDBE19 /* SdVolume.h */,
-				1746A7D81B08424B00FDBE19 /* Servo.cpp */,
-				1746A7D91B08424B00FDBE19 /* Servo.h */,
-				1746A7DA1B08424B00FDBE19 /* speed_lookuptable.h */,
-				1746A7DB1B08424B00FDBE19 /* stepper.cpp */,
-				1746A7DC1B08424B00FDBE19 /* stepper.h */,
-				1746A7DD1B08424B00FDBE19 /* SystemInfo.cpp */,
-				1746A7DE1B08424B00FDBE19 /* SystemInfo.h */,
-				1746A7DF1B08424B00FDBE19 /* temperature.cpp */,
-				1746A7E01B08424B00FDBE19 /* temperature.h */,
-				1746A7E11B08424B00FDBE19 /* thermistortables.h */,
-				1746A7E21B08424B00FDBE19 /* ultralcd_implementation_hitachi_HD44780.h */,
-				1746A7E31B08424B00FDBE19 /* ultralcd_st7920_u8glib_rrd.h */,
-				1746A7E41B08424B00FDBE19 /* ultralcd.cpp */,
-				1746A7E51B08424B00FDBE19 /* ultralcd.h */,
-				1746A7E61B08424B00FDBE19 /* vector_3.cpp */,
-				1746A7E71B08424B00FDBE19 /* vector_3.h */,
-				1746A7E81B08424B00FDBE19 /* watchdog.cpp */,
-				1746A7E91B08424B00FDBE19 /* watchdog.h */,
-				1746A7991B08414C00FDBE19 /* Narwhal.ino */,
+				17DE93431B0AA5F1004D6D13 /* main.cpp */,
 				1746A72F1B08414C00FDBE19 /* Sketchbook */,
 				AAAA150516202601AA000000 /* Resources */,
 				1746A7311B08414C00FDBE19 /* Configurations */,
 				1746A7741B08414C00FDBE19 /* Makefiles */,
 				1746A78F1B08414C00FDBE19 /* About */,
 				1746A7911B08414C00FDBE19 /* Utilities */,
-				17F7D4191B085D9A00F0ED53 /* main.cpp */,
 			);
 			path = Narwhal;
 			sourceTree = "<group>";
@@ -2565,7 +2422,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1726A7991B08414C00FDBE19 /* Narwhal.ino in Sources */,
 				AA2A150516202601AA000006 /* abi.cpp in Sources */,
 				AA2A150516202601AA000007 /* Arduino.h in Sources */,
 				AA2A150516202601AA000008 /* binary.h in Sources */,
@@ -2597,7 +2453,6 @@
 				AA2A150516202601AA000022 /* USBCore.cpp in Sources */,
 				AA2A150516202601AA000023 /* USBCore.h in Sources */,
 				AA2A150516202601AA000024 /* USBDesc.h in Sources */,
-				1746A7FF1B08424B00FDBE19 /* watchdog.cpp in Sources */,
 				AA2A150516202601AA000025 /* WCharacter.h in Sources */,
 				AA2A150516202601AA000026 /* WInterrupts.c in Sources */,
 				AA2A150516202601AA000027 /* wiring.c in Sources */,
@@ -2622,13 +2477,11 @@
 				AA2A150516202601AA000043 /* pins_arduino.h in Sources */,
 				AA2A150516202601AA000045 /* pins_arduino.h in Sources */,
 				AA2A150516202601AA000047 /* pins_arduino.h in Sources */,
-				1746A7F81B08424B00FDBE19 /* SdVolume.cpp in Sources */,
 				AA2A150516202601AA000049 /* pins_arduino.h in Sources */,
 				AA2A150516202601AA00004B /* pins_arduino.h in Sources */,
 				AA2A150516202601AA00004D /* pins_arduino.h in Sources */,
 				AA2A150516202601AA00004F /* pins_arduino.h in Sources */,
 				AA2A150516202601AA000051 /* pins_arduino.h in Sources */,
-				1746A7ED1B08424B00FDBE19 /* ConfigurationStore.cpp in Sources */,
 				AA2A150516202601AA000053 /* pins_arduino.h in Sources */,
 				AA2A150516202601AA000058 /* Bridge.cpp in Sources */,
 				AA2A150516202601AA000059 /* Bridge.h in Sources */,
@@ -2652,7 +2505,6 @@
 				AA2A150516202601AA00006F /* Dhcp.h in Sources */,
 				AA2A150516202601AA000070 /* Dns.cpp in Sources */,
 				AA2A150516202601AA000071 /* Dns.h in Sources */,
-				1746A7F71B08424B00FDBE19 /* SdFile.cpp in Sources */,
 				AA2A150516202601AA000072 /* Ethernet.cpp in Sources */,
 				AA2A150516202601AA000073 /* Ethernet.h in Sources */,
 				AA2A150516202601AA000074 /* EthernetClient.cpp in Sources */,
@@ -2681,7 +2533,6 @@
 				AA2A150516202601AA000092 /* GSM3MobileClientProvider.h in Sources */,
 				AA2A150516202601AA000093 /* GSM3MobileClientService.cpp in Sources */,
 				AA2A150516202601AA000094 /* GSM3MobileClientService.h in Sources */,
-				1746A7EE1B08424B00FDBE19 /* LiquidCrystalRus.cpp in Sources */,
 				AA2A150516202601AA000095 /* GSM3MobileDataNetworkProvider.cpp in Sources */,
 				AA2A150516202601AA000096 /* GSM3MobileDataNetworkProvider.h in Sources */,
 				AA2A150516202601AA000097 /* GSM3MobileMockupProvider.cpp in Sources */,
@@ -2698,11 +2549,9 @@
 				AA2A150516202601AA0000A2 /* GSM3MobileSMSProvider.h in Sources */,
 				AA2A150516202601AA0000A3 /* GSM3MobileVoiceProvider.cpp in Sources */,
 				AA2A150516202601AA0000A4 /* GSM3MobileVoiceProvider.h in Sources */,
-				1746A7EA1B08424B00FDBE19 /* BlinkM.cpp in Sources */,
 				AA2A150516202601AA0000A5 /* GSM3ShieldV1.cpp in Sources */,
 				AA2A150516202601AA0000A6 /* GSM3ShieldV1.h in Sources */,
 				AA2A150516202601AA0000A7 /* GSM3ShieldV1AccessProvider.cpp in Sources */,
-				1746A7F31B08424B00FDBE19 /* qr_solve.cpp in Sources */,
 				AA2A150516202601AA0000A8 /* GSM3ShieldV1AccessProvider.h in Sources */,
 				AA2A150516202601AA0000A9 /* GSM3ShieldV1BandManagement.cpp in Sources */,
 				AA2A150516202601AA0000AA /* GSM3ShieldV1BandManagement.h in Sources */,
@@ -2731,7 +2580,6 @@
 				AA2A150516202601AA0000C1 /* GSM3ShieldV1ServerProvider.cpp in Sources */,
 				AA2A150516202601AA0000C2 /* GSM3ShieldV1ServerProvider.h in Sources */,
 				AA2A150516202601AA0000C3 /* GSM3ShieldV1SMSProvider.cpp in Sources */,
-				1746A7FD1B08424B00FDBE19 /* ultralcd.cpp in Sources */,
 				AA2A150516202601AA0000C4 /* GSM3ShieldV1SMSProvider.h in Sources */,
 				AA2A150516202601AA0000C5 /* GSM3ShieldV1VoiceProvider.cpp in Sources */,
 				AA2A150516202601AA0000C6 /* GSM3ShieldV1VoiceProvider.h in Sources */,
@@ -2760,7 +2608,6 @@
 				AA2A150516202601AA0000E1 /* Fat16mainpage.h in Sources */,
 				AA2A150516202601AA0000E2 /* Fat16util.h in Sources */,
 				AA2A150516202601AA0000E3 /* FatStructs.h in Sources */,
-				1746A7F41B08424B00FDBE19 /* Sd2Card.cpp in Sources */,
 				AA2A150516202601AA0000E4 /* glcdfont.c in Sources */,
 				AA2A150516202601AA0000E5 /* helper.cpp in Sources */,
 				AA2A150516202601AA0000E6 /* information.cpp in Sources */,
@@ -2793,17 +2640,15 @@
 				AA2A150516202601AA000104 /* lineFollow.cpp in Sources */,
 				AA2A150516202601AA000105 /* LineFollow.h in Sources */,
 				AA2A150516202601AA000106 /* Multiplexer.cpp in Sources */,
+				17DE93441B0AA5F1004D6D13 /* main.cpp in Sources */,
 				AA2A150516202601AA000107 /* Multiplexer.h in Sources */,
 				AA2A150516202601AA00010B /* IRremote.cpp in Sources */,
-				1746A7FB1B08424B00FDBE19 /* SystemInfo.cpp in Sources */,
 				AA2A150516202601AA00010C /* IRremote.h in Sources */,
 				AA2A150516202601AA00010D /* IRremoteInt.h in Sources */,
 				AA2A150516202601AA00010E /* IRremoteTools.cpp in Sources */,
 				1746A8041B084C7700FDBE19 /* Makefile in Sources */,
 				AA2A150516202601AA00010F /* IRremoteTools.h in Sources */,
-				1746A7EC1B08424B00FDBE19 /* Configuration.cpp in Sources */,
 				AA2A150516202601AA000112 /* File.cpp in Sources */,
-				1746A7F11B08424B00FDBE19 /* motion_control.cpp in Sources */,
 				AA2A150516202601AA000113 /* SD.cpp in Sources */,
 				AA2A150516202601AA000114 /* SD.h in Sources */,
 				AA2A150516202601AA000116 /* FatStructs.h in Sources */,
@@ -2821,7 +2666,6 @@
 				AA2A150516202601AA000126 /* Servo.cpp in Sources */,
 				AA2A150516202601AA000127 /* ServoTimers.h in Sources */,
 				AA2A150516202601AA000128 /* Servo.h in Sources */,
-				1746A7FE1B08424B00FDBE19 /* vector_3.cpp in Sources */,
 				AA2A150516202601AA00012B /* SpacebrewYun.cpp in Sources */,
 				AA2A150516202601AA00012C /* SpacebrewYun.h in Sources */,
 				AA2A150516202601AA00012F /* Stepper.cpp in Sources */,
@@ -2831,24 +2675,20 @@
 				AA2A150516202601AA000137 /* BaseFormatter.cpp in Sources */,
 				AA2A150516202601AA000138 /* BaseFormatter.h in Sources */,
 				AA2A150516202601AA000139 /* ChoreoInput.cpp in Sources */,
-				1746A7FC1B08424B00FDBE19 /* temperature.cpp in Sources */,
 				AA2A150516202601AA00013A /* ChoreoInput.h in Sources */,
 				AA2A150516202601AA00013B /* ChoreoInputFormatter.cpp in Sources */,
 				AA2A150516202601AA00013C /* ChoreoInputFormatter.h in Sources */,
 				AA2A150516202601AA00013D /* ChoreoInputSet.cpp in Sources */,
-				1746A7F01B08424B00FDBE19 /* MarlinSerial.cpp in Sources */,
 				AA2A150516202601AA00013E /* ChoreoInputSet.h in Sources */,
 				AA2A150516202601AA00013F /* ChoreoOutput.cpp in Sources */,
 				AA2A150516202601AA000140 /* ChoreoOutput.h in Sources */,
 				AA2A150516202601AA000141 /* ChoreoOutputFormatter.cpp in Sources */,
 				AA2A150516202601AA000142 /* ChoreoOutputFormatter.h in Sources */,
-				1746A7FA1B08424B00FDBE19 /* stepper.cpp in Sources */,
 				AA2A150516202601AA000143 /* ChoreoOutputSet.cpp in Sources */,
 				AA2A150516202601AA000144 /* ChoreoOutputSet.h in Sources */,
 				AA2A150516202601AA000145 /* ChoreoPreset.cpp in Sources */,
 				AA2A150516202601AA000146 /* ChoreoPreset.h in Sources */,
 				AA2A150516202601AA000147 /* ChoreoPresetFormatter.cpp in Sources */,
-				1746A7F51B08424B00FDBE19 /* SdBaseFile.cpp in Sources */,
 				AA2A150516202601AA000148 /* ChoreoPresetFormatter.h in Sources */,
 				AA2A150516202601AA000149 /* DataFormatter.cpp in Sources */,
 				AA2A150516202601AA00014A /* DataFormatter.h in Sources */,
@@ -2896,7 +2736,6 @@
 				AA2A150516202601AA00018C /* flashc.h in Sources */,
 				AA2A150516202601AA00018E /* gpio.c in Sources */,
 				AA2A150516202601AA00018F /* gpio.h in Sources */,
-				1746A7EF1B08424B00FDBE19 /* Marlin_main.cpp in Sources */,
 				AA2A150516202601AA000191 /* intc.c in Sources */,
 				AA2A150516202601AA000192 /* intc.h in Sources */,
 				AA2A150516202601AA000194 /* pm.c in Sources */,
@@ -2904,11 +2743,9 @@
 				AA2A150516202601AA000196 /* pm_conf_clocks.c in Sources */,
 				AA2A150516202601AA000197 /* power_clocks_lib.c in Sources */,
 				AA2A150516202601AA000198 /* power_clocks_lib.h in Sources */,
-				1746A7F91B08424B00FDBE19 /* Servo.cpp in Sources */,
 				AA2A150516202601AA00019A /* spi.c in Sources */,
 				AA2A150516202601AA00019B /* spi.h in Sources */,
 				AA2A150516202601AA00019D /* usart.c in Sources */,
-				1746A7F21B08424B00FDBE19 /* planner.cpp in Sources */,
 				AA2A150516202601AA00019E /* usart.h in Sources */,
 				AA2A150516202601AA0001A2 /* ctrl_access.c in Sources */,
 				AA2A150516202601AA0001A3 /* ctrl_access.h in Sources */,
@@ -2921,7 +2758,6 @@
 				AA2A150516202601AA0001AF /* nlao_cpu.h in Sources */,
 				AA2A150516202601AA0001B0 /* nlao_exceptions.h in Sources */,
 				AA2A150516202601AA0001B1 /* nlao_interrupts.h in Sources */,
-				1746A7EB1B08424B00FDBE19 /* cardreader.cpp in Sources */,
 				AA2A150516202601AA0001B2 /* nlao_io.h in Sources */,
 				AA2A150516202601AA0001B3 /* nlao_usart.h in Sources */,
 				AA2A150516202601AA0001BA /* parts.h in Sources */,
@@ -2961,7 +2797,6 @@
 				AA2A150516202601AA0001E3 /* main.c in Sources */,
 				AA2A150516202601AA0001E4 /* nvram.c in Sources */,
 				AA2A150516202601AA0001E5 /* nvram.h in Sources */,
-				1746A7F61B08424B00FDBE19 /* SdFatUtil.cpp in Sources */,
 				AA2A150516202601AA0001E6 /* owl_os.c in Sources */,
 				AA2A150516202601AA0001E7 /* ping.c in Sources */,
 				AA2A150516202601AA0001E8 /* ping.h in Sources */,
@@ -2975,7 +2810,6 @@
 				AA2A150516202601AA0001F5 /* evk1105.h in Sources */,
 				AA2A150516202601AA0001F6 /* led.c in Sources */,
 				AA2A150516202601AA0001F7 /* led.h in Sources */,
-				17F7D41A1B085D9A00F0ED53 /* main.cpp in Sources */,
 				AA2A150516202601AA0001FC /* at45dbx.c in Sources */,
 				AA2A150516202601AA0001FD /* at45dbx.h in Sources */,
 			);
