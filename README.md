@@ -46,4 +46,9 @@ Lastly, I would love if other developers want to contribute and improve the firm
     - Show a "down" and "up" arrows on the left of the MENU screens if there are more MENU items below or above.
     - ? Start from line #2 for each menu. line #1 is always "back", when I navigate forward I always want to do an action and not go back... so on navigation forward I think that starting from line #2 makes more sense. + if the menu is longer than 1 screen I want the first line to be at position -1 in order to show more options in the first menu load.
 
-  
+## Credits
+- [Aleph Object](https://www.alephobjects.com)'s [LulzBot](https://www.lulzbot.com) TAZ 3D printers - I've been following the 3D printing scene for years before I got my TAZ-4 printer. All I can say is that this printer is amazing! BUT the company which makes it is even more so!! Aleph Objects believe and practice Open Source and Libre Hardware which make it a role model company that has great ideals and also makes money.
+- [RepRap](http://reprap.org) project & [Marlin firmware](https://github.com/MarlinFirmware/Marlin) - The codebase for this firmware and an inspirational collaboration.
+- [embedXcode](http://embedxcode.weebly.com) - The template I use to build the code in XCode.
+- [Visual Micro](http://www.visualmicro.com) - The template I use to build the code in Visual Studio.
+- [Arduino](http://www.arduino.cc) - Well, for making things happen! :)
