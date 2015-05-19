@@ -140,7 +140,7 @@ static void lcd_implementation_init()
         u8g.drawStr(63, 41, "LulzBot.com");
         u8g.setFont(u8g_font_5x8);
         u8g.drawStr(63, 53, "Firmware:");
-        u8g.drawStr(63, 62, "Omer 2015Q1");
+        u8g.drawStr(63, 62, "Narwhal v0.9");
     } while (u8g.nextPage());
     delay(3000);
 }

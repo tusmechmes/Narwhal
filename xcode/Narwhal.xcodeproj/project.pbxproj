@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1746A8041B084C7700FDBE19 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 1746A8031B084C7700FDBE19 /* Makefile */; };
-		17DE93441B0AA5F1004D6D13 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93431B0AA5F1004D6D13 /* main.cpp */; };
 		AA2A150516202601AA000006 /* abi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150516202601AA000006 /* abi.cpp */; };
 		AA2A150516202601AA000007 /* Arduino.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150516202601AA000007 /* Arduino.h */; };
 		AA2A150516202601AA000008 /* binary.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150516202601AA000008 /* binary.h */; };
@@ -502,7 +501,6 @@
 		1746A7971B08414C00FDBE19 /* TemplateIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TemplateIcon.icns; path = Utilities/TemplateIcon.icns; sourceTree = "<group>"; };
 		1746A7981B08414C00FDBE19 /* uploader_izmir.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = uploader_izmir.sh; path = Utilities/uploader_izmir.sh; sourceTree = "<group>"; };
 		1746A8031B084C7700FDBE19 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		17DE93431B0AA5F1004D6D13 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
 		17F7D4C71B0867EF00F0ED53 /* Narwhal */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Narwhal; path = ../../Narwhal; sourceTree = "<group>"; };
 		AAAA150516202601AA000006 /* abi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = abi.cpp; sourceTree = "<group>"; };
 		AAAA150516202601AA000007 /* Arduino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arduino.h; sourceTree = "<group>"; };
@@ -916,7 +914,6 @@
 			children = (
 				17F7D4C71B0867EF00F0ED53 /* Narwhal */,
 				1746A8031B084C7700FDBE19 /* Makefile */,
-				17DE93431B0AA5F1004D6D13 /* main.cpp */,
 				1746A72F1B08414C00FDBE19 /* Sketchbook */,
 				AAAA150516202601AA000000 /* Resources */,
 				1746A7311B08414C00FDBE19 /* Configurations */,
@@ -2640,7 +2637,6 @@
 				AA2A150516202601AA000104 /* lineFollow.cpp in Sources */,
 				AA2A150516202601AA000105 /* LineFollow.h in Sources */,
 				AA2A150516202601AA000106 /* Multiplexer.cpp in Sources */,
-				17DE93441B0AA5F1004D6D13 /* main.cpp in Sources */,
 				AA2A150516202601AA000107 /* Multiplexer.h in Sources */,
 				AA2A150516202601AA00010B /* IRremote.cpp in Sources */,
 				AA2A150516202601AA00010C /* IRremote.h in Sources */,
