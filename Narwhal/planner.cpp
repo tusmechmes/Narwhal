@@ -65,8 +65,7 @@
 
 unsigned long minsegmenttime;
 float max_feedrate[4]; // set the max speeds
-float axis_steps_per_unit[4];
-float e1_steps_per_unit;
+float axis_steps_per_unit[3];
 unsigned long max_acceleration_units_per_sq_second[4]; // Use M201 to override by software
 float minimumfeedrate;
 float acceleration;         // Normal acceleration mm/s^2  THIS IS THE DEFAULT ACCELERATION for all moves. M204 SXXXX
@@ -576,14 +575,10 @@ void plan_buffer_line(const float &x, const float &y, const float &z, const floa
   // Calculate target position in absolute steps
   //this should be done after the wait, because otherwise a M92 code within the gcode disrupts this calculation somehow
   long target[4];
-  target[X_AXIS] = lround(x*axis_steps_per_unit[X_AXIS]);
-  target[Y_AXIS] = lround(y*axis_steps_per_unit[Y_AXIS]);
-  target[Z_AXIS] = lround(z*axis_steps_per_unit[Z_AXIS]);     
-  if(active_extruder==0) {
-    target[E_AXIS] = lround(e*axis_steps_per_unit[E_AXIS]);
-  } else if(active_extruder==1) {
-    target[E_AXIS] = lround(e*e1_steps_per_unit);
-  }
+  target[X_AXIS] = lround(x * axis_steps_per_unit[X_AXIS]);
+  target[Y_AXIS] = lround(y * axis_steps_per_unit[Y_AXIS]);
+  target[Z_AXIS] = lround(z * axis_steps_per_unit[Z_AXIS]);
+  target[E_AXIS] = lround(e * EXTRUDER_STEPS_PER_UNIT(active_extruder));
 
   #ifdef PREVENT_DANGEROUS_EXTRUDE
   if(target[E_AXIS]!=position[E_AXIS])
@@ -716,12 +711,10 @@ block->steps_y = labs((target[X_AXIS]-position[X_AXIS]) - (target[Y_AXIS]-positi
     delta_mm[Y_AXIS] = ((target[X_AXIS]-position[X_AXIS]) - (target[Y_AXIS]-position[Y_AXIS]))/axis_steps_per_unit[Y_AXIS];
   #endif
   delta_mm[Z_AXIS] = (target[Z_AXIS]-position[Z_AXIS])/axis_steps_per_unit[Z_AXIS];
-  if(active_extruder==0) {
-    delta_mm[E_AXIS] = ((target[E_AXIS]-position[E_AXIS])/axis_steps_per_unit[E_AXIS])*volumetric_multiplier[active_extruder]*extrudemultiply/100.0;
-  } else if(active_extruder==1) {
-    delta_mm[E_AXIS] = ((target[E_AXIS]-position[E_AXIS])/e1_steps_per_unit)*volumetric_multiplier[active_extruder]*extrudemultiply/100.0;
-  }
-  if ( block->steps_x <=dropsegments && block->steps_y <=dropsegments && block->steps_z <=dropsegments )
+    
+    delta_mm[E_AXIS] = ((target[E_AXIS]-position[E_AXIS])/EXTRUDER_STEPS_PER_UNIT(active_extruder))*volumetric_multiplier[active_extruder]*extrudemultiply/100.0;
+
+    if ( block->steps_x <=dropsegments && block->steps_y <=dropsegments && block->steps_z <=dropsegments )
   {
     block->millimeters = fabs(delta_mm[E_AXIS]);
   } 
@@ -998,35 +991,28 @@ void plan_set_position(const float &x, const float &y, const float &z, const flo
 {
 #endif // ENABLE_AUTO_BED_LEVELING
 
-  position[X_AXIS] = lround(x*axis_steps_per_unit[X_AXIS]);
-  position[Y_AXIS] = lround(y*axis_steps_per_unit[Y_AXIS]);
-  position[Z_AXIS] = lround(z*axis_steps_per_unit[Z_AXIS]);     
-  if(active_extruder==0) {
-    position[E_AXIS] = lround(e*axis_steps_per_unit[E_AXIS]);  
-  } else if(active_extruder==1) {
-    position[E_AXIS] = lround(e*e1_steps_per_unit);  
-  }
-  st_set_position(position[X_AXIS], position[Y_AXIS], position[Z_AXIS], position[E_AXIS]);
-  previous_nominal_speed = 0.0; // Resets planner junction speeds. Assumes start from rest.
-  previous_speed[0] = 0.0;
-  previous_speed[1] = 0.0;
-  previous_speed[2] = 0.0;
-  previous_speed[3] = 0.0;
+    position[X_AXIS] = lround(x*axis_steps_per_unit[X_AXIS]);
+    position[Y_AXIS] = lround(y*axis_steps_per_unit[Y_AXIS]);
+    position[Z_AXIS] = lround(z*axis_steps_per_unit[Z_AXIS]);
+    position[E_AXIS] = lround(e*EXTRUDER_STEPS_PER_UNIT(active_extruder));
+
+    st_set_position(position[X_AXIS], position[Y_AXIS], position[Z_AXIS], position[E_AXIS]);
+    previous_nominal_speed = 0.0; // Resets planner junction speeds. Assumes start from rest.
+    previous_speed[0] = 0.0;
+    previous_speed[1] = 0.0;
+    previous_speed[2] = 0.0;
+    previous_speed[3] = 0.0;
 }
 
-void plan_set_e_position(const float &e)
+void plan_set_e_position(uint8_t extruderId, const float &ePos)
 {
-  if(active_extruder==0) {
-    position[E_AXIS] = lround(e*axis_steps_per_unit[E_AXIS]);  
-  } else if(active_extruder==1) {
-    position[E_AXIS] = lround(e*e1_steps_per_unit);  
-  }
-  st_set_e_position(position[E_AXIS]);
+    position[E_AXIS] = lround(ePos*EXTRUDER_STEPS_PER_UNIT(extruderId));
+    st_set_e_position(position[E_AXIS]);
 }
 
 uint8_t movesplanned()
 {
-  return (block_buffer_head-block_buffer_tail + BLOCK_BUFFER_SIZE) & (BLOCK_BUFFER_SIZE - 1);
+    return (block_buffer_head-block_buffer_tail + BLOCK_BUFFER_SIZE) & (BLOCK_BUFFER_SIZE - 1);
 }
 
 #ifdef PREVENT_DANGEROUS_EXTRUDE

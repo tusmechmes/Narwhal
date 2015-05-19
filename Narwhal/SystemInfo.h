@@ -20,6 +20,9 @@ public:
     // the currently installed nozzle
     unsigned char nozzleDiameter = INFO_NOZZLE_0_35;    // can't edit this one yet
 
+    // extruder steps per unit
+    float stepsPerUnit = DEFAULT_EXTRUDER_STEPS_PER_UNIT;
+    
 #ifdef PIDTEMP
     // current settings for PID
     float work_Kp = 6;

@@ -364,6 +364,7 @@ static void lcd_system_extruder()
     if (systemInfo.Extruders[extruderId]->type != EXTRUDER_TYPE_NOT_INSTALLED)
     {
         //MENU_ITEM_EDIT_CALLBACK(nozzle_diameter, "Nozzle Diameter", refresh_system_settings, &systemInfo.Extruders[extruderId]->activeFillament, 0, 1);
+        MENU_ITEM_EDIT(float51, MSG_ESTEPS, &systemInfo.Extruders[extruderId]->stepsPerUnit, 5, 9999);
         MENU_ITEM_EDIT_CALLBACK(fillament, MSG_LOADED_FILLAMENT, refresh_system_settings, &systemInfo.Extruders[extruderId]->activeFillament, 0, FILLAMENT_COUNT - 1);
         MENU_ITEM_EDIT(int3, " HotEnd Temp", systemInfo.Extruders[extruderId]->pFillamentHotEndTemp, 0, systemInfo.Extruders[extruderId]->heater_MaxTemp - 15);
         MENU_ITEM_EDIT(uchar, " Bed Temp", systemInfo.Extruders[extruderId]->pFillamentHPBTemp, 0, BED_MAXTEMP - 15);
@@ -870,8 +871,6 @@ static void lcd_control_motion_menu()
     MENU_ITEM_EDIT(float52, MSG_XSTEPS, &axis_steps_per_unit[X_AXIS], 5, 9999);
     MENU_ITEM_EDIT(float52, MSG_YSTEPS, &axis_steps_per_unit[Y_AXIS], 5, 9999);
     MENU_ITEM_EDIT(float51, MSG_ZSTEPS, &axis_steps_per_unit[Z_AXIS], 5, 9999);
-    MENU_ITEM_EDIT(float51, MSG_ESTEPS, &axis_steps_per_unit[E_AXIS], 5, 9999);
-    MENU_ITEM_EDIT(float51, MSG_E1STEPS, &e1_steps_per_unit, 5, 9999);
     //MENU_ITEM_EDIT(float51, MSG_NOZZLE2_OFFSET_X, &extruder_offset[X_AXIS][1], -20, 20);
     //MENU_ITEM_EDIT(float51, MSG_NOZZLE2_OFFSET_Y, &extruder_offset[Y_AXIS][1], -72, -32);
 #ifdef ABORT_ON_ENDSTOP_HIT_FEATURE_ENABLED

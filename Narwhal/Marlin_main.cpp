@@ -1591,7 +1591,8 @@ void process_commands()
                 if (code_seen(axis_codes[i])) {
                     if (i == E_AXIS) {
                         current_position[i] = code_value();
-                        plan_set_e_position(current_position[E_AXIS]);
+                        // BUGBUG - currently setting only for extruder 1, what about multiple extruders?
+                        plan_set_e_position(0, current_position[E_AXIS]);
                     }
                     else {
                         current_position[i] = code_value() + add_homeing[i];
@@ -2848,7 +2849,7 @@ void process_commands()
 #endif
             }
             current_position[E_AXIS] = target[E_AXIS]; //the long retract of L is compensated by manual filament feeding
-            plan_set_e_position(current_position[E_AXIS]);
+            plan_set_e_position(active_extruder, current_position[E_AXIS]);
             plan_buffer_line(target[X_AXIS], target[Y_AXIS], target[Z_AXIS], target[E_AXIS], feedrate / 60, active_extruder); //should do nothing
             plan_buffer_line(lastpos[X_AXIS], lastpos[Y_AXIS], target[Z_AXIS], target[E_AXIS], feedrate / 60, active_extruder); //move xy back
             plan_buffer_line(lastpos[X_AXIS], lastpos[Y_AXIS], lastpos[Z_AXIS], target[E_AXIS], feedrate / 60, active_extruder); //move z back
@@ -3451,7 +3452,7 @@ void manage_inactivity()
             EXTRUDER_RUNOUT_SPEED/60.*EXTRUDER_RUNOUT_ESTEPS/axis_steps_per_unit[E_AXIS], active_extruder);
         current_position[E_AXIS]=oldepos;
         destination[E_AXIS]=oldedes;
-        plan_set_e_position(oldepos);
+        plan_set_e_position(active_extruder, oldepos);
         previous_millis_cmd=millis();
         st_synchronize();
         WRITE(E0_ENABLE_PIN,oldstatus);

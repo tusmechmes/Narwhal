@@ -413,10 +413,12 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 // default settings
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {100.5,100.5,1600,850}  // default steps per unit for TAZ {X,Y,Z,E}
-#define DEFAULT_E1_STEPS_PER_UNIT     800                    // default steps per unit for second extruder
-#define DEFAULT_MAX_FEEDRATE          {800, 800, 8, 50}      // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {9000,9000,100,10000}  // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_AXIS_STEPS_PER_UNIT         {100.5,100.5,1600}      // default steps per unit for TAZ {X,Y,Z,E}
+#define DEFAULT_EXTRUDER_STEPS_PER_UNIT     (850)                   // default steps per unit for extruder
+#define EXTRUDER_STEPS_PER_UNIT(e)          (systemInfo.Extruders[e]->stepsPerUnit)
+
+#define DEFAULT_MAX_FEEDRATE                {800, 800, 8, 50}       // (mm/sec)
+#define DEFAULT_MAX_ACCELERATION            {9000,9000,100,100}     // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          500    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  3000   // X, Y, Z and E max acceleration in mm/s^2 for retracts

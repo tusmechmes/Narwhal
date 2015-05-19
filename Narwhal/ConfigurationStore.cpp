@@ -47,7 +47,6 @@ void Config_StoreSettings()
   int i=EEPROM_OFFSET;
   EEPROM_WRITE_VAR(i,ver); // invalidate data first 
   EEPROM_WRITE_VAR(i,axis_steps_per_unit); 
-  EEPROM_WRITE_VAR(i,e1_steps_per_unit);
   //EEPROM_WRITE_VAR(i,extruder_offset);
   EEPROM_WRITE_VAR(i,max_feedrate);  
   EEPROM_WRITE_VAR(i,max_acceleration_units_per_sq_second);
@@ -73,6 +72,7 @@ void Config_StoreSettings()
         EEPROM_WRITE_VAR(i, systemInfo.Extruders[e]->type);
         EEPROM_WRITE_VAR(i, systemInfo.Extruders[e]->activeFillament);
         EEPROM_WRITE_VAR(i, systemInfo.Extruders[e]->nozzleDiameter);
+        EEPROM_WRITE_VAR(i, systemInfo.Extruders[e]->stepsPerUnit);
         // PID: do not need to un-scale PID values we save the as is to the EEPROM
         #ifdef PIDTEMP
         EEPROM_WRITE_VAR(i, systemInfo.Extruders[e]->work_Kp);
@@ -109,7 +109,6 @@ void Config_RetrieveSettings()
     {
         // version number match
         EEPROM_READ_VAR(i,axis_steps_per_unit);
-        EEPROM_READ_VAR(i,e1_steps_per_unit);
         //EEPROM_READ_VAR(i,extruder_offset);
         EEPROM_READ_VAR(i,max_feedrate);  
         EEPROM_READ_VAR(i,max_acceleration_units_per_sq_second);
@@ -139,6 +138,7 @@ void Config_RetrieveSettings()
             EEPROM_READ_VAR(i, systemInfo.Extruders[e]->type);
             EEPROM_READ_VAR(i, systemInfo.Extruders[e]->activeFillament);
             EEPROM_READ_VAR(i, systemInfo.Extruders[e]->nozzleDiameter);
+            EEPROM_READ_VAR(i, systemInfo.Extruders[e]->stepsPerUnit);
             // PID: do not need to scale PID values as the values in EEPROM are already scaled		
             #ifdef PIDTEMP
             EEPROM_READ_VAR(i, systemInfo.Extruders[e]->work_Kp);
@@ -188,15 +188,13 @@ void Config_ResetDefault()
     long tmp3[]=DEFAULT_MAX_ACCELERATION;
     for (short i=0;i<4;i++) 
     {
-        axis_steps_per_unit[i]=tmp1[i];  
+        if (i<3) axis_steps_per_unit[i]=tmp1[i];
         max_feedrate[i]=tmp2[i];  
         max_acceleration_units_per_sq_second[i]=tmp3[i];
     }
     
     // steps per sq second need to be updated to agree with the units per sq second
     reset_acceleration_rates();
-    
-    e1_steps_per_unit=DEFAULT_E1_STEPS_PER_UNIT;
     
     // Extruder offset
     //for(short i=0; i<2; i++)
@@ -244,8 +242,11 @@ void Config_PrintSettings()
     SERIAL_ECHOPAIR("  M92 X", axis_steps_per_unit[0]);
     SERIAL_ECHOPAIR(" Y", axis_steps_per_unit[1]);
     SERIAL_ECHOPAIR(" Z", axis_steps_per_unit[2]);
-    SERIAL_ECHOPAIR(" E", axis_steps_per_unit[3]);
-    SERIAL_ECHOPAIR(" E1", e1_steps_per_unit);
+    
+    // TODO - print all extruders settings...
+    //SERIAL_ECHOPAIR(" E", axis_steps_per_unit[3]);
+    //SERIAL_ECHOPAIR(" E1", e1_steps_per_unit);
+    
     SERIAL_ECHOLN("");
 
     SERIAL_ECHO_START;

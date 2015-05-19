@@ -9,6 +9,7 @@ const char *fillament_tostr(const int &x);
 const char *fillament_tostr_short(const int &x);
 const char *extruder_tostr(const int &x);
 extern float homing_feedrate[];
+extern float max_feedrate[4]; // set the max speeds
 //extern float extruder_offset[NUM_EXTRUDER_OFFSETS][MAX_EXTRUDERS];
 
 
@@ -102,6 +103,7 @@ void ExtruderInfo::LoadDefaults()
 
         //----- Dynamic settings -----//
         this->nozzleDiameter = INFO_NOZZLE_0_35;
+        this->stepsPerUnit = DEFAULT_EXTRUDER_STEPS_PER_UNIT;
         this->activeFillament = FILLAMENT_ABS;
 #ifdef PIDTEMP
         this->work_Kp = default_Kp;
@@ -127,6 +129,7 @@ void ExtruderInfo::LoadDefaults()
 
         //----- Dynamic settings -----//
         this->nozzleDiameter = INFO_NOZZLE_0_35;
+        this->stepsPerUnit = DEFAULT_EXTRUDER_STEPS_PER_UNIT;
         this->activeFillament = FILLAMENT_ABS;
 #ifdef PIDTEMP
         this->work_Kp = default_Kp;
@@ -152,6 +155,7 @@ void ExtruderInfo::LoadDefaults()
 
         //----- Dynamic settings -----//
         this->nozzleDiameter = INFO_NOZZLE_0_50;
+        this->stepsPerUnit = DEFAULT_EXTRUDER_STEPS_PER_UNIT;
         this->activeFillament = FILLAMENT_FLEXIBLE;
 #ifdef PIDTEMP
         this->work_Kp = default_Kp;
@@ -181,16 +185,15 @@ void SystemInfo::LoadDefaults()
 {
     for (int i = 0; i < MAX_EXTRUDERS; i++)
     {
+        // refresh the exturder settings
         if (this->Extruders[i] != NULL)
         {
-            // refresh the exturder settings
             this->Extruders[i]->LoadDefaults();
-
-            // increment the numbe of installed extruders (+1 for each installed extuder)
-            if (this->Extruders[i]->type != EXTRUDER_TYPE_NOT_INSTALLED)
-                this->installedExtruders++;
         }
     }
+    
+    // lastly, update the syste (this will cause a second update on the extruders, oh well)
+    this->Update();
 }
 
 void SystemInfo::Update()
@@ -218,13 +221,8 @@ void SystemInfo::Update()
         //#define HOMING_FEEDRATE {50*60, 50*60, 8*60, 0}  // set the homing speeds (mm/min)
         homing_feedrate[2] = 8 * 60;
 
-        //axis_steps_per_unit;
-        //max_feedrate;
-        //max_acceleration_units_per_sq_second;
-
-        //#define DEFAULT_AXIS_STEPS_PER_UNIT   {100.5,100.5,1600,850}  // default steps per unit for TAZ {X,Y,Z,E}
         //#define DEFAULT_MAX_FEEDRATE          {800, 800, 8, 50}      // (mm/sec)
-        //#define DEFAULT_MAX_ACCELERATION      {9000,9000,100,10000}  // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+        max_feedrate[2] = 8;
 
         ////#define EXTRUDER_OFFSET_X {0.0, 0.00} // (in mm) for each extruder, offset of the hotend on the X axis
         //extruder_offset[0][0] = 0.0;
@@ -254,9 +252,8 @@ void SystemInfo::Update()
         //#define HOMING_FEEDRATE {50*60, 50*60, 4*60, 0}  // set the homing speeds (mm/min)
         homing_feedrate[2] = 4 * 60;
 
-        //#define DEFAULT_AXIS_STEPS_PER_UNIT   {100.5,100.5,1600,800}  // default steps per unit for TAZ {X,Y,Z,E}
         //#define DEFAULT_MAX_FEEDRATE          {800, 800, 3, 50}      // (mm/sec)
-        //#define DEFAULT_MAX_ACCELERATION      {9000,9000,100,100}  // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+        max_feedrate[2] = 3;
 
         //#define EXTRUDER_OFFSET_X {0.0, 0.00} // (in mm) for each extruder, offset of the hotend on the X axis
         //#define EXTRUDER_OFFSET_Y {0.0, 0.00}  // (in mm) for each extruder, offset of the hotend on the Y axis
