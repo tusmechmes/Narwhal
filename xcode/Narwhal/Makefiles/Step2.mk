@@ -198,8 +198,7 @@ endif
 
 # Core main function check
 s209             = $(wildcard $(patsubst %,%/*.cpp,$(LOCAL_LIBS))) $(wildcard $(LOCAL_LIB_PATH)/*.cpp) # */
-LOCAL_CPP_SRCS   = ./main.cpp $(filter-out %$(PROJECT_NAME_AS_IDENTIFIER).cpp, $(s209))
-$(error cpp: $(LOCAL_CPP_SRCS))
+LOCAL_CPP_SRCS   = $(filter-out %$(PROJECT_NAME_AS_IDENTIFIER).cpp, $(s209))
 
 
 LOCAL_CC_SRCS    = $(wildcard $(patsubst %,%/*.cc,$(LOCAL_LIBS))) $(wildcard $(LOCAL_LIB_PATH)/*.cc) # */
