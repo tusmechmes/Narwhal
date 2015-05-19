@@ -29,4 +29,5 @@
 
 # Xcode stuff
 *.xcuserstate
+*.xcuserdatad/
 Builds/

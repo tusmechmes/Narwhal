@@ -8,6 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		1746A8041B084C7700FDBE19 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 1746A8031B084C7700FDBE19 /* Makefile */; };
+		17DE93871B0BB091004D6D13 /* BlinkM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93491B0BB091004D6D13 /* BlinkM.cpp */; };
+		17DE93881B0BB091004D6D13 /* cardreader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE934B1B0BB091004D6D13 /* cardreader.cpp */; };
+		17DE93891B0BB091004D6D13 /* Configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE934E1B0BB091004D6D13 /* Configuration.cpp */; };
+		17DE938A1B0BB091004D6D13 /* ConfigurationStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93501B0BB091004D6D13 /* ConfigurationStore.cpp */; };
+		17DE938B1B0BB091004D6D13 /* LiquidCrystalRus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93571B0BB091004D6D13 /* LiquidCrystalRus.cpp */; };
+		17DE938C1B0BB091004D6D13 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93591B0BB091004D6D13 /* main.cpp */; };
+		17DE938D1B0BB091004D6D13 /* Marlin_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE935A1B0BB091004D6D13 /* Marlin_main.cpp */; };
+		17DE938E1B0BB091004D6D13 /* MarlinSerial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE935C1B0BB091004D6D13 /* MarlinSerial.cpp */; };
+		17DE938F1B0BB091004D6D13 /* motion_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE935E1B0BB091004D6D13 /* motion_control.cpp */; };
+		17DE93901B0BB091004D6D13 /* planner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93631B0BB091004D6D13 /* planner.cpp */; };
+		17DE93911B0BB091004D6D13 /* qr_solve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93651B0BB091004D6D13 /* qr_solve.cpp */; };
+		17DE93921B0BB091004D6D13 /* Sd2Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93671B0BB091004D6D13 /* Sd2Card.cpp */; };
+		17DE93931B0BB091004D6D13 /* SdBaseFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE936A1B0BB091004D6D13 /* SdBaseFile.cpp */; };
+		17DE93941B0BB091004D6D13 /* SdFatUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE936E1B0BB091004D6D13 /* SdFatUtil.cpp */; };
+		17DE93951B0BB091004D6D13 /* SdFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93701B0BB091004D6D13 /* SdFile.cpp */; };
+		17DE93961B0BB091004D6D13 /* SdVolume.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93731B0BB091004D6D13 /* SdVolume.cpp */; };
+		17DE93971B0BB091004D6D13 /* Servo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93751B0BB091004D6D13 /* Servo.cpp */; };
+		17DE93981B0BB091004D6D13 /* stepper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93781B0BB091004D6D13 /* stepper.cpp */; };
+		17DE93991B0BB091004D6D13 /* SystemInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE937A1B0BB091004D6D13 /* SystemInfo.cpp */; };
+		17DE939A1B0BB091004D6D13 /* temperature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE937C1B0BB091004D6D13 /* temperature.cpp */; };
+		17DE939B1B0BB091004D6D13 /* ultralcd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93811B0BB091004D6D13 /* ultralcd.cpp */; };
+		17DE939C1B0BB091004D6D13 /* vector_3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93831B0BB091004D6D13 /* vector_3.cpp */; };
+		17DE939D1B0BB091004D6D13 /* watchdog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 17DE93851B0BB091004D6D13 /* watchdog.cpp */; };
 		AA2A150516202601AA000006 /* abi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150516202601AA000006 /* abi.cpp */; };
 		AA2A150516202601AA000007 /* Arduino.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150516202601AA000007 /* Arduino.h */; };
 		AA2A150516202601AA000008 /* binary.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150516202601AA000008 /* binary.h */; };
@@ -501,7 +524,68 @@
 		1746A7971B08414C00FDBE19 /* TemplateIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TemplateIcon.icns; path = Utilities/TemplateIcon.icns; sourceTree = "<group>"; };
 		1746A7981B08414C00FDBE19 /* uploader_izmir.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = uploader_izmir.sh; path = Utilities/uploader_izmir.sh; sourceTree = "<group>"; };
 		1746A8031B084C7700FDBE19 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		17F7D4C71B0867EF00F0ED53 /* Narwhal */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Narwhal; path = ../../Narwhal; sourceTree = "<group>"; };
+		17DE93491B0BB091004D6D13 /* BlinkM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BlinkM.cpp; path = ../../Narwhal/BlinkM.cpp; sourceTree = "<group>"; };
+		17DE934A1B0BB091004D6D13 /* BlinkM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlinkM.h; path = ../../Narwhal/BlinkM.h; sourceTree = "<group>"; };
+		17DE934B1B0BB091004D6D13 /* cardreader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cardreader.cpp; path = ../../Narwhal/cardreader.cpp; sourceTree = "<group>"; };
+		17DE934C1B0BB091004D6D13 /* cardreader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cardreader.h; path = ../../Narwhal/cardreader.h; sourceTree = "<group>"; };
+		17DE934D1B0BB091004D6D13 /* Configuration_adv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Configuration_adv.h; path = ../../Narwhal/Configuration_adv.h; sourceTree = "<group>"; };
+		17DE934E1B0BB091004D6D13 /* Configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Configuration.cpp; path = ../../Narwhal/Configuration.cpp; sourceTree = "<group>"; };
+		17DE934F1B0BB091004D6D13 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Configuration.h; path = ../../Narwhal/Configuration.h; sourceTree = "<group>"; };
+		17DE93501B0BB091004D6D13 /* ConfigurationStore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigurationStore.cpp; path = ../../Narwhal/ConfigurationStore.cpp; sourceTree = "<group>"; };
+		17DE93511B0BB091004D6D13 /* ConfigurationStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigurationStore.h; path = ../../Narwhal/ConfigurationStore.h; sourceTree = "<group>"; };
+		17DE93521B0BB091004D6D13 /* dogm_font_data_marlin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dogm_font_data_marlin.h; path = ../../Narwhal/dogm_font_data_marlin.h; sourceTree = "<group>"; };
+		17DE93531B0BB091004D6D13 /* dogm_lcd_implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dogm_lcd_implementation.h; path = ../../Narwhal/dogm_lcd_implementation.h; sourceTree = "<group>"; };
+		17DE93541B0BB091004D6D13 /* DOGMbitmaps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DOGMbitmaps.h; path = ../../Narwhal/DOGMbitmaps.h; sourceTree = "<group>"; };
+		17DE93551B0BB091004D6D13 /* fastio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fastio.h; path = ../../Narwhal/fastio.h; sourceTree = "<group>"; };
+		17DE93561B0BB091004D6D13 /* language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = language.h; path = ../../Narwhal/language.h; sourceTree = "<group>"; };
+		17DE93571B0BB091004D6D13 /* LiquidCrystalRus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LiquidCrystalRus.cpp; path = ../../Narwhal/LiquidCrystalRus.cpp; sourceTree = "<group>"; };
+		17DE93581B0BB091004D6D13 /* LiquidCrystalRus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiquidCrystalRus.h; path = ../../Narwhal/LiquidCrystalRus.h; sourceTree = "<group>"; };
+		17DE93591B0BB091004D6D13 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../Narwhal/main.cpp; sourceTree = "<group>"; };
+		17DE935A1B0BB091004D6D13 /* Marlin_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Marlin_main.cpp; path = ../../Narwhal/Marlin_main.cpp; sourceTree = "<group>"; };
+		17DE935B1B0BB091004D6D13 /* Marlin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Marlin.h; path = ../../Narwhal/Marlin.h; sourceTree = "<group>"; };
+		17DE935C1B0BB091004D6D13 /* MarlinSerial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MarlinSerial.cpp; path = ../../Narwhal/MarlinSerial.cpp; sourceTree = "<group>"; };
+		17DE935D1B0BB091004D6D13 /* MarlinSerial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MarlinSerial.h; path = ../../Narwhal/MarlinSerial.h; sourceTree = "<group>"; };
+		17DE935E1B0BB091004D6D13 /* motion_control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = motion_control.cpp; path = ../../Narwhal/motion_control.cpp; sourceTree = "<group>"; };
+		17DE935F1B0BB091004D6D13 /* motion_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = motion_control.h; path = ../../Narwhal/motion_control.h; sourceTree = "<group>"; };
+		17DE93601B0BB091004D6D13 /* Narwhal.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Narwhal.ino; path = ../../Narwhal/Narwhal.ino; sourceTree = "<group>"; };
+		17DE93611B0BB091004D6D13 /* pins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pins.h; path = ../../Narwhal/pins.h; sourceTree = "<group>"; };
+		17DE93621B0BB091004D6D13 /* pitches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pitches.h; path = ../../Narwhal/pitches.h; sourceTree = "<group>"; };
+		17DE93631B0BB091004D6D13 /* planner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = planner.cpp; path = ../../Narwhal/planner.cpp; sourceTree = "<group>"; };
+		17DE93641B0BB091004D6D13 /* planner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = planner.h; path = ../../Narwhal/planner.h; sourceTree = "<group>"; };
+		17DE93651B0BB091004D6D13 /* qr_solve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = qr_solve.cpp; path = ../../Narwhal/qr_solve.cpp; sourceTree = "<group>"; };
+		17DE93661B0BB091004D6D13 /* qr_solve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = qr_solve.h; path = ../../Narwhal/qr_solve.h; sourceTree = "<group>"; };
+		17DE93671B0BB091004D6D13 /* Sd2Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Sd2Card.cpp; path = ../../Narwhal/Sd2Card.cpp; sourceTree = "<group>"; };
+		17DE93681B0BB091004D6D13 /* Sd2Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sd2Card.h; path = ../../Narwhal/Sd2Card.h; sourceTree = "<group>"; };
+		17DE93691B0BB091004D6D13 /* Sd2PinMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sd2PinMap.h; path = ../../Narwhal/Sd2PinMap.h; sourceTree = "<group>"; };
+		17DE936A1B0BB091004D6D13 /* SdBaseFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SdBaseFile.cpp; path = ../../Narwhal/SdBaseFile.cpp; sourceTree = "<group>"; };
+		17DE936B1B0BB091004D6D13 /* SdBaseFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SdBaseFile.h; path = ../../Narwhal/SdBaseFile.h; sourceTree = "<group>"; };
+		17DE936C1B0BB091004D6D13 /* SdFatConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SdFatConfig.h; path = ../../Narwhal/SdFatConfig.h; sourceTree = "<group>"; };
+		17DE936D1B0BB091004D6D13 /* SdFatStructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SdFatStructs.h; path = ../../Narwhal/SdFatStructs.h; sourceTree = "<group>"; };
+		17DE936E1B0BB091004D6D13 /* SdFatUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SdFatUtil.cpp; path = ../../Narwhal/SdFatUtil.cpp; sourceTree = "<group>"; };
+		17DE936F1B0BB091004D6D13 /* SdFatUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SdFatUtil.h; path = ../../Narwhal/SdFatUtil.h; sourceTree = "<group>"; };
+		17DE93701B0BB091004D6D13 /* SdFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SdFile.cpp; path = ../../Narwhal/SdFile.cpp; sourceTree = "<group>"; };
+		17DE93711B0BB091004D6D13 /* SdFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SdFile.h; path = ../../Narwhal/SdFile.h; sourceTree = "<group>"; };
+		17DE93721B0BB091004D6D13 /* SdInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SdInfo.h; path = ../../Narwhal/SdInfo.h; sourceTree = "<group>"; };
+		17DE93731B0BB091004D6D13 /* SdVolume.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SdVolume.cpp; path = ../../Narwhal/SdVolume.cpp; sourceTree = "<group>"; };
+		17DE93741B0BB091004D6D13 /* SdVolume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SdVolume.h; path = ../../Narwhal/SdVolume.h; sourceTree = "<group>"; };
+		17DE93751B0BB091004D6D13 /* Servo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Servo.cpp; path = ../../Narwhal/Servo.cpp; sourceTree = "<group>"; };
+		17DE93761B0BB091004D6D13 /* Servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Servo.h; path = ../../Narwhal/Servo.h; sourceTree = "<group>"; };
+		17DE93771B0BB091004D6D13 /* speed_lookuptable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = speed_lookuptable.h; path = ../../Narwhal/speed_lookuptable.h; sourceTree = "<group>"; };
+		17DE93781B0BB091004D6D13 /* stepper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stepper.cpp; path = ../../Narwhal/stepper.cpp; sourceTree = "<group>"; };
+		17DE93791B0BB091004D6D13 /* stepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stepper.h; path = ../../Narwhal/stepper.h; sourceTree = "<group>"; };
+		17DE937A1B0BB091004D6D13 /* SystemInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SystemInfo.cpp; path = ../../Narwhal/SystemInfo.cpp; sourceTree = "<group>"; };
+		17DE937B1B0BB091004D6D13 /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemInfo.h; path = ../../Narwhal/SystemInfo.h; sourceTree = "<group>"; };
+		17DE937C1B0BB091004D6D13 /* temperature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = temperature.cpp; path = ../../Narwhal/temperature.cpp; sourceTree = "<group>"; };
+		17DE937D1B0BB091004D6D13 /* temperature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = temperature.h; path = ../../Narwhal/temperature.h; sourceTree = "<group>"; };
+		17DE937E1B0BB091004D6D13 /* thermistortables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = thermistortables.h; path = ../../Narwhal/thermistortables.h; sourceTree = "<group>"; };
+		17DE937F1B0BB091004D6D13 /* ultralcd_implementation_hitachi_HD44780.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ultralcd_implementation_hitachi_HD44780.h; path = ../../Narwhal/ultralcd_implementation_hitachi_HD44780.h; sourceTree = "<group>"; };
+		17DE93801B0BB091004D6D13 /* ultralcd_st7920_u8glib_rrd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ultralcd_st7920_u8glib_rrd.h; path = ../../Narwhal/ultralcd_st7920_u8glib_rrd.h; sourceTree = "<group>"; };
+		17DE93811B0BB091004D6D13 /* ultralcd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ultralcd.cpp; path = ../../Narwhal/ultralcd.cpp; sourceTree = "<group>"; };
+		17DE93821B0BB091004D6D13 /* ultralcd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ultralcd.h; path = ../../Narwhal/ultralcd.h; sourceTree = "<group>"; };
+		17DE93831B0BB091004D6D13 /* vector_3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vector_3.cpp; path = ../../Narwhal/vector_3.cpp; sourceTree = "<group>"; };
+		17DE93841B0BB091004D6D13 /* vector_3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vector_3.h; path = ../../Narwhal/vector_3.h; sourceTree = "<group>"; };
+		17DE93851B0BB091004D6D13 /* watchdog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = watchdog.cpp; path = ../../Narwhal/watchdog.cpp; sourceTree = "<group>"; };
+		17DE93861B0BB091004D6D13 /* watchdog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = watchdog.h; path = ../../Narwhal/watchdog.h; sourceTree = "<group>"; };
 		AAAA150516202601AA000006 /* abi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = abi.cpp; sourceTree = "<group>"; };
 		AAAA150516202601AA000007 /* Arduino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arduino.h; sourceTree = "<group>"; };
 		AAAA150516202601AA000008 /* binary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = binary.h; sourceTree = "<group>"; };
@@ -912,7 +996,7 @@
 		1746A7261B08414C00FDBE19 /* Narwhal */ = {
 			isa = PBXGroup;
 			children = (
-				17F7D4C71B0867EF00F0ED53 /* Narwhal */,
+				17DE93481B0BB06F004D6D13 /* Narwhal.source */,
 				1746A8031B084C7700FDBE19 /* Makefile */,
 				1746A72F1B08414C00FDBE19 /* Sketchbook */,
 				AAAA150516202601AA000000 /* Resources */,
@@ -1057,6 +1141,115 @@
 				1746A7981B08414C00FDBE19 /* uploader_izmir.sh */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		17DE93481B0BB06F004D6D13 /* Narwhal.source */ = {
+			isa = PBXGroup;
+			children = (
+				17DE93A11B0BB118004D6D13 /* Board */,
+				17DE939F1B0BB0B9004D6D13 /* SDCard */,
+				17DE939E1B0BB094004D6D13 /* Configuration */,
+				17DE93A21B0BB1D6004D6D13 /* Control */,
+				17DE93A01B0BB0E4004D6D13 /* UX */,
+				17DE93591B0BB091004D6D13 /* main.cpp */,
+				17DE93601B0BB091004D6D13 /* Narwhal.ino */,
+			);
+			name = Narwhal.source;
+			sourceTree = "<group>";
+		};
+		17DE939E1B0BB094004D6D13 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				17DE934D1B0BB091004D6D13 /* Configuration_adv.h */,
+				17DE934E1B0BB091004D6D13 /* Configuration.cpp */,
+				17DE934F1B0BB091004D6D13 /* Configuration.h */,
+				17DE93501B0BB091004D6D13 /* ConfigurationStore.cpp */,
+				17DE93511B0BB091004D6D13 /* ConfigurationStore.h */,
+				17DE93621B0BB091004D6D13 /* pitches.h */,
+				17DE93771B0BB091004D6D13 /* speed_lookuptable.h */,
+				17DE937A1B0BB091004D6D13 /* SystemInfo.cpp */,
+				17DE937B1B0BB091004D6D13 /* SystemInfo.h */,
+				17DE937E1B0BB091004D6D13 /* thermistortables.h */,
+			);
+			name = Configuration;
+			sourceTree = "<group>";
+		};
+		17DE939F1B0BB0B9004D6D13 /* SDCard */ = {
+			isa = PBXGroup;
+			children = (
+				17DE934B1B0BB091004D6D13 /* cardreader.cpp */,
+				17DE934C1B0BB091004D6D13 /* cardreader.h */,
+				17DE93671B0BB091004D6D13 /* Sd2Card.cpp */,
+				17DE93681B0BB091004D6D13 /* Sd2Card.h */,
+				17DE93691B0BB091004D6D13 /* Sd2PinMap.h */,
+				17DE936A1B0BB091004D6D13 /* SdBaseFile.cpp */,
+				17DE936B1B0BB091004D6D13 /* SdBaseFile.h */,
+				17DE936C1B0BB091004D6D13 /* SdFatConfig.h */,
+				17DE936D1B0BB091004D6D13 /* SdFatStructs.h */,
+				17DE936E1B0BB091004D6D13 /* SdFatUtil.cpp */,
+				17DE936F1B0BB091004D6D13 /* SdFatUtil.h */,
+				17DE93701B0BB091004D6D13 /* SdFile.cpp */,
+				17DE93711B0BB091004D6D13 /* SdFile.h */,
+				17DE93721B0BB091004D6D13 /* SdInfo.h */,
+				17DE93731B0BB091004D6D13 /* SdVolume.cpp */,
+				17DE93741B0BB091004D6D13 /* SdVolume.h */,
+			);
+			name = SDCard;
+			sourceTree = "<group>";
+		};
+		17DE93A01B0BB0E4004D6D13 /* UX */ = {
+			isa = PBXGroup;
+			children = (
+				17DE93521B0BB091004D6D13 /* dogm_font_data_marlin.h */,
+				17DE93531B0BB091004D6D13 /* dogm_lcd_implementation.h */,
+				17DE93541B0BB091004D6D13 /* DOGMbitmaps.h */,
+				17DE93561B0BB091004D6D13 /* language.h */,
+				17DE93571B0BB091004D6D13 /* LiquidCrystalRus.cpp */,
+				17DE93581B0BB091004D6D13 /* LiquidCrystalRus.h */,
+				17DE937F1B0BB091004D6D13 /* ultralcd_implementation_hitachi_HD44780.h */,
+				17DE93801B0BB091004D6D13 /* ultralcd_st7920_u8glib_rrd.h */,
+				17DE93811B0BB091004D6D13 /* ultralcd.cpp */,
+				17DE93821B0BB091004D6D13 /* ultralcd.h */,
+			);
+			name = UX;
+			sourceTree = "<group>";
+		};
+		17DE93A11B0BB118004D6D13 /* Board */ = {
+			isa = PBXGroup;
+			children = (
+				17DE93491B0BB091004D6D13 /* BlinkM.cpp */,
+				17DE934A1B0BB091004D6D13 /* BlinkM.h */,
+				17DE93551B0BB091004D6D13 /* fastio.h */,
+				17DE935C1B0BB091004D6D13 /* MarlinSerial.cpp */,
+				17DE935D1B0BB091004D6D13 /* MarlinSerial.h */,
+				17DE93611B0BB091004D6D13 /* pins.h */,
+				17DE93751B0BB091004D6D13 /* Servo.cpp */,
+				17DE93761B0BB091004D6D13 /* Servo.h */,
+				17DE93781B0BB091004D6D13 /* stepper.cpp */,
+				17DE93791B0BB091004D6D13 /* stepper.h */,
+				17DE93851B0BB091004D6D13 /* watchdog.cpp */,
+				17DE93861B0BB091004D6D13 /* watchdog.h */,
+			);
+			name = Board;
+			sourceTree = "<group>";
+		};
+		17DE93A21B0BB1D6004D6D13 /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				17DE935A1B0BB091004D6D13 /* Marlin_main.cpp */,
+				17DE935B1B0BB091004D6D13 /* Marlin.h */,
+				17DE935E1B0BB091004D6D13 /* motion_control.cpp */,
+				17DE935F1B0BB091004D6D13 /* motion_control.h */,
+				17DE93631B0BB091004D6D13 /* planner.cpp */,
+				17DE93641B0BB091004D6D13 /* planner.h */,
+				17DE93651B0BB091004D6D13 /* qr_solve.cpp */,
+				17DE93661B0BB091004D6D13 /* qr_solve.h */,
+				17DE937C1B0BB091004D6D13 /* temperature.cpp */,
+				17DE937D1B0BB091004D6D13 /* temperature.h */,
+				17DE93831B0BB091004D6D13 /* vector_3.cpp */,
+				17DE93841B0BB091004D6D13 /* vector_3.h */,
+			);
+			name = Control;
 			sourceTree = "<group>";
 		};
 		AAAA150516202601AA000000 /* Resources */ = {
@@ -2462,9 +2655,11 @@
 				AA2A150516202601AA00002E /* WString.cpp in Sources */,
 				AA2A150516202601AA00002F /* WString.h in Sources */,
 				AA2A150516202601AA000032 /* EEPROM.h in Sources */,
+				17DE938C1B0BB091004D6D13 /* main.cpp in Sources */,
 				AA2A150516202601AA000034 /* SoftwareSerial.cpp in Sources */,
 				AA2A150516202601AA000035 /* SoftwareSerial.h in Sources */,
 				AA2A150516202601AA000037 /* SPI.cpp in Sources */,
+				17DE93941B0BB091004D6D13 /* SdFatUtil.cpp in Sources */,
 				AA2A150516202601AA000038 /* SPI.h in Sources */,
 				AA2A150516202601AA00003B /* twi.c in Sources */,
 				AA2A150516202601AA00003C /* twi.h in Sources */,
@@ -2480,10 +2675,12 @@
 				AA2A150516202601AA00004F /* pins_arduino.h in Sources */,
 				AA2A150516202601AA000051 /* pins_arduino.h in Sources */,
 				AA2A150516202601AA000053 /* pins_arduino.h in Sources */,
+				17DE938A1B0BB091004D6D13 /* ConfigurationStore.cpp in Sources */,
 				AA2A150516202601AA000058 /* Bridge.cpp in Sources */,
 				AA2A150516202601AA000059 /* Bridge.h in Sources */,
 				AA2A150516202601AA00005A /* Console.cpp in Sources */,
 				AA2A150516202601AA00005B /* Console.h in Sources */,
+				17DE938D1B0BB091004D6D13 /* Marlin_main.cpp in Sources */,
 				AA2A150516202601AA00005C /* FileIO.cpp in Sources */,
 				AA2A150516202601AA00005D /* FileIO.h in Sources */,
 				AA2A150516202601AA00005E /* HttpClient.cpp in Sources */,
@@ -2501,6 +2698,7 @@
 				AA2A150516202601AA00006E /* Dhcp.cpp in Sources */,
 				AA2A150516202601AA00006F /* Dhcp.h in Sources */,
 				AA2A150516202601AA000070 /* Dns.cpp in Sources */,
+				17DE93951B0BB091004D6D13 /* SdFile.cpp in Sources */,
 				AA2A150516202601AA000071 /* Dns.h in Sources */,
 				AA2A150516202601AA000072 /* Ethernet.cpp in Sources */,
 				AA2A150516202601AA000073 /* Ethernet.h in Sources */,
@@ -2508,6 +2706,7 @@
 				AA2A150516202601AA000075 /* EthernetClient.h in Sources */,
 				AA2A150516202601AA000076 /* EthernetServer.cpp in Sources */,
 				AA2A150516202601AA000077 /* EthernetServer.h in Sources */,
+				17DE93921B0BB091004D6D13 /* Sd2Card.cpp in Sources */,
 				AA2A150516202601AA000078 /* EthernetUdp.cpp in Sources */,
 				AA2A150516202601AA000079 /* EthernetUdp.h in Sources */,
 				AA2A150516202601AA00007B /* socket.cpp in Sources */,
@@ -2530,7 +2729,9 @@
 				AA2A150516202601AA000092 /* GSM3MobileClientProvider.h in Sources */,
 				AA2A150516202601AA000093 /* GSM3MobileClientService.cpp in Sources */,
 				AA2A150516202601AA000094 /* GSM3MobileClientService.h in Sources */,
+				17DE93931B0BB091004D6D13 /* SdBaseFile.cpp in Sources */,
 				AA2A150516202601AA000095 /* GSM3MobileDataNetworkProvider.cpp in Sources */,
+				17DE938B1B0BB091004D6D13 /* LiquidCrystalRus.cpp in Sources */,
 				AA2A150516202601AA000096 /* GSM3MobileDataNetworkProvider.h in Sources */,
 				AA2A150516202601AA000097 /* GSM3MobileMockupProvider.cpp in Sources */,
 				AA2A150516202601AA000098 /* GSM3MobileMockupProvider.h in Sources */,
@@ -2547,6 +2748,7 @@
 				AA2A150516202601AA0000A3 /* GSM3MobileVoiceProvider.cpp in Sources */,
 				AA2A150516202601AA0000A4 /* GSM3MobileVoiceProvider.h in Sources */,
 				AA2A150516202601AA0000A5 /* GSM3ShieldV1.cpp in Sources */,
+				17DE93871B0BB091004D6D13 /* BlinkM.cpp in Sources */,
 				AA2A150516202601AA0000A6 /* GSM3ShieldV1.h in Sources */,
 				AA2A150516202601AA0000A7 /* GSM3ShieldV1AccessProvider.cpp in Sources */,
 				AA2A150516202601AA0000A8 /* GSM3ShieldV1AccessProvider.h in Sources */,
@@ -2589,14 +2791,18 @@
 				AA2A150516202601AA0000CF /* LiquidCrystal.cpp in Sources */,
 				AA2A150516202601AA0000D0 /* LiquidCrystal.h in Sources */,
 				AA2A150516202601AA0000D3 /* Arduino_LCD.cpp in Sources */,
+				17DE93901B0BB091004D6D13 /* planner.cpp in Sources */,
 				AA2A150516202601AA0000D4 /* Arduino_LCD.h in Sources */,
 				AA2A150516202601AA0000D5 /* ArduinoRobot.cpp in Sources */,
 				AA2A150516202601AA0000D6 /* ArduinoRobot.h in Sources */,
 				AA2A150516202601AA0000D7 /* communication.cpp in Sources */,
+				17DE939B1B0BB091004D6D13 /* ultralcd.cpp in Sources */,
 				AA2A150516202601AA0000D8 /* Compass.cpp in Sources */,
 				AA2A150516202601AA0000D9 /* Compass.h in Sources */,
+				17DE939A1B0BB091004D6D13 /* temperature.cpp in Sources */,
 				AA2A150516202601AA0000DA /* EasyTransfer2.cpp in Sources */,
 				AA2A150516202601AA0000DB /* EasyTransfer2.h in Sources */,
+				17DE939D1B0BB091004D6D13 /* watchdog.cpp in Sources */,
 				AA2A150516202601AA0000DC /* EEPROM_I2C.cpp in Sources */,
 				AA2A150516202601AA0000DD /* EEPROM_I2C.h in Sources */,
 				AA2A150516202601AA0000DE /* Fat16.cpp in Sources */,
@@ -2639,11 +2845,13 @@
 				AA2A150516202601AA000106 /* Multiplexer.cpp in Sources */,
 				AA2A150516202601AA000107 /* Multiplexer.h in Sources */,
 				AA2A150516202601AA00010B /* IRremote.cpp in Sources */,
+				17DE93981B0BB091004D6D13 /* stepper.cpp in Sources */,
 				AA2A150516202601AA00010C /* IRremote.h in Sources */,
 				AA2A150516202601AA00010D /* IRremoteInt.h in Sources */,
 				AA2A150516202601AA00010E /* IRremoteTools.cpp in Sources */,
 				1746A8041B084C7700FDBE19 /* Makefile in Sources */,
 				AA2A150516202601AA00010F /* IRremoteTools.h in Sources */,
+				17DE93891B0BB091004D6D13 /* Configuration.cpp in Sources */,
 				AA2A150516202601AA000112 /* File.cpp in Sources */,
 				AA2A150516202601AA000113 /* SD.cpp in Sources */,
 				AA2A150516202601AA000114 /* SD.h in Sources */,
@@ -2663,6 +2871,7 @@
 				AA2A150516202601AA000127 /* ServoTimers.h in Sources */,
 				AA2A150516202601AA000128 /* Servo.h in Sources */,
 				AA2A150516202601AA00012B /* SpacebrewYun.cpp in Sources */,
+				17DE938E1B0BB091004D6D13 /* MarlinSerial.cpp in Sources */,
 				AA2A150516202601AA00012C /* SpacebrewYun.h in Sources */,
 				AA2A150516202601AA00012F /* Stepper.cpp in Sources */,
 				AA2A150516202601AA000130 /* Stepper.h in Sources */,
@@ -2691,6 +2900,7 @@
 				AA2A150516202601AA00014B /* TembooGlobal.c in Sources */,
 				AA2A150516202601AA00014C /* TembooGlobal.h in Sources */,
 				AA2A150516202601AA00014D /* TembooSession.cpp in Sources */,
+				17DE93911B0BB091004D6D13 /* qr_solve.cpp in Sources */,
 				AA2A150516202601AA00014E /* TembooSession.h in Sources */,
 				AA2A150516202601AA00014F /* tmbhmac.cpp in Sources */,
 				AA2A150516202601AA000150 /* tmbhmac.h in Sources */,
@@ -2701,6 +2911,7 @@
 				AA2A150516202601AA000159 /* Adafruit_GFX.cpp in Sources */,
 				AA2A150516202601AA00015A /* Adafruit_GFX.h in Sources */,
 				AA2A150516202601AA00015B /* Adafruit_ST7735.cpp in Sources */,
+				17DE93991B0BB091004D6D13 /* SystemInfo.cpp in Sources */,
 				AA2A150516202601AA00015C /* Adafruit_ST7735.h in Sources */,
 				AA2A150516202601AA00015D /* glcdfont.c in Sources */,
 				AA2A150516202601AA00015E /* PImage.h in Sources */,
@@ -2717,6 +2928,7 @@
 				AA2A150516202601AA000172 /* printf-stdarg.c in Sources */,
 				AA2A150516202601AA000173 /* printf-stdarg.h in Sources */,
 				AA2A150516202601AA000178 /* arduino.h in Sources */,
+				17DE939C1B0BB091004D6D13 /* vector_3.cpp in Sources */,
 				AA2A150516202601AA000179 /* led.c in Sources */,
 				AA2A150516202601AA00017A /* led.h in Sources */,
 				AA2A150516202601AA00017B /* board.h in Sources */,
@@ -2754,8 +2966,10 @@
 				AA2A150516202601AA0001AF /* nlao_cpu.h in Sources */,
 				AA2A150516202601AA0001B0 /* nlao_exceptions.h in Sources */,
 				AA2A150516202601AA0001B1 /* nlao_interrupts.h in Sources */,
+				17DE93881B0BB091004D6D13 /* cardreader.cpp in Sources */,
 				AA2A150516202601AA0001B2 /* nlao_io.h in Sources */,
 				AA2A150516202601AA0001B3 /* nlao_usart.h in Sources */,
+				17DE93971B0BB091004D6D13 /* Servo.cpp in Sources */,
 				AA2A150516202601AA0001BA /* parts.h in Sources */,
 				AA2A150516202601AA0001BC /* mrepeat.h in Sources */,
 				AA2A150516202601AA0001BD /* preprocessor.h in Sources */,
@@ -2766,6 +2980,7 @@
 				AA2A150516202601AA0001C4 /* wl_fw.h in Sources */,
 				AA2A150516202601AA0001C5 /* wifi_dnld.cproj in Sources */,
 				AA2A150516202601AA0001C7 /* .cproject in Sources */,
+				17DE938F1B0BB091004D6D13 /* motion_control.cpp in Sources */,
 				AA2A150516202601AA0001C9 /* wifiHD.hex in Sources */,
 				AA2A150516202601AA0001CB /* ard_spi.c in Sources */,
 				AA2A150516202601AA0001CC /* ard_spi.h in Sources */,
@@ -2792,6 +3007,7 @@
 				AA2A150516202601AA0001E2 /* lwipopts.h in Sources */,
 				AA2A150516202601AA0001E3 /* main.c in Sources */,
 				AA2A150516202601AA0001E4 /* nvram.c in Sources */,
+				17DE93961B0BB091004D6D13 /* SdVolume.cpp in Sources */,
 				AA2A150516202601AA0001E5 /* nvram.h in Sources */,
 				AA2A150516202601AA0001E6 /* owl_os.c in Sources */,
 				AA2A150516202601AA0001E7 /* ping.c in Sources */,
