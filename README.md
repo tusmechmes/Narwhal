@@ -4,11 +4,11 @@ A Marlin (2015Q1) fork for LulzBot TAZ 4+ printers
 ## Goals
 After buying my dual extruder for my LulzBot TAZ4 I realized that I'd need to re-flash the firmware everytime I change exturders. Really annoying. So I've decided to upgrade the firmware and add a few features of my own. Overall I think that LulzBot is awesome and have great products and it's about time they have their own dedicated firmware as well.
 
-All the base features of Marlin ar kept intact, what I plan to do is slowly erode non-TAZ printers #defines to make the code more readible and add features to make the UI and navigation better.
+All the base features of Marlin are kept intact, what I plan to do is slowly erode non-TAZ printers #defines to make the code more readible and add features to make the UI and navigation better.
 
 Please note that this is unsupported work! so if I happen to introduce a bug that gets your extruder over heating please be kind and remember this disclaimer.
 
-Lastly, I would love if other developers want to contribute and improve the firmware. 
+Lastly, I would love it if other developers want to contribute and improve the firmware. 
 
 ## Added features:
   - "System" MENU (this is a major feature and the main reason to fork the firmware). This gives the ability to describe the "current setup" of the system:
@@ -21,7 +21,7 @@ Lastly, I would love if other developers want to contribute and improve the firm
   - Inline editing of values -  I figured that there is no need to open a new MENU just to edit a single value!
   - Preheat settings now automatically takes into account the actual installed fillaments and heats accordingly. i.e. removed the "Preheat PLA, ABS and HIPS" since most often I'm loading different fillaments in the extuders.
   - Rearanged some menus to improve accessibility to more common features faster
-  - Many small code simplifications and comments here and ther to keep track of the crazy #ifdef world of the code.
+  - Many small code simplifications and comments here and there to keep track of the crazy #ifdef world of the code.
   
 ## Planned features:
   - Long filenames 'ticker' (when highlighted the filename would slowly shift left to reveal the entire name). I found it that many times I'd name my files with a bunch of descriptions like (Fillament, nozzle dia, resolution etc) this makes a long enough filename for the LCD to handle, in addition many times I'd have more than 1 filename that starts exactly the same but ends just with 1 config change (e.g. resolution) this makes it extra hard to figure out which is which.
@@ -41,7 +41,7 @@ Lastly, I would love if other developers want to contribute and improve the firm
     - Ability to select out of 9 "center of mass" positions to print around. I found myself continuously printing at various corders to avoid re-shmearing ABS "glue" on the platform and avoid cooldown/heatup timely cycles. so would be nice to be able to specify: print on top-left cornet or "middle" or "left" etc.
     - Provide alerts (warnings)
       - File temp doesn't equal installed fillament temp
-      - # of extureders in file is more than installed extruders
+      - Number of extureders in file is more than installed extruders
   - Menus:
     - Show a "down" and "up" arrows on the left of the MENU screens if there are more MENU items below or above.
     - ? Start from line #2 for each menu. line #1 is always "back", when I navigate forward I always want to do an action and not go back... so on navigation forward I think that starting from line #2 makes more sense. + if the menu is longer than 1 screen I want the first line to be at position -1 in order to show more options in the first menu load.
