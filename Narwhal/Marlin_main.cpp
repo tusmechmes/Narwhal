@@ -185,6 +185,7 @@
 #ifdef SDSUPPORT
 CardReader card;
 #endif
+bool isInitialized = false;
 float homing_feedrate[] = HOMING_FEEDRATE;
 bool axis_relative_modes[] = AXIS_RELATIVE_MODES;
 int feedmultiply = 100; //100->1 200->2
@@ -515,6 +516,9 @@ void setup()
     }
     //
 #endif
+    
+    // mark that we finished initialization
+    isInitialized = true;
 }
 
 
