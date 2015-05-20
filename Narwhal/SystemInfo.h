@@ -79,6 +79,12 @@ public:
     bool si_FAN_SOFT_PWM = false;
     bool si_DISABLE_E = false;
     int si_FAN_KICKSTART_TIME = 0;
+    
+    uint8_t si_CASEFAN_SECS = 60;           // How many seconds, after all motors were disabled, the fan should run before going back to idle speed.
+    uint8_t si_CASEFAN_SPEED_FULL = 130;    // Full speed for when motor are active
+    uint8_t si_CASEFAN_SPEED_IDLE = 0;  	// Idle speed for when the motor have been inactive
+    uint8_t si_CASEFAN_SPEED_MAX = 255;  	// Maximum limit for the fan speed so it does not burn out. Use 128 for 12v fans with 24V Power Supplies
+    uint8_t si_CASEFAN_SPEED_MIN = 0;       // Minimum limit for the fan speed where it will start to spin from a stop without a push.
 
 //----- Methods -----//
 public:

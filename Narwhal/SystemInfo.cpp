@@ -251,13 +251,14 @@ void SystemInfo::Update()
 
 
         //----- Configuration_adv: -----//
-        //#define CASEFAN_SECS 60 //How many seconds, after all motors were disabled, the fan should run before going back to idle speed.
-        //#define CASEFAN_SPEED_FULL 130  // Full speed for when motor are active
-        //#define CASEFAN_SPEED_IDLE 0  	// Idle speed for when the motor have been inactive	
-        //#define CASEFAN_SPEED_MAX 255  	// Maximum limit for the fan speed so it does not burn out. Use 128 for 12v fans with 24V Power Supplies
-        //#define CASEFAN_SPEED_MIN 0	// Minimum limit for the fan speed where it will start to spin from a stop without a push.
-        si_FAN_KICKSTART_TIME = 0;
+        si_CASEFAN_SECS = 60;           // How many seconds, after all motors were disabled, the fan should run before going back to idle speed.
+        si_CASEFAN_SPEED_FULL = 130;    // Full speed for when motor are active
+        si_CASEFAN_SPEED_IDLE = 0;  	// Idle speed for when the motor have been inactive
+        si_CASEFAN_SPEED_MAX = 255;  	// Maximum limit for the fan speed so it does not burn out. Use 128 for 12v fans with 24V Power Supplies
+        si_CASEFAN_SPEED_MIN = 0;       // Minimum limit for the fan speed where it will start to spin from a stop without a push.
         
+        si_FAN_KICKSTART_TIME = 0;
+
         //#define DIGIPOT_MOTOR_CURRENT {175,175,240,135,135} // Values 0-255 (RAMBO 135 = ~0.75A, 185 = ~1A)
         // we can update the current settings only after we initialized and enabled all interrupts and SPI.begin()
         if (isInitialized)
@@ -285,11 +286,13 @@ void SystemInfo::Update()
 
 
         //----- Configuration_adv: -----//
-        //#define CASEFAN_SECS 15 //How many seconds, after all motors were disabled, the fan should run before going back to idle speed.
-        //#define CASEFAN_SPEED_FULL 100  // Full speed for when motor are active
-        //#define CASEFAN_SPEED_IDLE 70  	// Idle speed for when the motor have been inactive	
-        //#define CASEFAN_SPEED_MAX 128  	// Maximum limit for the fan speed so it does not burn out. Use 128 for 12v fans with 24V Power Supplies
-        //#define CASEFAN_SPEED_MIN 70	// Minimum limit for the fan speed where it will start to spin from a stop without a push.
+        // TODO - figure out why those case fan speeds so different from a single extruder, don't see any good reason
+        si_CASEFAN_SECS = 60;//15;           // How many seconds, after all motors were disabled, the fan should run before going back to idle speed.
+        si_CASEFAN_SPEED_FULL = 130;//100;    // Full speed for when motor are active
+        si_CASEFAN_SPEED_IDLE = 0;//70;  	// Idle speed for when the motor have been inactive
+        si_CASEFAN_SPEED_MAX = 255;//128;  	// Maximum limit for the fan speed so it does not burn out. Use 128 for 12v fans with 24V Power Supplies
+        si_CASEFAN_SPEED_MIN = 0;//70;      // Minimum limit for the fan speed where it will start to spin from a stop without a push.
+
         si_FAN_KICKSTART_TIME = 100;
 
         //#define DIGIPOT_MOTOR_CURRENT {175,175,220,160,160} // Values 0-255 (RAMBO 135 = ~0.75A, 185 = ~1A)
