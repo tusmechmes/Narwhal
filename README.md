@@ -12,7 +12,7 @@ Lastly, I would love it if other developers want to contribute and improve the f
 
 ## Added features:
   - "System" MENU (this is a major feature and the main reason to fork the firmware). This gives the ability to describe the "current setup" of the system:
-    - Select the extruder settings for each extruder #: type, nozzle size, loaded fillament, E steps per mm.
+    - Select the extruder settings for each extruder #: type, nozzle size, loaded fillament, E steps per mm, nozzle offset.
     - Ability to edit the fillament temp configuration inline.
     - Ability to leave the 2nd extruder as "Not Installed" - this will automatically change the system configuration between 1 and 2 extruders setup.
     - Change PIDC per Extuder type.
