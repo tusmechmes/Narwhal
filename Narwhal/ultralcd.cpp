@@ -94,6 +94,7 @@ static void menu_action_start_edit_bool(menuFunc_t callbackFunc, bool* ptr);
 static void menu_action_start_edit_uchar(menuFunc_t callbackFunc, unsigned char* ptr, unsigned char minValue, unsigned char maxValue);
 static void menu_action_start_edit_int3(menuFunc_t callbackFunc, int* ptr, int minValue, int maxValue);
 static void menu_action_start_edit_float3(menuFunc_t callbackFunc, float* ptr, float minValue, float maxValue);
+static void menu_action_start_edit_float31(menuFunc_t callbackFunc, float* ptr, float minValue, float maxValue);
 static void menu_action_start_edit_float32(menuFunc_t callbackFunc, float* ptr, float minValue, float maxValue);
 static void menu_action_start_edit_float5(menuFunc_t callbackFunc, float* ptr, float minValue, float maxValue);
 static void menu_action_start_edit_float51(menuFunc_t callbackFunc, float* ptr, float minValue, float maxValue);
@@ -219,7 +220,7 @@ volatile uint8_t slow_buttons;//Contains the bits of the currently pressed butto
 uint8_t currentMenuViewOffset;              /* scroll offset in the current menu */
 uint32_t blocking_enc;
 uint8_t lastEncoderBits;
-uint32_t encoderPosition;
+int encoderPosition;
 #if (SDCARDDETECT > 0)
 bool lcd_oldcardstatus;
 #endif
@@ -257,26 +258,26 @@ static void lcd_status_screen()
     }
 
     // Dead zone at 100% feedrate
-    if ((feedmultiply < 100 && (feedmultiply + int(encoderPosition)) > 100) ||
-        (feedmultiply > 100 && (feedmultiply + int(encoderPosition)) < 100))
+    if ((feedmultiply < 100 && (feedmultiply + encoderPosition) > 100) ||
+        (feedmultiply > 100 && (feedmultiply + encoderPosition) < 100))
     {
         encoderPosition = 0;
         feedmultiply = 100;
     }
 
-    if (feedmultiply == 100 && int(encoderPosition) > ENCODER_FEEDRATE_DEADZONE)
+    if (feedmultiply == 100 && encoderPosition > ENCODER_FEEDRATE_DEADZONE)
     {
-        feedmultiply += int(encoderPosition) - ENCODER_FEEDRATE_DEADZONE;
+        feedmultiply += encoderPosition - ENCODER_FEEDRATE_DEADZONE;
         encoderPosition = 0;
     }
-    else if (feedmultiply == 100 && int(encoderPosition) < -ENCODER_FEEDRATE_DEADZONE)
+    else if (feedmultiply == 100 && encoderPosition < -ENCODER_FEEDRATE_DEADZONE)
     {
-        feedmultiply += int(encoderPosition) + ENCODER_FEEDRATE_DEADZONE;
+        feedmultiply += encoderPosition + ENCODER_FEEDRATE_DEADZONE;
         encoderPosition = 0;
     }
     else if (feedmultiply != 100)
     {
-        feedmultiply += int(encoderPosition);
+        feedmultiply += encoderPosition;
         encoderPosition = 0;
     }
 
@@ -363,12 +364,19 @@ static void lcd_system_extruder()
     // only show more selections if the extruder is installed
     if (systemInfo.Extruders[extruderId]->type != EXTRUDER_TYPE_NOT_INSTALLED)
     {
-        //MENU_ITEM_EDIT_CALLBACK(nozzle_diameter, "Nozzle Diameter", refresh_system_settings, &systemInfo.Extruders[extruderId]->activeFillament, 0, 1);
-        MENU_ITEM_EDIT(float51, MSG_ESTEPS, &systemInfo.Extruders[extruderId]->stepsPerUnit, 5, 9999);
         MENU_ITEM_EDIT_CALLBACK(fillament, MSG_LOADED_FILLAMENT, refresh_system_settings, &systemInfo.Extruders[extruderId]->activeFillament, 0, FILLAMENT_COUNT - 1);
         MENU_ITEM_EDIT(int3, " HotEnd Temp", systemInfo.Extruders[extruderId]->pFillamentHotEndTemp, 0, systemInfo.Extruders[extruderId]->heater_MaxTemp - 15);
         MENU_ITEM_EDIT(uchar, " Bed Temp", systemInfo.Extruders[extruderId]->pFillamentHPBTemp, 0, BED_MAXTEMP - 15);
         MENU_ITEM_EDIT(uchar, " Fan Speed", systemInfo.Extruders[extruderId]->pFillamentFanSpeed, 0, 255);
+
+        //MENU_ITEM_EDIT_CALLBACK(nozzle_diameter, "Nozzle Diameter", refresh_system_settings, &systemInfo.Extruders[extruderId]->activeFillament, 0, 1);
+
+        // offset: for extruder 1 (id=0) we don't allow the user to edit the offset - it's always set to 0
+        MENU_ITEM(function, MSG_NOZZLE_OFFSET, do_nothing);
+        MENU_ITEM_EDIT(float31, " X", &EXTRUDER_OFFSET(extruderId)[X_AXIS], (extruderId == 0) ? 0 : -20.0, (extruderId == 0) ? 0 : 20.0);
+        MENU_ITEM_EDIT(float31, " Y", &EXTRUDER_OFFSET(extruderId)[Y_AXIS], (extruderId == 0) ? 0 : -80.0, (extruderId == 0) ? 0 : 0);
+
+        MENU_ITEM_EDIT(float51, MSG_ESTEPS, &systemInfo.Extruders[extruderId]->stepsPerUnit, 5, 9999);
 
 #ifdef PIDTEMP
         MENU_ITEM(function, MSG_PID, do_nothing);
@@ -871,8 +879,6 @@ static void lcd_control_motion_menu()
     MENU_ITEM_EDIT(float52, MSG_XSTEPS, &axis_steps_per_unit[X_AXIS], 5, 9999);
     MENU_ITEM_EDIT(float52, MSG_YSTEPS, &axis_steps_per_unit[Y_AXIS], 5, 9999);
     MENU_ITEM_EDIT(float51, MSG_ZSTEPS, &axis_steps_per_unit[Z_AXIS], 5, 9999);
-    //MENU_ITEM_EDIT(float51, MSG_NOZZLE2_OFFSET_X, &extruder_offset[X_AXIS][1], -20, 20);
-    //MENU_ITEM_EDIT(float51, MSG_NOZZLE2_OFFSET_Y, &extruder_offset[Y_AXIS][1], -72, -32);
 #ifdef ABORT_ON_ENDSTOP_HIT_FEATURE_ENABLED
     MENU_ITEM_EDIT(bool, "Endstop abort", &abort_on_endstop_hit);
 #endif
@@ -982,19 +988,19 @@ void lcd_sdcard_menu()
         if ((int32_t)encoderPosition > maxEditValue) \
             encoderPosition = maxEditValue; \
         if (*((_type*)editValue) != ((_type)encoderPosition) / scale) \
-                {\
+        {\
             *((_type*)editValue) = ((_type)encoderPosition) / scale; \
             lcd_quick_feedback(); \
-                }\
+        }\
         if (LCD_CLICKED) \
-                { \
+        { \
             encoderPosition = savedEncoderPosition; \
-            savedEncoderPosition = -1; \
-            if (callbackFunc != NULL) \
-                (*callbackFunc)(); \
-            inlineEditMenu = NULL; \
-            lcd_quick_feedback(); \
-                } \
+            savedEncoderPosition = -1;  \
+            if (callbackFunc != NULL)   \
+                (*callbackFunc)();      \
+            inlineEditMenu = NULL;      \
+            lcd_quick_feedback();       \
+        } \
     } \
     static void menu_action_start_edit_ ## _name (menuFunc_t callback, _type* ptr, _type minValue, _type maxValue) \
     { \
@@ -1003,15 +1009,16 @@ void lcd_sdcard_menu()
         lcdDrawUpdate = 2; \
         inlineEditMenu = menu_edit_callback_ ## _name; \
          \
-        editValue = ptr; \
-        minEditValue = minValue * scale; \
-        maxEditValue = maxValue * scale; \
-        encoderPosition = (*ptr) * scale; \
-        callbackFunc = callback;\
+        editValue = ptr;                    \
+        minEditValue = minValue * scale;    \
+        maxEditValue = maxValue * scale;    \
+        encoderPosition = (*ptr) * scale;   \
+        callbackFunc = callback;            \
     }
 menu_edit_type(uchar, unsigned char, 1)
 menu_edit_type(int3, int, 1)
 menu_edit_type(float3, float, 1)
+menu_edit_type(float31, float, 10)
 menu_edit_type(float32, float, 100)
 menu_edit_type(float5, float, 0.01)
 menu_edit_type(float51, float, 10)

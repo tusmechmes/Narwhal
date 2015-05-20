@@ -12,7 +12,6 @@ void digipot_current(uint8_t driver, int current);
 
 extern float homing_feedrate[];
 extern float max_feedrate[4]; // set the max speeds
-//extern float extruder_offset[NUM_EXTRUDER_OFFSETS][MAX_EXTRUDERS];
 extern bool isInitialized;
 
 
@@ -192,6 +191,26 @@ void SystemInfo::LoadDefaults()
         if (this->Extruders[i] != NULL)
         {
             this->Extruders[i]->LoadDefaults();
+
+            if (i == 0)
+            {
+                //#define EXTRUDER_OFFSET_X {0.0, 0.00} // (in mm) for each extruder, offset of the hotend on the X axis
+                this->Extruders[0]->nozzleOffset[X_AXIS] = 0.0;
+                this->Extruders[0]->nozzleOffset[Y_AXIS] = 0.0;
+#ifdef DUAL_X_CARRIAGE
+                this->Extruders[0]->nozzleOffset[Z_AXIS] = 0.0;
+#endif
+            }
+            else
+            {
+                //#define EXTRUDER_OFFSET_Y {0.0, -52.00}  // (in mm) for each extruder, offset of the hotend on the Y axis
+                this->Extruders[i]->nozzleOffset[X_AXIS] = 0.0;
+                this->Extruders[i]->nozzleOffset[Y_AXIS] = -52.0;
+#ifdef DUAL_X_CARRIAGE
+                this->Extruders[i]->nozzleOffset[Z_AXIS] = 0.0;
+#endif
+            }
+
         }
     }
     
@@ -227,13 +246,6 @@ void SystemInfo::Update()
         //#define DEFAULT_MAX_FEEDRATE          {800, 800, 8, 50}      // (mm/sec)
         max_feedrate[2] = 8;
 
-        ////#define EXTRUDER_OFFSET_X {0.0, 0.00} // (in mm) for each extruder, offset of the hotend on the X axis
-        //extruder_offset[0][0] = 0.0;
-        //extruder_offset[0][1] = 0.0;
-        ////#define EXTRUDER_OFFSET_Y {0.0, -52.00}  // (in mm) for each extruder, offset of the hotend on the Y axis
-        //extruder_offset[1][0] = 0.0;
-        //extruder_offset[1][1] = 0.0;
-
         si_FAST_PWM_FAN = true;
         si_FAN_SOFT_PWM = false;
 
@@ -267,10 +279,6 @@ void SystemInfo::Update()
 
         //#define DEFAULT_MAX_FEEDRATE          {800, 800, 3, 50}      // (mm/sec)
         max_feedrate[2] = 3;
-
-        //#define EXTRUDER_OFFSET_X {0.0, 0.00} // (in mm) for each extruder, offset of the hotend on the X axis
-        //#define EXTRUDER_OFFSET_Y {0.0, 0.00}  // (in mm) for each extruder, offset of the hotend on the Y axis
-
 
         si_FAST_PWM_FAN = false;
         si_FAN_SOFT_PWM = true;

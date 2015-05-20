@@ -23,6 +23,9 @@ public:
     // extruder steps per unit
     float stepsPerUnit = DEFAULT_EXTRUDER_STEPS_PER_UNIT;
     
+    // extruder offset
+    float nozzleOffset[NUM_EXTRUDER_OFFSETS] = { 0 };
+    
 #ifdef PIDTEMP
     // current settings for PID
     float work_Kp = 6;

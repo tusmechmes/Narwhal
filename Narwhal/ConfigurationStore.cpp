@@ -47,7 +47,6 @@ void Config_StoreSettings()
   int i=EEPROM_OFFSET;
   EEPROM_WRITE_VAR(i,ver); // invalidate data first 
   EEPROM_WRITE_VAR(i,axis_steps_per_unit); 
-  //EEPROM_WRITE_VAR(i,extruder_offset);
   EEPROM_WRITE_VAR(i,max_feedrate);  
   EEPROM_WRITE_VAR(i,max_acceleration_units_per_sq_second);
   EEPROM_WRITE_VAR(i,acceleration);
@@ -73,6 +72,7 @@ void Config_StoreSettings()
         EEPROM_WRITE_VAR(i, systemInfo.Extruders[e]->activeFillament);
         EEPROM_WRITE_VAR(i, systemInfo.Extruders[e]->nozzleDiameter);
         EEPROM_WRITE_VAR(i, systemInfo.Extruders[e]->stepsPerUnit);
+        EEPROM_WRITE_VAR(i, systemInfo.Extruders[e]->nozzleOffset);
         // PID: do not need to un-scale PID values we save the as is to the EEPROM
         #ifdef PIDTEMP
         EEPROM_WRITE_VAR(i, systemInfo.Extruders[e]->work_Kp);
@@ -109,7 +109,6 @@ void Config_RetrieveSettings()
     {
         // version number match
         EEPROM_READ_VAR(i,axis_steps_per_unit);
-        //EEPROM_READ_VAR(i,extruder_offset);
         EEPROM_READ_VAR(i,max_feedrate);  
         EEPROM_READ_VAR(i,max_acceleration_units_per_sq_second);
         
@@ -139,7 +138,8 @@ void Config_RetrieveSettings()
             EEPROM_READ_VAR(i, systemInfo.Extruders[e]->activeFillament);
             EEPROM_READ_VAR(i, systemInfo.Extruders[e]->nozzleDiameter);
             EEPROM_READ_VAR(i, systemInfo.Extruders[e]->stepsPerUnit);
-            // PID: do not need to scale PID values as the values in EEPROM are already scaled		
+            EEPROM_READ_VAR(i, systemInfo.Extruders[e]->nozzleOffset);
+            // PID: do not need to scale PID values as the values in EEPROM are already scaled
             #ifdef PIDTEMP
             EEPROM_READ_VAR(i, systemInfo.Extruders[e]->work_Kp);
             EEPROM_READ_VAR(i, systemInfo.Extruders[e]->work_Ki);
@@ -195,16 +195,6 @@ void Config_ResetDefault()
     
     // steps per sq second need to be updated to agree with the units per sq second
     reset_acceleration_rates();
-    
-    // Extruder offset
-    //for(short i=0; i<2; i++)
-    //{
-        //float e_offset_x[] = EXTRUDER_OFFSET_X;
-        //float e_offset_y[] = EXTRUDER_OFFSET_Y;
-        
-        //extruder_offset[0][i]=e_offset_x[i];
-        //extruder_offset[1][i]=e_offset_y[i];
-    //}
 
     acceleration=DEFAULT_ACCELERATION;
     retract_acceleration=DEFAULT_RETRACT_ACCELERATION;

@@ -170,8 +170,7 @@
     #define MSG_ZPROBE_OUT "ZProbe Outside Bed"
     #define MSG_POSITION_UNKNOWN "Home X/Y before Z"
     #define MSG_ZPROBE_ZOFFSET "Z Offset"
-    //#define MSG_NOZZLE2_OFFSET_X "N2 X Offset"
-    //#define MSG_NOZZLE2_OFFSET_Y "N2 Y Offset"
+    #define MSG_NOZZLE_OFFSET "Nozzle Offset"
 
     // System menu
     #define MSG_SYSTEM "System"
