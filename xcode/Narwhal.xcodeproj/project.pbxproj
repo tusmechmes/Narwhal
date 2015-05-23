@@ -586,6 +586,7 @@
 		17DE93841B0BB091004D6D13 /* vector_3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vector_3.h; path = ../../Narwhal/vector_3.h; sourceTree = "<group>"; };
 		17DE93851B0BB091004D6D13 /* watchdog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = watchdog.cpp; path = ../../Narwhal/watchdog.cpp; sourceTree = "<group>"; };
 		17DE93861B0BB091004D6D13 /* watchdog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = watchdog.h; path = ../../Narwhal/watchdog.h; sourceTree = "<group>"; };
+		17DE93A31B0D3DD5004D6D13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		AAAA150516202601AA000006 /* abi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = abi.cpp; sourceTree = "<group>"; };
 		AAAA150516202601AA000007 /* Arduino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arduino.h; sourceTree = "<group>"; };
 		AAAA150516202601AA000008 /* binary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = binary.h; sourceTree = "<group>"; };
@@ -996,6 +997,7 @@
 		1746A7261B08414C00FDBE19 /* Narwhal */ = {
 			isa = PBXGroup;
 			children = (
+				17DE93A31B0D3DD5004D6D13 /* README.md */,
 				17DE93481B0BB06F004D6D13 /* Narwhal.source */,
 				1746A8031B084C7700FDBE19 /* Makefile */,
 				1746A72F1B08414C00FDBE19 /* Sketchbook */,
