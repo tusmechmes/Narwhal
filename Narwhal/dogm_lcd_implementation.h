@@ -453,6 +453,16 @@ void lcd_implementation_drawedit(const char* pstr, const char* value)
     u8g.print(value);
 }
 
+//void lcd_implementation_draw_value(const char* pstr, const char* value, int row)
+//{
+//    u8g.setPrintPos(0 * DOG_CHAR_WIDTH_LARGE, (row + 1) * DOG_CHAR_HEIGHT);
+//    u8g.setFont(u8g_font_7x13);
+//    lcd_printPGM(pstr);
+//    u8g.print(':');
+//    u8g.setPrintPos((18 - strlen(value)) * DOG_CHAR_WIDTH_LARGE, (row + 1) * DOG_CHAR_HEIGHT);
+//    u8g.print(value);
+//}
+
 static void lcd_implementation_drawmenu_sdfile_selected(uint8_t row, const char* pstr, const char* filename, char* longFilename)
 {
     char c;

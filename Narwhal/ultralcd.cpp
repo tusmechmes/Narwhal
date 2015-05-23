@@ -709,6 +709,7 @@ static void lcd_move_z()
 }
 static void lcd_move_e()
 {
+    active_extruder = currentMenu_param1;
     if (encoderPosition != 0)
     {
         current_position[E_AXIS] += float((int)encoderPosition) * move_menu_scale;
@@ -740,7 +741,11 @@ static void lcd_move_menu_axis()
     if (move_menu_scale < 10.0)
     {
         MENU_ITEM(submenu, "Move Z", lcd_move_z);
-        MENU_ITEM(submenu, "Extruder", lcd_move_e);
+        MENU_ITEM(submenu, "Extruder 1", lcd_move_e, 0);
+        if (INSTALLED_EXTRUDERS > 1)
+        {
+            MENU_ITEM(submenu, "Extruder 2", lcd_move_e, 1);
+        }
     }
     END_MENU();
 }
