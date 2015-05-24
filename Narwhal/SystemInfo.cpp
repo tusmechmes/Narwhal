@@ -5,8 +5,8 @@
 #include "SystemInfo.h"
 #include "temperature.h"
 
-const char *fillament_tostr(const int &x);
-const char *fillament_tostr_short(const int &x);
+const char *filament_tostr(const int &x);
+const char *filament_tostr_short(const int &x);
 const char *extruder_tostr(const int &x);
 void digipot_current(uint8_t driver, int current);
 
@@ -22,8 +22,8 @@ ExtruderInfo::ExtruderInfo(uint8_t type)
     LoadDefaults();
 }
 
-// Helper string to represent the extruder name and fillament: Extruder (Fill)
-// Name[4] + ' ('[2] + fillament[5] + ')'[1] + 0[1]   example: "Buda (ABS)"
+// Helper string to represent the extruder name and filament: Extruder (Fill)
+// Name[4] + ' ('[2] + filament[5] + ')'[1] + 0[1]   example: "Buda (ABS)"
 char tostring[13] = { 0 };
 
 const char* ExtruderInfo::ToString()
@@ -32,7 +32,7 @@ const char* ExtruderInfo::ToString()
         return MSG_EXTRUDER_NOTINSTALLED;
 
     const char* name = extruder_tostr(this->type);
-    const char* fillament = fillament_tostr_short(this->activeFillament);
+    const char* filament = filament_tostr_short(this->activeFillament);
     tostring[0] = name[0];
     tostring[1] = name[1];
     tostring[2] = name[2];
@@ -40,8 +40,8 @@ const char* ExtruderInfo::ToString()
     tostring[4] = ' ';
     tostring[5] = '(';
     uint8_t n = 0;
-    while (fillament[n] != 0)
-        tostring[6 + n] = fillament[n++];
+    while (filament[n] != 0)
+        tostring[6 + n] = filament[n++];
     tostring[6 + n] = ')';
     tostring[6 + n + 1] = 0;
     return tostring;
@@ -57,29 +57,29 @@ void ExtruderInfo::Update()
     {
         // Buda 2.0 on 24V
     case EXTRUDER_TYPE_BUDASCHNOZZLE:
-        // point the current fillament values to the right place
-        this->pFillamentHotEndTemp = ((int*)&fillamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][this->activeFillament][ID_HOTEND_TEMP]);
-        this->pFillamentHPBTemp = &fillamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][this->activeFillament][ID_HPB_TEMP];
-        this->pFillamentFanSpeed = &fillamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][this->activeFillament][ID_FAN_SPEED];
-        this->pFillamentInfo = &fillamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][this->activeFillament][ID_INFO];
+        // point the current filament values to the right place
+        this->pFillamentHotEndTemp = ((int*)&filamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][this->activeFillament][ID_HOTEND_TEMP]);
+        this->pFillamentHPBTemp = &filamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][this->activeFillament][ID_HPB_TEMP];
+        this->pFillamentFanSpeed = &filamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][this->activeFillament][ID_FAN_SPEED];
+        this->pFillamentInfo = &filamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][this->activeFillament][ID_INFO];
         break;
 
         // AO-Hexagon (24V)
     case EXTRUDER_TYPE_HEXAGON:
-        // point the current fillament values to the right place
-        this->pFillamentHotEndTemp = ((int*)&fillamentConfig[EXTRUDER_TYPE_HEXAGON][this->activeFillament][ID_HOTEND_TEMP]);
-        this->pFillamentHPBTemp = &fillamentConfig[EXTRUDER_TYPE_HEXAGON][this->activeFillament][ID_HPB_TEMP];
-        this->pFillamentFanSpeed = &fillamentConfig[EXTRUDER_TYPE_HEXAGON][this->activeFillament][ID_FAN_SPEED];
-        this->pFillamentInfo = &fillamentConfig[EXTRUDER_TYPE_HEXAGON][this->activeFillament][ID_INFO];
+        // point the current filament values to the right place
+        this->pFillamentHotEndTemp = ((int*)&filamentConfig[EXTRUDER_TYPE_HEXAGON][this->activeFillament][ID_HOTEND_TEMP]);
+        this->pFillamentHPBTemp = &filamentConfig[EXTRUDER_TYPE_HEXAGON][this->activeFillament][ID_HPB_TEMP];
+        this->pFillamentFanSpeed = &filamentConfig[EXTRUDER_TYPE_HEXAGON][this->activeFillament][ID_FAN_SPEED];
+        this->pFillamentInfo = &filamentConfig[EXTRUDER_TYPE_HEXAGON][this->activeFillament][ID_INFO];
         break;
 
         // BUGBUG - need the actual settings of the flexystruder, at the moment it is an exact copy of the budaschnozzle
     case EXTRUDER_TYPE_FLEXYSTRUDER:
-        // point the current fillament values to the right place
-        this->pFillamentHotEndTemp = ((int*)&fillamentConfig[EXTRUDER_TYPE_FLEXYSTRUDER][this->activeFillament][ID_HOTEND_TEMP]);
-        this->pFillamentHPBTemp = &fillamentConfig[EXTRUDER_TYPE_FLEXYSTRUDER][this->activeFillament][ID_HPB_TEMP];
-        this->pFillamentFanSpeed = &fillamentConfig[EXTRUDER_TYPE_FLEXYSTRUDER][this->activeFillament][ID_FAN_SPEED];
-        this->pFillamentInfo = &fillamentConfig[EXTRUDER_TYPE_FLEXYSTRUDER][this->activeFillament][ID_INFO];
+        // point the current filament values to the right place
+        this->pFillamentHotEndTemp = ((int*)&filamentConfig[EXTRUDER_TYPE_FLEXYSTRUDER][this->activeFillament][ID_HOTEND_TEMP]);
+        this->pFillamentHPBTemp = &filamentConfig[EXTRUDER_TYPE_FLEXYSTRUDER][this->activeFillament][ID_HPB_TEMP];
+        this->pFillamentFanSpeed = &filamentConfig[EXTRUDER_TYPE_FLEXYSTRUDER][this->activeFillament][ID_FAN_SPEED];
+        this->pFillamentInfo = &filamentConfig[EXTRUDER_TYPE_FLEXYSTRUDER][this->activeFillament][ID_INFO];
         break;
     }
 }
@@ -106,7 +106,7 @@ void ExtruderInfo::LoadDefaults()
         //----- Dynamic settings -----//
         this->nozzleDiameter = INFO_NOZZLE_0_35;
         this->stepsPerUnit = DEFAULT_EXTRUDER_STEPS_PER_UNIT;
-        this->activeFillament = FILLAMENT_ABS;
+        this->activeFillament = FILAMENT_ABS;
 #ifdef PIDTEMP
         this->work_Kp = default_Kp;
         this->work_Ki = default_Ki;
@@ -132,7 +132,7 @@ void ExtruderInfo::LoadDefaults()
         //----- Dynamic settings -----//
         this->nozzleDiameter = INFO_NOZZLE_0_35;
         this->stepsPerUnit = DEFAULT_EXTRUDER_STEPS_PER_UNIT;
-        this->activeFillament = FILLAMENT_ABS;
+        this->activeFillament = FILAMENT_ABS;
 #ifdef PIDTEMP
         this->work_Kp = default_Kp;
         this->work_Ki = default_Ki;
@@ -158,7 +158,7 @@ void ExtruderInfo::LoadDefaults()
         //----- Dynamic settings -----//
         this->nozzleDiameter = INFO_NOZZLE_0_50;
         this->stepsPerUnit = DEFAULT_EXTRUDER_STEPS_PER_UNIT;
-        this->activeFillament = FILLAMENT_FLEXIBLE;
+        this->activeFillament = FILAMENT_FLEXIBLE;
 #ifdef PIDTEMP
         this->work_Kp = default_Kp;
         this->work_Ki = default_Ki;
@@ -168,7 +168,7 @@ void ExtruderInfo::LoadDefaults()
         break;
     }
 
-    // lastly, update the fillament settings
+    // lastly, update the filament settings
     this->Update();
 }
 

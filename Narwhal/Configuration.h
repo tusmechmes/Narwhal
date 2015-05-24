@@ -457,18 +457,18 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 //#define EEPROM_CHITCHAT
 
 // Fillament index
-#define FILLAMENT_ABS (0)
-#define FILLAMENT_PLA (1)
-#define FILLAMENT_HIPS (2)
-#define FILLAMENT_FLEXIBLE (3)
-#define FILLAMENT_LAYBRICK (4)
-#define FILLAMENT_LAYWOO_D3 (5)
-#define FILLAMENT_NYLON_618 (6)
-#define FILLAMENT_NYLON_645 (7)
-#define FILLAMENT_NYLON_BRIDGE (8)
-#define FILLAMENT_PVA (9)
-#define FILLAMENT_T_GLASE (10)
-#define FILLAMENT_COUNT (11)
+#define FILAMENT_ABS (0)
+#define FILAMENT_PLA (1)
+#define FILAMENT_HIPS (2)
+#define FILAMENT_FLEXIBLE (3)
+#define FILAMENT_LAYBRICK (4)
+#define FILAMENT_LAYWOO_D3 (5)
+#define FILAMENT_NYLON_618 (6)
+#define FILAMENT_NYLON_645 (7)
+#define FILAMENT_NYLON_BRIDGE (8)
+#define FILAMENT_PVA (9)
+#define FILAMENT_T_GLASE (10)
+#define FILAMENT_COUNT (11)
 
 // Fillament preheat index
 // HOTEND temp is a short and uses chars 0 and 1
@@ -480,8 +480,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define INFO_NOZZLE_0_50 (1)
 #define INFO_NOZZLE_0_35 (2)
 
-extern unsigned char fillamentConfig[EXTRUDER_TYPE_COUNT][FILLAMENT_COUNT][5];
-#define FILLAMENT_CONFIG_ARRAY_SIZE     (EXTRUDER_TYPE_COUNT * FILLAMENT_COUNT * 5)
+extern unsigned char filamentConfig[EXTRUDER_TYPE_COUNT][FILAMENT_COUNT][5];
+#define FILAMENT_CONFIG_ARRAY_SIZE     (EXTRUDER_TYPE_COUNT * FILAMENT_COUNT * 5)
 
 //LCD and SD support
 //#define ULTRA_LCD  //general lcd support, also 16x2

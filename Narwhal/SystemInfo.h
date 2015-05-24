@@ -14,8 +14,8 @@ public:
     // defaults to Budaschnozzle to avoid catastrophic issues when instantiating (wrongly) this base class and using it
     char type = EXTRUDER_TYPE_BUDASCHNOZZLE;
 
-    // The currently installed fillament
-    unsigned char activeFillament = FILLAMENT_ABS;
+    // The currently installed filament
+    unsigned char activeFillament = FILAMENT_ABS;
 
     // the currently installed nozzle
     unsigned char nozzleDiameter = INFO_NOZZLE_0_35;    // can't edit this one yet
@@ -48,10 +48,10 @@ public:
     uint8_t default_Max_E_FeedRate = 50;      // (mm/sec)
 
     // int16_t and int - are those the same here?
-    int *pFillamentHotEndTemp = ((int*)&fillamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][FILLAMENT_ABS][ID_HOTEND_TEMP]);
-    unsigned char *pFillamentHPBTemp = &fillamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][FILLAMENT_ABS][ID_HPB_TEMP];
-    unsigned char *pFillamentFanSpeed = &fillamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][FILLAMENT_ABS][ID_FAN_SPEED];
-    unsigned char *pFillamentInfo = &fillamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][FILLAMENT_ABS][ID_INFO];
+    int *pFillamentHotEndTemp = ((int*)&filamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][FILAMENT_ABS][ID_HOTEND_TEMP]);
+    unsigned char *pFillamentHPBTemp = &filamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][FILAMENT_ABS][ID_HPB_TEMP];
+    unsigned char *pFillamentFanSpeed = &filamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][FILAMENT_ABS][ID_FAN_SPEED];
+    unsigned char *pFillamentInfo = &filamentConfig[EXTRUDER_TYPE_BUDASCHNOZZLE][FILAMENT_ABS][ID_INFO];
 
 //----- Functions -----//
 public:

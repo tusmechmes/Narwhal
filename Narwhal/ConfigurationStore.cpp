@@ -62,8 +62,8 @@ void Config_StoreSettings()
   EEPROM_WRITE_VAR(i,endstop_adj);
   #endif
 
-  // write all fillament constants
-  _EEPROM_writeData(i, (uint8_t*)fillamentConfig, FILLAMENT_CONFIG_ARRAY_SIZE);
+  // write all filament constants
+  _EEPROM_writeData(i, (uint8_t*)filamentConfig, FILAMENT_CONFIG_ARRAY_SIZE);
 
   // write the extruders config
   for (int e = 0; e < MAX_EXTRUDERS; e++)
@@ -128,8 +128,8 @@ void Config_RetrieveSettings()
         EEPROM_READ_VAR(i,endstop_adj);
         #endif
 
-        // read all fillament constants
-        _EEPROM_readData(i, (uint8_t*)fillamentConfig, FILLAMENT_CONFIG_ARRAY_SIZE);
+        // read all filament constants
+        _EEPROM_readData(i, (uint8_t*)filamentConfig, FILAMENT_CONFIG_ARRAY_SIZE);
 
         // read the extruders config
         for (int e = 0; e < MAX_EXTRUDERS; e++)
@@ -176,7 +176,7 @@ void Config_RetrieveSettings()
 void Config_ResetDefault()
 {
     // init any needed default configurations
-    // 1. fillament configurations
+    // 1. filament configurations
     configuration_init();
 
     // reset the system info settings to default

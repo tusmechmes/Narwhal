@@ -49,8 +49,8 @@ static void lcd_prepare_menu();
 static void lcd_move_menu();
 static void lcd_control_menu();
 static void lcd_control_temperature_menu();
-static void lcd_control_temperature_fillament_settings_menu();
-static void lcd_control_temperature_fillament_settings_values_menu();
+static void lcd_control_temperature_filament_settings_menu();
+static void lcd_control_temperature_filament_settings_values_menu();
 static void lcd_control_temperature_preheat_abs_settings_menu();
 static void lcd_control_motion_menu();
 
@@ -88,7 +88,7 @@ int32_t maxEditValue;
 menuFunc_t callbackFunc;
 
 // pstr is a prefix (label) to be printed before the value.
-static void menu_action_start_edit_fillament(menuFunc_t callbackFunc, unsigned char* ptr, unsigned char minValue, unsigned char maxValue);
+static void menu_action_start_edit_filament(menuFunc_t callbackFunc, unsigned char* ptr, unsigned char minValue, unsigned char maxValue);
 static void menu_action_start_edit_extruder(menuFunc_t callbackFunc, char* ptr, char minValue, char maxValue);
 static void menu_action_start_edit_bool(menuFunc_t callbackFunc, bool* ptr);
 static void menu_action_start_edit_uchar(menuFunc_t callbackFunc, unsigned char* ptr, unsigned char minValue, unsigned char maxValue);
@@ -364,7 +364,7 @@ static void lcd_system_extruder()
     // only show more selections if the extruder is installed
     if (systemInfo.Extruders[extruderId]->type != EXTRUDER_TYPE_NOT_INSTALLED)
     {
-        MENU_ITEM_EDIT_CALLBACK(fillament, MSG_LOADED_FILLAMENT, refresh_system_settings, &systemInfo.Extruders[extruderId]->activeFillament, 0, FILLAMENT_COUNT - 1);
+        MENU_ITEM_EDIT_CALLBACK(filament, MSG_LOADED_FILAMENT, refresh_system_settings, &systemInfo.Extruders[extruderId]->activeFillament, 0, FILAMENT_COUNT - 1);
         MENU_ITEM_EDIT(int3, " HotEnd Temp", systemInfo.Extruders[extruderId]->pFillamentHotEndTemp, 0, systemInfo.Extruders[extruderId]->heater_MaxTemp - 15);
         MENU_ITEM_EDIT(uchar, " Bed Temp", systemInfo.Extruders[extruderId]->pFillamentHPBTemp, 0, BED_MAXTEMP - 15);
         MENU_ITEM_EDIT(uchar, " Fan Speed", systemInfo.Extruders[extruderId]->pFillamentFanSpeed, 0, 255);
@@ -588,11 +588,11 @@ static void lcd_prepare_menu()
     MENU_ITEM(function, MSG_AUTOSTART, lcd_autostart_sd);
 #endif
 #endif
-    String s = fillament_tostr_short(systemInfo.Extruders[0]->activeFillament);
+    String s = filament_tostr_short(systemInfo.Extruders[0]->activeFillament);
     s.concat("|");
     if (INSTALLED_EXTRUDERS > 1)
     {
-        s.concat(fillament_tostr_short(systemInfo.Extruders[1]->activeFillament));
+        s.concat(filament_tostr_short(systemInfo.Extruders[1]->activeFillament));
     }
     else
     {
@@ -819,41 +819,41 @@ static void lcd_control_temperature_menu()
     MENU_ITEM_EDIT(float3, MSG_MAX, &autotemp_max, 0, HEATER_0_MAXTEMP - 15);
     MENU_ITEM_EDIT(float32, MSG_FACTOR, &autotemp_factor, 0.0, 1.0);
 #endif
-    MENU_ITEM(submenu, MSG_PREHEAT_SETTINGS, lcd_control_temperature_fillament_settings_menu);
+    MENU_ITEM(submenu, MSG_PREHEAT_SETTINGS, lcd_control_temperature_filament_settings_menu);
     END_MENU();
 }
 
-static void lcd_control_temperature_fillament_settings_menu()
+static void lcd_control_temperature_filament_settings_menu()
 {
     START_MENU();
     MENU_ITEM(back, MSG_TEMPERATURE, lcd_control_temperature_menu);
 
-    // display all the available fillaments to edit values for all extruder types
+    // display all the available filaments to edit values for all extruder types
     for (int extypeId = 0; extypeId < EXTRUDER_TYPE_COUNT; extypeId++)
     {
         MENU_ITEM(function_str, "", extruder_tostr(extypeId), do_nothing);
-        for (int fillId = 0; fillId < FILLAMENT_COUNT; fillId++)
+        for (int fillId = 0; fillId < FILAMENT_COUNT; fillId++)
         {
-            MENU_ITEM(submenu_str, "  ", fillament_tostr(fillId), lcd_control_temperature_fillament_settings_values_menu, extypeId, fillId);
+            MENU_ITEM(submenu_str, "  ", filament_tostr(fillId), lcd_control_temperature_filament_settings_values_menu, extypeId, fillId);
         }
     }
 
     END_MENU();
 }
 
-static void lcd_control_temperature_fillament_settings_values_menu()
+static void lcd_control_temperature_filament_settings_values_menu()
 {
     int extruderTypeId = currentMenu_param1;
-    int fillamentId = currentMenu_param2;
+    int filamentId = currentMenu_param2;
 
     START_MENU();
-    MENU_ITEM(back, MSG_TEMPERATURE, lcd_control_temperature_fillament_settings_menu);
+    MENU_ITEM(back, MSG_TEMPERATURE, lcd_control_temperature_filament_settings_menu);
 
-    MENU_ITEM_EDIT(int3, MSG_NOZZLE, (int*)&fillamentConfig[extruderTypeId][fillamentId][ID_HOTEND_TEMP], 0, HEATER_MAXTEMP(extruderTypeId) - 15);
+    MENU_ITEM_EDIT(int3, MSG_NOZZLE, (int*)&filamentConfig[extruderTypeId][filamentId][ID_HOTEND_TEMP], 0, HEATER_MAXTEMP(extruderTypeId) - 15);
 #if TEMP_SENSOR_BED != 0
-    MENU_ITEM_EDIT(uchar, MSG_BED, &fillamentConfig[extruderTypeId][fillamentId][ID_HPB_TEMP], 0, BED_MAXTEMP - 15);
+    MENU_ITEM_EDIT(uchar, MSG_BED, &filamentConfig[extruderTypeId][filamentId][ID_HPB_TEMP], 0, BED_MAXTEMP - 15);
 #endif
-    MENU_ITEM_EDIT(uchar, MSG_FAN_SPEED, &fillamentConfig[extruderTypeId][fillamentId][ID_FAN_SPEED], 0, 255);
+    MENU_ITEM_EDIT(uchar, MSG_FAN_SPEED, &filamentConfig[extruderTypeId][filamentId][ID_FAN_SPEED], 0, 255);
 
 #ifdef EEPROM_SETTINGS
     MENU_ITEM(function, MSG_STORE_EPROM, Config_StoreSettings);
@@ -1029,7 +1029,7 @@ menu_edit_type(float5, float, 0.01)
 menu_edit_type(float51, float, 10)
 menu_edit_type(float52, float, 100)
 menu_edit_type(long5, unsigned long, 0.01)
-menu_edit_type(fillament, unsigned char, 2)
+menu_edit_type(filament, unsigned char, 2)
 menu_edit_type(extruder, char, 2)
 
 #ifdef REPRAPWORLD_KEYPAD
@@ -1628,40 +1628,40 @@ const char *float52_tostr(const float &x)
     return conv;
 }
 
-const char *fillament_tostr(const int &x)
+const char *filament_tostr(const int &x)
 {
     switch (x)
     {
-    case FILLAMENT_ABS: return MSG_FILLAMENT_ABS;
-    case FILLAMENT_PLA: return MSG_FILLAMENT_PLA;
-    case FILLAMENT_HIPS: return MSG_FILLAMENT_HIPS;
-    case FILLAMENT_FLEXIBLE: return MSG_FILLAMENT_FLEXIBLE;
-    case FILLAMENT_LAYWOO_D3: return MSG_FILLAMENT_LAYWOO_D3;
-    case FILLAMENT_LAYBRICK: return MSG_FILLAMENT_LAYBRICK;
-    case FILLAMENT_T_GLASE: return MSG_FILLAMENT_T_GLASE;
-    case FILLAMENT_NYLON_618: return MSG_FILLAMENT_NYLON_618;
-    case FILLAMENT_NYLON_645: return MSG_FILLAMENT_NYLON_645;
-    case FILLAMENT_NYLON_BRIDGE: return MSG_FILLAMENT_NYLON_BRIDGE;
-    case FILLAMENT_PVA: return MSG_FILLAMENT_PVA;
+    case FILAMENT_ABS: return MSG_FILAMENT_ABS;
+    case FILAMENT_PLA: return MSG_FILAMENT_PLA;
+    case FILAMENT_HIPS: return MSG_FILAMENT_HIPS;
+    case FILAMENT_FLEXIBLE: return MSG_FILAMENT_FLEXIBLE;
+    case FILAMENT_LAYWOO_D3: return MSG_FILAMENT_LAYWOO_D3;
+    case FILAMENT_LAYBRICK: return MSG_FILAMENT_LAYBRICK;
+    case FILAMENT_T_GLASE: return MSG_FILAMENT_T_GLASE;
+    case FILAMENT_NYLON_618: return MSG_FILAMENT_NYLON_618;
+    case FILAMENT_NYLON_645: return MSG_FILAMENT_NYLON_645;
+    case FILAMENT_NYLON_BRIDGE: return MSG_FILAMENT_NYLON_BRIDGE;
+    case FILAMENT_PVA: return MSG_FILAMENT_PVA;
     }
     return "INVALID";
 }
 
-const char *fillament_tostr_short(const int &x)
+const char *filament_tostr_short(const int &x)
 {
     switch (x)
     {
-    case FILLAMENT_ABS: return MSG_FILLAMENT_ABS_S;
-    case FILLAMENT_PLA: return MSG_FILLAMENT_PLA_S;
-    case FILLAMENT_HIPS: return MSG_FILLAMENT_HIPS_S;
-    case FILLAMENT_FLEXIBLE: return MSG_FILLAMENT_FLEXIBLE_S;
-    case FILLAMENT_LAYWOO_D3: return MSG_FILLAMENT_LAYWOO_D3_S;
-    case FILLAMENT_LAYBRICK: return MSG_FILLAMENT_LAYBRICK_S;
-    case FILLAMENT_T_GLASE: return MSG_FILLAMENT_T_GLASE_S;
-    case FILLAMENT_NYLON_618: return MSG_FILLAMENT_NYLON_618_S;
-    case FILLAMENT_NYLON_645: return MSG_FILLAMENT_NYLON_645_S;
-    case FILLAMENT_NYLON_BRIDGE: return MSG_FILLAMENT_NYLON_BRIDGE_S;
-    case FILLAMENT_PVA: return MSG_FILLAMENT_PVA_S;
+    case FILAMENT_ABS: return MSG_FILAMENT_ABS_S;
+    case FILAMENT_PLA: return MSG_FILAMENT_PLA_S;
+    case FILAMENT_HIPS: return MSG_FILAMENT_HIPS_S;
+    case FILAMENT_FLEXIBLE: return MSG_FILAMENT_FLEXIBLE_S;
+    case FILAMENT_LAYWOO_D3: return MSG_FILAMENT_LAYWOO_D3_S;
+    case FILAMENT_LAYBRICK: return MSG_FILAMENT_LAYBRICK_S;
+    case FILAMENT_T_GLASE: return MSG_FILAMENT_T_GLASE_S;
+    case FILAMENT_NYLON_618: return MSG_FILAMENT_NYLON_618_S;
+    case FILAMENT_NYLON_645: return MSG_FILAMENT_NYLON_645_S;
+    case FILAMENT_NYLON_BRIDGE: return MSG_FILAMENT_NYLON_BRIDGE_S;
+    case FILAMENT_PVA: return MSG_FILAMENT_PVA_S;
     }
     return "INVALID";
 }

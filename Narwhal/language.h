@@ -50,30 +50,30 @@
 #define STRINGIFY(n) STRINGIFY_(n)
 
 // All languages settings
-// fillaments (long)
-#define MSG_FILLAMENT_ABS           "ABS"
-#define MSG_FILLAMENT_FLEXIBLE      "Flexible"
-#define MSG_FILLAMENT_HIPS          "HIPS"
-#define MSG_FILLAMENT_LAYBRICK      "Laybrick"
-#define MSG_FILLAMENT_LAYWOO_D3     "Laywoo-D3"
-#define MSG_FILLAMENT_NYLON_618     "Nylon 618"
-#define MSG_FILLAMENT_NYLON_645     "Nylon 645"
-#define MSG_FILLAMENT_NYLON_BRIDGE  "Nylon Bridge"
-#define MSG_FILLAMENT_PLA           "PLA"
-#define MSG_FILLAMENT_PVA           "PVA"
-#define MSG_FILLAMENT_T_GLASE       "T-Glase"
-// fillaments (short) MAX 5 chars please!
-#define MSG_FILLAMENT_ABS_S         MSG_FILLAMENT_ABS
-#define MSG_FILLAMENT_FLEXIBLE_S    "FLEX"
-#define MSG_FILLAMENT_HIPS_S        MSG_FILLAMENT_HIPS
-#define MSG_FILLAMENT_LAYBRICK_S    "LBRIK"
-#define MSG_FILLAMENT_LAYWOO_D3_S   "LWOOD"
-#define MSG_FILLAMENT_NYLON_618_S   "NY618"
-#define MSG_FILLAMENT_NYLON_645_S   "NY645"
-#define MSG_FILLAMENT_NYLON_BRIDGE_S "NYBRG"
-#define MSG_FILLAMENT_PLA_S         MSG_FILLAMENT_PLA
-#define MSG_FILLAMENT_PVA_S         MSG_FILLAMENT_PVA
-#define MSG_FILLAMENT_T_GLASE_S     "TGLAS"
+// filaments (long)
+#define MSG_FILAMENT_ABS           "ABS"
+#define MSG_FILAMENT_FLEXIBLE      "Flexible"
+#define MSG_FILAMENT_HIPS          "HIPS"
+#define MSG_FILAMENT_LAYBRICK      "Laybrick"
+#define MSG_FILAMENT_LAYWOO_D3     "Laywoo-D3"
+#define MSG_FILAMENT_NYLON_618     "Nylon 618"
+#define MSG_FILAMENT_NYLON_645     "Nylon 645"
+#define MSG_FILAMENT_NYLON_BRIDGE  "Nylon Bridge"
+#define MSG_FILAMENT_PLA           "PLA"
+#define MSG_FILAMENT_PVA           "PVA"
+#define MSG_FILAMENT_T_GLASE       "T-Glase"
+// filaments (short) MAX 5 chars please!
+#define MSG_FILAMENT_ABS_S         MSG_FILAMENT_ABS
+#define MSG_FILAMENT_FLEXIBLE_S    "FLEX"
+#define MSG_FILAMENT_HIPS_S        MSG_FILAMENT_HIPS
+#define MSG_FILAMENT_LAYBRICK_S    "LBRIK"
+#define MSG_FILAMENT_LAYWOO_D3_S   "LWOOD"
+#define MSG_FILAMENT_NYLON_618_S   "NY618"
+#define MSG_FILAMENT_NYLON_645_S   "NY645"
+#define MSG_FILAMENT_NYLON_BRIDGE_S "NYBRG"
+#define MSG_FILAMENT_PLA_S         MSG_FILAMENT_PLA
+#define MSG_FILAMENT_PVA_S         MSG_FILAMENT_PVA
+#define MSG_FILAMENT_T_GLASE_S     "TGLAS"
 // extruders types
 #define MSG_EXTRUDER_BUDASCHNOZZLE  "Budaschnozzle"
 #define MSG_EXTRUDER_HEXAGON        "Hexagon"
@@ -175,7 +175,7 @@
     // System menu
     #define MSG_SYSTEM "System"
     #define MSG_EXTRUDER_NOTINSTALLED "Not Installed"
-    #define MSG_LOADED_FILLAMENT "Fill"
+    #define MSG_LOADED_FILAMENT "Fill"
 
 
     // Serial Console Messages

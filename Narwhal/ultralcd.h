@@ -106,8 +106,8 @@ const char *float5_tostr(const float &x);
 const char *float51_tostr(const float &x);
 const char *float52_tostr(const float &x);
 
-const char *fillament_tostr(const int &x);
-const char *fillament_tostr_short(const int &x);
+const char *filament_tostr(const int &x);
+const char *filament_tostr_short(const int &x);
 const char *extruder_tostr(const int &x);
 
 #endif //ULTRALCD

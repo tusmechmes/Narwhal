@@ -12,14 +12,14 @@ Lastly, I would love it if other developers want to contribute and improve the f
 
 ## Added features:
   - "System" MENU (this is a major feature and the main reason to fork the firmware). This gives the ability to describe the "current setup" of the system:
-    - Select the extruder settings for each extruder #: type, nozzle size, loaded fillament, E steps per mm, nozzle offset.
-    - Ability to edit the fillament temp configuration inline.
+    - Select the extruder settings for each extruder #: type, nozzle size, loaded filament, E steps per mm, nozzle offset.
+    - Ability to edit the filament temp configuration inline.
     - Ability to leave the 2nd extruder as "Not Installed" - this will automatically change the system configuration between 1 and 2 extruders setup.
     - Change PIDC per Extuder type.
     - Supported types: Budaschnozzle, Hexagon, Flexystruder (currently same as Buda)
-  - ALL fillament settings stored in the EPROM! :) - Now I don't need to figure out every time which x-temp + bed-temp I need to set for my fillament, all the various types (from LulzBot.com) are defined within the firmware. yay. see Temprature menu.
+  - ALL filament settings stored in the EPROM! :) - Now I don't need to figure out every time which x-temp + bed-temp I need to set for my filament, all the various types (from LulzBot.com) are defined within the firmware. yay. see Temprature menu.
   - Inline editing of values -  I figured that there is no need to open a new MENU just to edit a single value!
-  - Preheat settings now automatically takes into account the actual installed fillaments and heats accordingly. i.e. removed the "Preheat PLA, ABS and HIPS" since most often I'm loading different fillaments in the extuders.
+  - Preheat settings now automatically takes into account the actual installed filaments and heats accordingly. i.e. removed the "Preheat PLA, ABS and HIPS" since most often I'm loading different filaments in the extuders.
   - Rearanged some menus to improve accessibility to more common features faster
   - Many small code simplifications and comments here and there to keep track of the crazy #ifdef world of the code.
   
@@ -40,7 +40,7 @@ Lastly, I would love it if other developers want to contribute and improve the f
     - when the file specifies 1 extruder and the system has 2 installed, ability to select which one would extrude. 
     - Ability to select out of 9 "center of mass" positions to print around. I found myself continuously printing at various corders to avoid re-shmearing ABS "glue" on the platform and avoid cooldown/heatup timely cycles. so would be nice to be able to specify: print on top-left cornet or "middle" or "left" etc.
     - Provide alerts (warnings)
-      - File temp doesn't equal installed fillament temp
+      - File temp doesn't equal installed filament temp
       - Number of extureders in file is more than installed extruders
   - Menus:
     - Show a "down" and "up" arrows on the left of the MENU screens if there are more MENU items below or above.
