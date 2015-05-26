@@ -958,7 +958,7 @@ void lcd_sdcard_menu()
 #endif
     }
     else{
-        MENU_ITEM(function, LCD_STR_FOLDER "..", lcd_sd_updir);
+        MENU_ITEM(function, "..", lcd_sd_updir);
     }
 
     for (uint16_t i = 0; i < fileCnt; i++)

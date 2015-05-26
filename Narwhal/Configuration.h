@@ -623,25 +623,33 @@ extern unsigned char filamentConfig[EXTRUDER_TYPE_COUNT][FILAMENT_COUNT][5];
 
 #ifdef ULTIPANEL
 //  #define NEWPANEL  //enable this if you have a click-encoder panel
-#define SDSUPPORT
-#define ULTRA_LCD
-#ifdef DOGLCD // Change number of lines to match the DOG graphic display
-#define LCD_WIDTH 20
-#define LCD_HEIGHT 5
-#else
-#define LCD_WIDTH 20
-#define LCD_HEIGHT 4
-#endif
+#   define SDSUPPORT
+#   define ULTRA_LCD
+#   ifdef DOGLCD // Change number of lines to match the DOG graphic display
+#       define LCD_WIDTH 20
+#       define LCD_HEIGHT 5
+#       define LCD_WIDTH_PIXELS 128
+#       define LCD_HEIGHT_PIXELS 64
+#   else
+#       define LCD_WIDTH 20
+#       define LCD_HEIGHT 4
+#       define LCD_WIDTH_PIXELS 128
+#       define LCD_HEIGHT_PIXELS 50
+#   endif
 #else //no panel but just lcd
-#ifdef ULTRA_LCD
-#ifdef DOGLCD // Change number of lines to match the 128x64 graphics display
-#define LCD_WIDTH 20
-#define LCD_HEIGHT 5
-#else
-#define LCD_WIDTH 16
-#define LCD_HEIGHT 2
-#endif
-#endif
+#   ifdef ULTRA_LCD
+#       ifdef DOGLCD // Change number of lines to match the 128x64 graphics display
+#           define LCD_WIDTH 20
+#           define LCD_HEIGHT 5
+#           define LCD_WIDTH_PIXELS 128
+#           define LCD_HEIGHT_PIXELS 64
+#       else
+#           define LCD_WIDTH 16
+#           define LCD_HEIGHT 2
+#           define LCD_WIDTH_PIXELS 102
+#           define LCD_HEIGHT_PIXELS 24
+#       endif
+#   endif
 #endif
 
 // default LCD contrast for dogm-like LCD displays

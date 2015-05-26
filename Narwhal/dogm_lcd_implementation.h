@@ -159,6 +159,20 @@ static void lcd_implementation_clear()
     //		} while( u8g.nextPage() );
 }
 
+static void lcd_implementation_quick_feedback()
+{
+#if BEEPER > -1
+    SET_OUTPUT(BEEPER);
+    for (int8_t i = 0; i < 1; i++)
+    {
+        // Beep note selection using pitches.h
+        tone(BEEPER, NOTE_C6);
+        delay(10);
+        noTone(BEEPER);
+    }
+#endif
+}
+
 /* Arduino < 1.0.0 is missing a function to print PROGMEM strings, so we need to implement our own */
 static void lcd_printPGM(const char* str)
 {
@@ -348,263 +362,114 @@ static void lcd_implementation_status_screen()
     u8g.setFont(FONT_STATUSMENU);
     u8g.setPrintPos(0, 61);
     u8g.print(lcd_status_message);
-
 }
 
-static void lcd_implementation_drawmenu_str_generic(uint8_t row, const char* pstr, const char* text, char pre_char, char post_char)
+static void lcd_implementation_draw_row(uint8_t row, char pre_char, const char* pstr, const char* text, const char* data, char post_char, bool highlightRow, bool highlightData)
 {
     char c;
-
-    // determine the width of the screen in characters
-    uint8_t n = LCD_WIDTH - 1;
-
-    // print the pre_char
-    if ((pre_char == '>') || (pre_char == LCD_STR_UPLEVEL[0]))
+    
+    // draw highlight rect if needed
+    if (highlightRow)
     {
         u8g.setColorIndex(1);		// black on white
-        u8g.drawBox(0, row*DOG_CHAR_HEIGHT + 3, 128, DOG_CHAR_HEIGHT);
-        u8g.setColorIndex(0);		// following text must be white on black
-    }
-    else u8g.setColorIndex(1); // unmarked text is black on white
-
-    u8g.setPrintPos(0 * DOG_CHAR_WIDTH, (row + 1) * DOG_CHAR_HEIGHT);
-    if (pre_char != '>')
-        u8g.print(pre_char);
-    else
-        u8g.print(' ');	// Row selector is obsolete
-
-    // print the program string
-    while ((c = pgm_read_byte(pstr)) != '\0')
-    {
-        u8g.print(c);
-        pstr++;
-        n--;
-    }
-
-    // print the additional dynamic (non program string)
-    if (text != NULL)
-    {
-        while ((c = text[0]) != '\0')
-        {
-            u8g.print(c);
-            text++;
-            n--;
-        }
-    }
-
-    // fill in spaces until the end of the line...
-    while (n--){
-        u8g.print(' ');
-    }
-
-    u8g.print(post_char);
-    u8g.print(' ');
-    u8g.setColorIndex(1);		// restore settings to black on white
-}
-static void lcd_implementation_drawmenu_generic(uint8_t row, const char* pstr, char pre_char, char post_char)
-{
-    // call the _str function with a NULL dynamic string
-    lcd_implementation_drawmenu_str_generic(row, pstr, NULL, pre_char, post_char);
-}
-
-
-static void lcd_implementation_drawmenu_setting_edit_generic(uint8_t row, const char* pstr, bool isEditMode, const char pre_char, const char* data)
-{
-    static unsigned int fkt_cnt = 0;
-    char c;
-    uint8_t dataWidth = strlen(data);
-    uint8_t n = LCD_WIDTH - 1 - dataWidth;
-
-    u8g.setPrintPos(0 * DOG_CHAR_WIDTH, (row + 1) * DOG_CHAR_HEIGHT);
-    u8g.print(pre_char);
-
-    // print the message
-    while ((c = pgm_read_byte(pstr)) != '\0')
-    {
-        u8g.print(c);
-
-        pstr++;
-        n--;
-    }
-
-    u8g.print(':');
-
-    // reverse the print color when we are in inlineEditMode.
-    if (isEditMode)
-    {
-        u8g.setColorIndex(1);		// black on white
-        u8g.drawBox(128 - (dataWidth + 1)*DOG_CHAR_WIDTH, row * DOG_CHAR_HEIGHT + 3, 128, DOG_CHAR_HEIGHT);
+        u8g.drawBox(0, row * DOG_CHAR_HEIGHT + 3, LCD_WIDTH_PIXELS, DOG_CHAR_HEIGHT);
         u8g.setColorIndex(0);		// white on black
     }
+    else
+    {
+        u8g.setColorIndex(1); // unmarked text is black on white
+    }
+    
+    // set the position to the left of the requested row
+    u8g.setPrintPos(0 * DOG_CHAR_WIDTH, (row + 1) * DOG_CHAR_HEIGHT);
 
-    // set the position of the data
-    u8g.setPrintPos(128 - DOG_CHAR_WIDTH / 2 - dataWidth * DOG_CHAR_WIDTH, (row + 1) * DOG_CHAR_HEIGHT);
-    u8g.print(data);
-    u8g.setColorIndex(1);		// black on white
+    // print the "pre char"
+    if (pre_char != 0)
+    {
+        u8g.print(pre_char);
+    }
+    
+    // print the PSTR message
+    if (pstr != NULL)
+    {
+        lcd_printPGM(pstr);
+    }
+    
+    // print the dynamic string message
+    if (text != NULL)
+    {
+        u8g.print(text);
+    }
+    
+    // print the data string
+    if (data != NULL)
+    {
+        uint8_t dataWidth = strlen(data);
+
+        // print data separator
+        u8g.print(':');
+
+        // reverse the print color when we are in inlineEditMode.
+        if (highlightData)
+        {
+            u8g.setColorIndex(1);		// black on white
+            u8g.drawBox(LCD_WIDTH_PIXELS - (dataWidth + 1) * DOG_CHAR_WIDTH, row * DOG_CHAR_HEIGHT + 3, 128, DOG_CHAR_HEIGHT);
+            u8g.setColorIndex(0);		// white on black
+        }
+        
+        // set the position of the data
+        u8g.setPrintPos(LCD_WIDTH_PIXELS - DOG_CHAR_WIDTH / 2 - dataWidth * DOG_CHAR_WIDTH, (row + 1) * DOG_CHAR_HEIGHT);
+        u8g.print(data);
+    }
+    
+    // print the post char
+    if (post_char != 0)
+    {
+        u8g.setPrintPos(LCD_WIDTH_PIXELS - DOG_CHAR_WIDTH, (row + 1) * DOG_CHAR_HEIGHT);
+        u8g.print(post_char);
+    }
+    
+    // reset color: black on white
+    u8g.setColorIndex(1);
 }
 
-void lcd_implementation_drawedit(const char* pstr, const char* value)
+static void lcd_implementation_draw_row_SDfile(uint8_t row, char pre_char, const char* filename, char* longFilename, char post_char, bool highlightRow)
 {
-    u8g.setPrintPos(0 * DOG_CHAR_WIDTH_LARGE, (u8g.getHeight() - 1 - DOG_CHAR_HEIGHT_LARGE) - (1 * DOG_CHAR_HEIGHT_LARGE) - START_ROW);
-    u8g.setFont(u8g_font_7x13);
-    lcd_printPGM(pstr);
-    u8g.print(':');
-    u8g.setPrintPos((18 - strlen(value)) * DOG_CHAR_WIDTH_LARGE, (u8g.getHeight() - 1 - DOG_CHAR_HEIGHT_LARGE) - (1 * DOG_CHAR_HEIGHT_LARGE) - START_ROW);
-    u8g.print(value);
-}
-
-//void lcd_implementation_draw_value(const char* pstr, const char* value, int row)
-//{
-//    u8g.setPrintPos(0 * DOG_CHAR_WIDTH_LARGE, (row + 1) * DOG_CHAR_HEIGHT);
-//    u8g.setFont(u8g_font_7x13);
-//    lcd_printPGM(pstr);
-//    u8g.print(':');
-//    u8g.setPrintPos((18 - strlen(value)) * DOG_CHAR_WIDTH_LARGE, (row + 1) * DOG_CHAR_HEIGHT);
-//    u8g.print(value);
-//}
-
-static void lcd_implementation_drawmenu_sdfile_selected(uint8_t row, const char* pstr, const char* filename, char* longFilename)
-{
-    char c;
-    uint8_t n = LCD_WIDTH - 1;
-
     if (longFilename[0] != '\0')
     {
         filename = longFilename;
         longFilename[LCD_WIDTH - 1] = '\0';
     }
-
-    u8g.setColorIndex(1);		// black on white
-    u8g.drawBox(0, row*DOG_CHAR_HEIGHT + 3, 128, DOG_CHAR_HEIGHT);
-    u8g.setColorIndex(0);		// following text must be white on black
-    u8g.setPrintPos(0 * DOG_CHAR_WIDTH, (row + 1) * DOG_CHAR_HEIGHT);
-    u8g.print(' ');	// Indent by 1 char
-
-    while ((c = *filename) != '\0')
-    {
-        u8g.print(c);
-        filename++;
-        n--;
-    }
-    while (n--){
-        u8g.print(' ');
-    }
-    u8g.setColorIndex(1);		// black on white
+    
+    lcd_implementation_draw_row(row, pre_char, NULL, filename, NULL, post_char, highlightRow, false);
 }
 
-static void lcd_implementation_drawmenu_sdfile(uint8_t row, const char* pstr, const char* filename, char* longFilename)
-{
-    char c;
-    uint8_t n = LCD_WIDTH - 1;
 
-    if (longFilename[0] != '\0')
-    {
-        filename = longFilename;
-        longFilename[LCD_WIDTH - 1] = '\0';
-    }
+// General Menu items
+#define lcd_implementation_drawmenu_back_selected(row, pstr, data...)               lcd_implementation_draw_row(row, LCD_STR_UPLEVEL[0], pstr, NULL, NULL, LCD_STR_UPLEVEL[0], true, false)
+#define lcd_implementation_drawmenu_back(row, pstr, data...)                        lcd_implementation_draw_row(row, LCD_STR_UPLEVEL[0], pstr, NULL, NULL, ' ', false, false)
+#define lcd_implementation_drawmenu_submenu_selected(row, pstr, data...)            lcd_implementation_draw_row(row, ' ', pstr, NULL, NULL, LCD_STR_ARROW_RIGHT[0], true, false)
+#define lcd_implementation_drawmenu_submenu(row, pstr, data...)                     lcd_implementation_draw_row(row, ' ', pstr, NULL, NULL, ' ', false, false)
+#define lcd_implementation_drawmenu_submenu_str_selected(row, pstr, str, data...)   lcd_implementation_draw_row(row, ' ', pstr, str, NULL, LCD_STR_ARROW_RIGHT[0], true, false)
+#define lcd_implementation_drawmenu_submenu_str(row, pstr, str, data...)            lcd_implementation_draw_row(row, ' ', pstr, str, NULL, ' ', false, false)
+#define lcd_implementation_drawmenu_gcode_selected(row, pstr, gcode...)             lcd_implementation_draw_row(row, ' ', pstr, NULL, NULL, LCD_STR_ARROW_RIGHT[0], true, false)
+#define lcd_implementation_drawmenu_gcode(row, pstr, gcode...)                      lcd_implementation_draw_row(row, ' ', pstr, NULL, NULL, ' ', false, false)
+#define lcd_implementation_drawmenu_function_selected(row, pstr, data...)           lcd_implementation_draw_row(row, ' ', pstr, NULL, NULL, ' ', true, false)
+#define lcd_implementation_drawmenu_function(row, pstr, data...)                    lcd_implementation_draw_row(row, ' ', pstr, NULL, NULL, ' ', false, false)
+#define lcd_implementation_drawmenu_function_str_selected(row, pstr, str, data...)  lcd_implementation_draw_row(row, ' ', pstr, str, NULL, ' ', true, false)
+#define lcd_implementation_drawmenu_function_str(row, pstr, str, data...)           lcd_implementation_draw_row(row, ' ', pstr, str, NULL, ' ', false, false)
 
-    u8g.setPrintPos(0 * DOG_CHAR_WIDTH, (row + 1) * DOG_CHAR_HEIGHT);
-    u8g.print(' ');
+// Edit menu items
+#define lcd_implementation_drawedit(pstr, value)    lcd_implementation_draw_row(3, 0, pstr, NULL, value, 0, false, true)
+#define lcd_implementation_drawmenu_setting_edit_generic(row, pstr, isEditMode, pre_char, data)   lcd_implementation_draw_row(row, pre_char, pstr, NULL, data, 0, false, isEditMode)
 
-    while ((c = *filename) != '\0')
-    {
-        u8g.print(c);
-
-        filename++;
-        n--;
-    }
-    while (n--){
-        u8g.print(' ');
-    }
-
-}
-
-static void lcd_implementation_drawmenu_sddirectory_selected(uint8_t row, const char* pstr, const char* filename, char* longFilename)
-{
-    char c;
-    uint8_t n = LCD_WIDTH - 2;
-
-    if (longFilename[0] != '\0')
-    {
-        filename = longFilename;
-        longFilename[LCD_WIDTH - 2] = '\0';
-    }
-    u8g.setColorIndex(1);		// black on white
-    u8g.drawBox(0, row*DOG_CHAR_HEIGHT + 3, 128, DOG_CHAR_HEIGHT);
-    u8g.setColorIndex(0);		// following text must be white on black
-    u8g.setPrintPos(0 * DOG_CHAR_WIDTH, (row + 1) * DOG_CHAR_HEIGHT);
-    u8g.print(' ');	// Indent by 1 char
-    u8g.print(LCD_STR_FOLDER[0]);
-
-    while ((c = *filename) != '\0')
-    {
-        u8g.print(c);
-
-        filename++;
-        n--;
-    }
-    while (n--){
-        u8g.print(' ');
-    }
-    u8g.setColorIndex(1);		// black on white
-}
-
-static void lcd_implementation_drawmenu_sddirectory(uint8_t row, const char* pstr, const char* filename, char* longFilename)
-{
-    char c;
-    uint8_t n = LCD_WIDTH - 2;
-
-    if (longFilename[0] != '\0')
-    {
-        filename = longFilename;
-        longFilename[LCD_WIDTH - 2] = '\0';
-    }
-
-    u8g.setPrintPos(0 * DOG_CHAR_WIDTH, (row + 1) * DOG_CHAR_HEIGHT);
-    u8g.print(' ');
-    u8g.print(LCD_STR_FOLDER[0]);
-
-    while ((c = *filename) != '\0')
-    {
-        u8g.print(c);
-
-        filename++;
-        n--;
-    }
-    while (n--){
-        u8g.print(' ');
-    }
-}
-
-#define lcd_implementation_drawmenu_back_selected(row, pstr, data...)               lcd_implementation_drawmenu_generic(row, pstr, LCD_STR_UPLEVEL[0], LCD_STR_UPLEVEL[0])
-#define lcd_implementation_drawmenu_back(row, pstr, data...)                        lcd_implementation_drawmenu_generic(row, pstr, ' ', LCD_STR_UPLEVEL[0])
-#define lcd_implementation_drawmenu_submenu_selected(row, pstr, data...)            lcd_implementation_drawmenu_generic(row, pstr, '>', LCD_STR_ARROW_RIGHT[0])
-#define lcd_implementation_drawmenu_submenu(row, pstr, data...)                     lcd_implementation_drawmenu_generic(row, pstr, ' ', LCD_STR_ARROW_RIGHT[0])
-#define lcd_implementation_drawmenu_submenu_str_selected(row, pstr, str, data...)   lcd_implementation_drawmenu_str_generic(row, pstr, str, '>', LCD_STR_ARROW_RIGHT[0])
-#define lcd_implementation_drawmenu_submenu_str(row, pstr, str, data...)            lcd_implementation_drawmenu_str_generic(row, pstr, str, ' ', LCD_STR_ARROW_RIGHT[0])
-#define lcd_implementation_drawmenu_gcode_selected(row, pstr, gcode...)             lcd_implementation_drawmenu_generic(row, pstr, '>', ' ')
-#define lcd_implementation_drawmenu_gcode(row, pstr, gcode...)                      lcd_implementation_drawmenu_generic(row, pstr, ' ', ' ')
-#define lcd_implementation_drawmenu_function_selected(row, pstr, data...)           lcd_implementation_drawmenu_generic(row, pstr, '>', ' ')
-#define lcd_implementation_drawmenu_function(row, pstr, data...)                    lcd_implementation_drawmenu_generic(row, pstr, ' ', ' ')
-#define lcd_implementation_drawmenu_function_str_selected(row, pstr, str, data...)  lcd_implementation_drawmenu_str_generic(row, pstr, str, '>', ' ')
-#define lcd_implementation_drawmenu_function_str(row, pstr, str, data...)           lcd_implementation_drawmenu_str_generic(row, pstr, str, ' ', ' ')
+// SD Files and Direcotries
+#define lcd_implementation_drawmenu_sdfile_selected(row, pstr, filename, longFilename)          lcd_implementation_draw_row_SDfile(row, ' ', filename, longFilename, ' ', true)
+#define lcd_implementation_drawmenu_sdfile(row, pstr, filename, longFilename)                   lcd_implementation_draw_row_SDfile(row, ' ', filename, longFilename, ' ', false)
+#define lcd_implementation_drawmenu_sddirectory_selected(row, pstr, filename, longFilename)     lcd_implementation_draw_row_SDfile(row, LCD_STR_FOLDER[0], filename, longFilename, LCD_STR_ARROW_RIGHT[0], true)
+#define lcd_implementation_drawmenu_sddirectory(row, pstr, filename, longFilename)              lcd_implementation_draw_row_SDfile(row, LCD_STR_FOLDER[0], filename, longFilename, ' ', false)
 
 
-
-static void lcd_implementation_quick_feedback()
-{
-
-#if BEEPER > -1
-    SET_OUTPUT(BEEPER);
-    for (int8_t i = 0; i < 1; i++)
-    {
-        // Beep note selection using pitches.h
-        tone(BEEPER, NOTE_C6);
-        delay(10);
-        noTone(BEEPER);
-    }
-#endif
-}
 #endif//ULTRA_LCD_IMPLEMENTATION_DOGM_H
 
 
