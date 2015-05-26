@@ -66,6 +66,185 @@ static void lcd_sdcard_menu();
 
 static void lcd_quick_feedback();//Cause an LCD refresh, and give the user visual or audiable feedback that something has happend
 
+
+
+/** Used variables to keep track of the menu */
+#ifndef REPRAPWORLD_KEYPAD
+volatile uint8_t buttons;//Contains the bits of the currently pressed buttons.
+#else
+volatile uint8_t buttons_reprapworld_keypad; // to store the reprapworld_keypad shiftregister values
+#endif
+#ifdef LCD_HAS_SLOW_BUTTONS
+volatile uint8_t slow_buttons;//Contains the bits of the currently pressed buttons.
+#endif
+uint8_t currentMenuViewOffset;              /* scroll offset in the current menu */
+uint32_t blocking_enc;
+uint8_t lastEncoderBits;
+int encoderPosition;
+#if (SDCARDDETECT > 0)
+bool lcd_oldcardstatus;
+#endif
+#endif//ULTIPANEL
+
+menuFunc_t currentMenu = lcd_status_screen; // function pointer to the currently active menu
+int currentMenu_param1 = 0;
+int currentMenu_param2 = 0;
+
+uint32_t lcd_next_update_millis;
+uint8_t lcd_status_update_delay;
+uint8_t lcdDrawUpdate = 2;                  // Set to none-zero when the LCD needs to draw, decreased after every draw. Set to 2 in LCD routines so the LCD gets atleast 1 full redraw (first redraw is partial)
+
+float raw_Ki, raw_Kd;   // placeholders for Ki and Kd edits
+uint8_t extruderId;     // currently edited extruder id
+
+
+#define ENCODER_FEEDRATE_DEADZONE 10
+
+#if !defined(LCD_I2C_VIKI)
+#ifndef ENCODER_STEPS_PER_MENU_ITEM
+#define ENCODER_STEPS_PER_MENU_ITEM 5
+#endif
+#ifndef ENCODER_PULSES_PER_STEP
+#define ENCODER_PULSES_PER_STEP 1
+#endif
+#else
+#ifndef ENCODER_STEPS_PER_MENU_ITEM
+#define ENCODER_STEPS_PER_MENU_ITEM 2 // VIKI LCD rotary encoder uses a different number of steps per rotation
+#endif
+#ifndef ENCODER_PULSES_PER_STEP
+#define ENCODER_PULSES_PER_STEP 1
+#endif
+#endif
+
+
+
+#define IS_INLINE_EDIT              (inlineEditMenu != NULL)
+#define RELEVANT_ENCODER_POSITION   (IS_INLINE_EDIT ? savedEncoderPosition : encoderPosition)
+#define IS_MENU_SELECTED            ((RELEVANT_ENCODER_POSITION / ENCODER_STEPS_PER_MENU_ITEM) == _menuItemIndex)
+
+/* Helper macros for menus */
+#define START_MENU() do { \
+    if (!IS_INLINE_EDIT) \
+    {\
+        if (encoderPosition > 0x8000) \
+            encoderPosition = 0; \
+    }\
+    if (RELEVANT_ENCODER_POSITION / ENCODER_STEPS_PER_MENU_ITEM < currentMenuViewOffset) \
+        currentMenuViewOffset = RELEVANT_ENCODER_POSITION / ENCODER_STEPS_PER_MENU_ITEM; \
+    uint8_t _menuItemIndex = 0; \
+    bool wasClicked = LCD_CLICKED;
+
+#define LCD_DRAW_MENU(type, row, pstrText, args...)             lcd_implementation_drawmenu_ ## type (row, pstrText , args )
+#define LCD_DRAW_MENU_SELECTED(type, row, pstrText, args...)    lcd_implementation_drawmenu_ ## type ## _selected (row, pstrText , args )
+#define EXECUTE_MENU_ACTION(type, args...)                      menu_action_ ## type ( args );
+#define MENU_ITEM(type, label, args...) \
+    do \
+    {\
+        uint8_t _row = _menuItemIndex - currentMenuViewOffset; \
+        if (_row >= 0 && _row < LCD_HEIGHT) \
+        {\
+            const char* _label_pstr = PSTR(label); \
+            if (IS_MENU_SELECTED) \
+            {\
+                LCD_DRAW_MENU_SELECTED(type, _row, _label_pstr, args); \
+                if (wasClicked) \
+                {\
+                    lcd_quick_feedback(); \
+                    EXECUTE_MENU_ACTION(type, args); \
+                    return;\
+                }\
+            }\
+            else \
+            {\
+                LCD_DRAW_MENU(type, _row, _label_pstr, args); \
+            }\
+        }\
+        _menuItemIndex++; \
+    } while(0)
+
+#define LCD_DRAW_EDIT_MENU(type, row, pstrText, isEditMode, data, args...)              lcd_implementation_drawmenu_setting_edit_generic(row, pstrText, isEditMode, ' ', type ## _tostr (*(data)))
+#define LCD_DRAW_EDIT_MENU_SELECTED(type, row, pstrText, isEditMode, data, args...)     lcd_implementation_drawmenu_setting_edit_generic(row, pstrText, isEditMode, '>', type ## _tostr (*(data)))
+#define START_INLINE_EDIT(type, callback, args...)                                      menu_action_start_edit_ ## type ((#callback == "0") ? NULL : callback, args )
+#define MENU_ITEM_EDIT_CALLBACK(type, label, callback, args...) \
+    do \
+    {\
+        uint8_t _row = _menuItemIndex - currentMenuViewOffset; \
+        if (_row >= 0 && _row < LCD_HEIGHT) \
+        {\
+            const char* _label_pstr = PSTR(label); \
+            if (IS_MENU_SELECTED) \
+            {\
+                LCD_DRAW_EDIT_MENU_SELECTED(type, _row, _label_pstr, IS_INLINE_EDIT, args); \
+                if (wasClicked && !IS_INLINE_EDIT) \
+                {\
+                    lcd_quick_feedback(); \
+                    START_INLINE_EDIT(type, callback, args); \
+                    return;\
+                }\
+            }\
+            else \
+            {\
+                LCD_DRAW_EDIT_MENU(type, _row, _label_pstr, false, args); \
+            }\
+        }\
+        _menuItemIndex++; \
+    } while(0)
+
+#define MENU_ITEM_EDIT(type, label, args...) MENU_ITEM_EDIT_CALLBACK(type, label, 0, ## args )
+
+#define MENU_ITEM_DUMMY() do { _menuItemIndex++; } while(0)
+
+#define END_MENU() \
+    if (!IS_INLINE_EDIT) \
+        {\
+            if (encoderPosition / ENCODER_STEPS_PER_MENU_ITEM >= _menuItemIndex) \
+                encoderPosition = _menuItemIndex * ENCODER_STEPS_PER_MENU_ITEM - 1; \
+            if ((uint8_t)(encoderPosition / ENCODER_STEPS_PER_MENU_ITEM) >= currentMenuViewOffset + LCD_HEIGHT) \
+            { \
+                currentMenuViewOffset = (uint8_t)(encoderPosition / ENCODER_STEPS_PER_MENU_ITEM) - LCD_HEIGHT + 1; \
+                lcdDrawUpdate = 2; \
+            } \
+        }\
+    } while(0)
+
+// Edit menu actions
+#define menu_edit_type(_name, _type, scale) \
+    void menu_edit_callback_ ## _name () \
+    { \
+        if ((int32_t)encoderPosition < minEditValue) \
+            encoderPosition = minEditValue; \
+        if ((int32_t)encoderPosition > maxEditValue) \
+            encoderPosition = maxEditValue; \
+        if (*((_type*)editValue) != ((_type)encoderPosition) / scale) \
+        {\
+            *((_type*)editValue) = ((_type)encoderPosition) / scale; \
+            lcd_quick_feedback(); \
+        }\
+        if (LCD_CLICKED) \
+        { \
+            encoderPosition = savedEncoderPosition; \
+            savedEncoderPosition = -1;  \
+            if (callbackFunc != NULL)   \
+            (*callbackFunc)();      \
+            inlineEditMenu = NULL;      \
+            lcd_quick_feedback();       \
+        } \
+    } \
+    static void menu_action_start_edit_ ## _name (menuFunc_t callback, _type* ptr, _type minValue, _type maxValue) \
+    { \
+        savedEncoderPosition = encoderPosition; \
+        \
+        lcdDrawUpdate = 2; \
+        inlineEditMenu = menu_edit_callback_ ## _name; \
+        \
+        editValue = ptr;                    \
+        minEditValue = minValue * scale;    \
+        maxEditValue = maxValue * scale;    \
+        encoderPosition = (*ptr) * scale;   \
+        callbackFunc = callback;            \
+    }
+
+
 /* Different types of actions that can be used in menuitems. */
 static void menu_action_back(menuFunc_t data);
 static void menu_action_submenu(menuFunc_t data, int param1 = 0, int param2 = 0);
@@ -101,141 +280,19 @@ static void menu_action_start_edit_float51(menuFunc_t callbackFunc, float* ptr, 
 static void menu_action_start_edit_float52(menuFunc_t callbackFunc, float* ptr, float minValue, float maxValue);
 static void menu_action_start_edit_long5(menuFunc_t callbackFunc, unsigned long* ptr, unsigned long minValue, unsigned long maxValue);
 
+menu_edit_type(uchar, unsigned char, 1)
+menu_edit_type(int3, int, 1)
+menu_edit_type(float3, float, 1)
+menu_edit_type(float31, float, 10)
+menu_edit_type(float32, float, 100)
+menu_edit_type(float5, float, 0.01)
+menu_edit_type(float51, float, 10)
+menu_edit_type(float52, float, 100)
+menu_edit_type(long5, unsigned long, 0.01)
+menu_edit_type(filament, unsigned char, 2)
+menu_edit_type(extruder, char, 2)
 
-#define ENCODER_FEEDRATE_DEADZONE 10
 
-#if !defined(LCD_I2C_VIKI)
-#ifndef ENCODER_STEPS_PER_MENU_ITEM
-#define ENCODER_STEPS_PER_MENU_ITEM 5
-#endif
-#ifndef ENCODER_PULSES_PER_STEP
-#define ENCODER_PULSES_PER_STEP 1
-#endif
-#else
-#ifndef ENCODER_STEPS_PER_MENU_ITEM
-#define ENCODER_STEPS_PER_MENU_ITEM 2 // VIKI LCD rotary encoder uses a different number of steps per rotation
-#endif
-#ifndef ENCODER_PULSES_PER_STEP
-#define ENCODER_PULSES_PER_STEP 1
-#endif
-#endif
-
-#define IS_INLINE_EDIT              (inlineEditMenu != NULL)
-#define RELEVANT_ENCODER_POSITION   (IS_INLINE_EDIT ? savedEncoderPosition : encoderPosition)
-#define IS_MENU_SELECTED            ((RELEVANT_ENCODER_POSITION / ENCODER_STEPS_PER_MENU_ITEM) == _menuItemNr)
-
-/* Helper macros for menus */
-#define START_MENU() do { \
-    if (!IS_INLINE_EDIT) \
-        {\
-        if (encoderPosition > 0x8000) encoderPosition = 0; \
-        }\
-    if (RELEVANT_ENCODER_POSITION / ENCODER_STEPS_PER_MENU_ITEM < currentMenuViewOffset) \
-        currentMenuViewOffset = RELEVANT_ENCODER_POSITION / ENCODER_STEPS_PER_MENU_ITEM; \
-    uint8_t _lineNr = currentMenuViewOffset, _menuItemNr; \
-    bool wasClicked = LCD_CLICKED;\
-    for(uint8_t _drawLineNr = 0; _drawLineNr < LCD_HEIGHT; _drawLineNr++, _lineNr++) { \
-        _menuItemNr = 0;
-
-#define LCD_DRAW_MENU(type, row, pstrText, args...)             lcd_implementation_drawmenu_ ## type (row, pstrText , args )
-#define LCD_DRAW_MENU_SELECTED(type, row, pstrText, args...)    lcd_implementation_drawmenu_ ## type ## _selected (row, pstrText , args )
-#define EXECUTE_MENU_ACTION(type, args...)                      menu_action_ ## type ( args );
-#define MENU_ITEM(type, label, args...) \
-    do \
-        {\
-        if (_menuItemNr == _lineNr) \
-                {\
-            if (lcdDrawUpdate) \
-                        {\
-                const char* _label_pstr = PSTR(label); \
-                if (IS_MENU_SELECTED) \
-                                {\
-                    LCD_DRAW_MENU_SELECTED(type, _drawLineNr, _label_pstr, args); \
-                                }\
-                                else \
-                {\
-                    LCD_DRAW_MENU(type, _drawLineNr, _label_pstr, args); \
-                }\
-                        }\
-            if (wasClicked && IS_MENU_SELECTED) \
-                        {\
-                lcd_quick_feedback(); \
-                EXECUTE_MENU_ACTION(type, args); \
-                return;\
-                        }\
-                }\
-        _menuItemNr++;\
-        } while(0)
-
-#define LCD_DRAW_EDIT_MENU(type, row, pstrText, isEditMode, data, args...)              lcd_implementation_drawmenu_setting_edit_generic(row, pstrText, isEditMode, ' ', type ## _tostr (*(data)))
-#define LCD_DRAW_EDIT_MENU_SELECTED(type, row, pstrText, isEditMode, data, args...)     lcd_implementation_drawmenu_setting_edit_generic(row, pstrText, isEditMode, '>', type ## _tostr (*(data)))
-#define START_INLINE_EDIT(type, callback, args...)                                      menu_action_start_edit_ ## type ((#callback == "0") ? NULL : callback, args )
-#define MENU_ITEM_EDIT_CALLBACK(type, label, callback, args...) \
-    do \
-        {\
-        if (_menuItemNr == _lineNr) \
-                {\
-            if (lcdDrawUpdate) \
-                        {\
-                const char* _label_pstr = PSTR(label); \
-                if (IS_MENU_SELECTED) \
-                                {\
-                    LCD_DRAW_EDIT_MENU_SELECTED(type, _drawLineNr, _label_pstr, IS_INLINE_EDIT, args); \
-                                }\
-                                else \
-                {\
-                    LCD_DRAW_EDIT_MENU(type, _drawLineNr, _label_pstr, false, args); \
-                }\
-                        }\
-            if (!IS_INLINE_EDIT && wasClicked && IS_MENU_SELECTED) \
-                        {\
-                lcd_quick_feedback(); \
-                START_INLINE_EDIT(type, callback, args); \
-                return;\
-                        }\
-                }\
-        _menuItemNr++;\
-        } while(0)
-#define MENU_ITEM_EDIT(type, label, args...) MENU_ITEM_EDIT_CALLBACK(type, label, 0, ## args )
-
-#define MENU_ITEM_DUMMY() do { _menuItemNr++; } while(0)
-
-#define END_MENU() \
-    if (!IS_INLINE_EDIT) \
-        {\
-        if (encoderPosition / ENCODER_STEPS_PER_MENU_ITEM >= _menuItemNr) encoderPosition = _menuItemNr * ENCODER_STEPS_PER_MENU_ITEM - 1; \
-        if ((uint8_t)(encoderPosition / ENCODER_STEPS_PER_MENU_ITEM) >= currentMenuViewOffset + LCD_HEIGHT) { currentMenuViewOffset = (encoderPosition / ENCODER_STEPS_PER_MENU_ITEM) - LCD_HEIGHT + 1; lcdDrawUpdate = 1; _lineNr = currentMenuViewOffset - 1; _drawLineNr = -1; } \
-        }\
-        } } while(0)
-
-/** Used variables to keep track of the menu */
-#ifndef REPRAPWORLD_KEYPAD
-volatile uint8_t buttons;//Contains the bits of the currently pressed buttons.
-#else
-volatile uint8_t buttons_reprapworld_keypad; // to store the reprapworld_keypad shiftregister values
-#endif
-#ifdef LCD_HAS_SLOW_BUTTONS
-volatile uint8_t slow_buttons;//Contains the bits of the currently pressed buttons.
-#endif
-uint8_t currentMenuViewOffset;              /* scroll offset in the current menu */
-uint32_t blocking_enc;
-uint8_t lastEncoderBits;
-int encoderPosition;
-#if (SDCARDDETECT > 0)
-bool lcd_oldcardstatus;
-#endif
-#endif//ULTIPANEL
-
-menuFunc_t currentMenu = lcd_status_screen; // function pointer to the currently active menu 
-int currentMenu_param1 = 0;
-int currentMenu_param2 = 0;
-
-uint32_t lcd_next_update_millis;
-uint8_t lcd_status_update_delay;
-uint8_t lcdDrawUpdate = 2;                  // Set to none-zero when the LCD needs to draw, decreased after every draw. Set to 2 in LCD routines so the LCD gets atleast 1 full redraw (first redraw is partial) 
-
-float raw_Ki, raw_Kd;   // placeholders for Ki and Kd edits
-uint8_t extruderId;     // currently edited extruder id
 
 /* Main status screen. It's up to the implementation specific part to show what is needed. As this is very display dependend */
 static void lcd_status_screen()
@@ -296,6 +353,7 @@ static void lcd_return_to_status()
     currentMenu_param1 = 0;
     currentMenu_param2 = 0;
     inlineEditMenu = NULL;
+    lcd_status_update_delay = 0;
     currentMenu = lcd_status_screen;
 }
 
@@ -957,80 +1015,30 @@ void lcd_sdcard_menu()
         MENU_ITEM(function, LCD_STR_REFRESH MSG_REFRESH, lcd_sd_refresh);
 #endif
     }
-    else{
+    else
+    {
         MENU_ITEM(function, "..", lcd_sd_updir);
     }
 
     for (uint16_t i = 0; i < fileCnt; i++)
     {
-        if (_menuItemNr == _lineNr)
-        {
 #ifndef SDCARD_RATHERRECENTFIRST
-            card.getfilename(i);
+        card.getfilename(i);
 #else
-            card.getfilename(fileCnt - 1 - i);
+        card.getfilename(fileCnt - 1 - i);
 #endif
-            if (card.filenameIsDir)
-            {
-                MENU_ITEM(sddirectory, MSG_CARD_MENU, card.filename, card.longFilename);
-            }
-            else{
-                MENU_ITEM(sdfile, MSG_CARD_MENU, card.filename, card.longFilename);
-            }
+        if (card.filenameIsDir)
+        {
+            MENU_ITEM(sddirectory, MSG_CARD_MENU, card.filename, card.longFilename);
         }
-        else{
-            MENU_ITEM_DUMMY();
+        else
+        {
+            MENU_ITEM(sdfile, MSG_CARD_MENU, card.filename, card.longFilename);
         }
     }
     END_MENU();
 }
 
-#define menu_edit_type(_name, _type, scale) \
-    void menu_edit_callback_ ## _name () \
-    { \
-        if ((int32_t)encoderPosition < minEditValue) \
-            encoderPosition = minEditValue; \
-        if ((int32_t)encoderPosition > maxEditValue) \
-            encoderPosition = maxEditValue; \
-        if (*((_type*)editValue) != ((_type)encoderPosition) / scale) \
-        {\
-            *((_type*)editValue) = ((_type)encoderPosition) / scale; \
-            lcd_quick_feedback(); \
-        }\
-        if (LCD_CLICKED) \
-        { \
-            encoderPosition = savedEncoderPosition; \
-            savedEncoderPosition = -1;  \
-            if (callbackFunc != NULL)   \
-                (*callbackFunc)();      \
-            inlineEditMenu = NULL;      \
-            lcd_quick_feedback();       \
-        } \
-    } \
-    static void menu_action_start_edit_ ## _name (menuFunc_t callback, _type* ptr, _type minValue, _type maxValue) \
-    { \
-        savedEncoderPosition = encoderPosition; \
-         \
-        lcdDrawUpdate = 2; \
-        inlineEditMenu = menu_edit_callback_ ## _name; \
-         \
-        editValue = ptr;                    \
-        minEditValue = minValue * scale;    \
-        maxEditValue = maxValue * scale;    \
-        encoderPosition = (*ptr) * scale;   \
-        callbackFunc = callback;            \
-    }
-menu_edit_type(uchar, unsigned char, 1)
-menu_edit_type(int3, int, 1)
-menu_edit_type(float3, float, 1)
-menu_edit_type(float31, float, 10)
-menu_edit_type(float32, float, 100)
-menu_edit_type(float5, float, 0.01)
-menu_edit_type(float51, float, 10)
-menu_edit_type(float52, float, 100)
-menu_edit_type(long5, unsigned long, 0.01)
-menu_edit_type(filament, unsigned char, 2)
-menu_edit_type(extruder, char, 2)
 
 #ifdef REPRAPWORLD_KEYPAD
 static void reprapworld_keypad_move_z_up() {
