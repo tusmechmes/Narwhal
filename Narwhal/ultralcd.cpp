@@ -131,8 +131,7 @@ uint8_t extruderId;     // currently edited extruder id
     }\
     if (RELEVANT_ENCODER_POSITION / ENCODER_STEPS_PER_MENU_ITEM < currentMenuViewOffset) \
         currentMenuViewOffset = RELEVANT_ENCODER_POSITION / ENCODER_STEPS_PER_MENU_ITEM; \
-    uint8_t _menuItemIndex = 0; \
-    bool wasClicked = LCD_CLICKED;
+    uint8_t _menuItemIndex = 0;
 
 #define LCD_DRAW_MENU(type, row, pstrText, args...)             lcd_implementation_drawmenu_ ## type (row, pstrText , args )
 #define LCD_DRAW_MENU_SELECTED(type, row, pstrText, args...)    lcd_implementation_drawmenu_ ## type ## _selected (row, pstrText , args )
@@ -147,7 +146,7 @@ uint8_t extruderId;     // currently edited extruder id
             if (IS_MENU_SELECTED) \
             {\
                 LCD_DRAW_MENU_SELECTED(type, _row, _label_pstr, args); \
-                if (wasClicked) \
+                if (LCD_CLICKED) \
                 {\
                     lcd_quick_feedback(); \
                     EXECUTE_MENU_ACTION(type, args); \
@@ -175,7 +174,7 @@ uint8_t extruderId;     // currently edited extruder id
             if (IS_MENU_SELECTED) \
             {\
                 LCD_DRAW_EDIT_MENU_SELECTED(type, _row, _label_pstr, IS_INLINE_EDIT, args); \
-                if (wasClicked && !IS_INLINE_EDIT) \
+                if (LCD_CLICKED && !IS_INLINE_EDIT) \
                 {\
                     lcd_quick_feedback(); \
                     START_INLINE_EDIT(type, callback, args); \
