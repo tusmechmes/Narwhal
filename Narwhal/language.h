@@ -176,10 +176,10 @@
     #define MSG_SYSTEM "System"
     #define MSG_EXTRUDER_NOTINSTALLED "Not Installed"
     #define MSG_LOADED_FILAMENT "Fill"
+    #define MSG_PRIMARY_EXTRUDER "Primary Extruder"
 
 
     // Serial Console Messages
-
 	#define MSG_Enqueing "enqueing \""
 	#define MSG_POWERUP "PowerUp"
 	#define MSG_EXTERNAL_RESET " External Reset"

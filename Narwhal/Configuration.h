@@ -93,6 +93,7 @@
 #define EXTRUDER_HEXAGON_MAX_TEMP       (305)
 #define EXTRUDER_FLEXYSTRUDER_MAX_TEMP  (250)
 
+#define PRIMARY_EXTRUDER        (systemInfo.primaryExtruder)
 
 //// The following define selects which power supply you have. Please choose the one that matches your setup
 // 1 = ATX

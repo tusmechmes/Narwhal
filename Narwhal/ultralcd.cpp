@@ -89,6 +89,7 @@ bool lcd_oldcardstatus;
 menuFunc_t currentMenu = lcd_status_screen; // function pointer to the currently active menu
 int currentMenu_param1 = 0;
 int currentMenu_param2 = 0;
+char* currentMenu_filename = NULL;
 
 uint32_t lcd_next_update_millis;
 uint8_t lcd_status_update_delay;
@@ -251,7 +252,7 @@ static void menu_action_submenu_str(const char*, menuFunc_t data, int param1 = 0
 static void menu_action_gcode(const char* pgcode);
 static void menu_action_function(menuFunc_t data);
 static void menu_action_function_str(const char*, menuFunc_t data);
-static void menu_action_sdfile(const char* filename, char* longFilename);
+static void menu_action_sdfile(char* filename, char* longFilename);
 static void menu_action_sddirectory(const char* filename, char* longFilename);
 
 // Edit actions:
@@ -270,6 +271,7 @@ static void menu_action_start_edit_filament(menuFunc_t callbackFunc, unsigned ch
 static void menu_action_start_edit_extruder(menuFunc_t callbackFunc, char* ptr, char minValue, char maxValue);
 static void menu_action_start_edit_bool(menuFunc_t callbackFunc, bool* ptr);
 static void menu_action_start_edit_uchar(menuFunc_t callbackFunc, unsigned char* ptr, unsigned char minValue, unsigned char maxValue);
+static void menu_action_start_edit_int2(menuFunc_t callbackFunc, int* ptr, int minValue, int maxValue);
 static void menu_action_start_edit_int3(menuFunc_t callbackFunc, int* ptr, int minValue, int maxValue);
 static void menu_action_start_edit_float3(menuFunc_t callbackFunc, float* ptr, float minValue, float maxValue);
 static void menu_action_start_edit_float31(menuFunc_t callbackFunc, float* ptr, float minValue, float maxValue);
@@ -280,6 +282,7 @@ static void menu_action_start_edit_float52(menuFunc_t callbackFunc, float* ptr, 
 static void menu_action_start_edit_long5(menuFunc_t callbackFunc, unsigned long* ptr, unsigned long minValue, unsigned long maxValue);
 
 menu_edit_type(uchar, unsigned char, 1)
+menu_edit_type(int2, int, 1)
 menu_edit_type(int3, int, 1)
 menu_edit_type(float3, float, 1)
 menu_edit_type(float31, float, 10)
@@ -401,6 +404,12 @@ static void lcd_system_menu()
     MENU_ITEM(submenu_str, "X2: ", systemInfo.Extruders[1]->ToString(), lcd_system_extruder, 1);
 #endif
 
+    // provide an option to change the primary extruder before printing
+    if (INSTALLED_EXTRUDERS > 1)
+    {
+        MENU_ITEM_EDIT_CALLBACK(uchar, MSG_PRIMARY_EXTRUDER, send_command_T0, &systemInfo.primaryExtruder, 0, systemInfo.installedExtruders-1);
+    }
+    
     // offer an option to store the settings
 #ifdef EEPROM_SETTINGS
     MENU_ITEM(function, MSG_STORE_EPROM, Config_StoreSettings);
@@ -842,7 +851,7 @@ static void lcd_control_menu()
     MENU_ITEM(submenu, MSG_MOTION, lcd_control_motion_menu);
     //#ifdef DOGLCD
     //    MENU_ITEM_EDIT(int3, MSG_CONTRAST, &lcd_contrast, 0, 63);
-    MENU_ITEM(submenu, MSG_CONTRAST, lcd_set_contrast);
+    //MENU_ITEM(submenu, MSG_CONTRAST, lcd_set_contrast);
     //#endif
 #ifdef FWRETRACT
     MENU_ITEM(submenu, MSG_RETRACT, lcd_control_retract_menu);
@@ -999,7 +1008,37 @@ static void lcd_sd_updir()
     card.updir();
     currentMenuViewOffset = 0;
 }
+static void print_current_filename()
+{
+    char* filename = currentMenu_filename;
+    
+    char cmd[30];
+    char* c;
+    sprintf_P(cmd, PSTR("M23 %s"), filename);
+    for (c = &cmd[4]; *c; c++)
+        *c = tolower(*c);
+    enquecommand(cmd);
+    enquecommand_P(PSTR("M24"));
+    lcd_return_to_status();
+}
 
+void send_command_T0()
+{
+    enquecommand_P(PSTR("T0 F0"));
+}
+void lcd_file_config_pre_print()
+{
+    START_MENU();
+    MENU_ITEM(back, "Browse", lcd_sdcard_menu);
+    
+    // provide an option to change the primary extruder before printing
+    if (INSTALLED_EXTRUDERS > 1)
+    {
+        MENU_ITEM_EDIT_CALLBACK(uchar, MSG_PRIMARY_EXTRUDER, send_command_T0, &systemInfo.primaryExtruder, 0, systemInfo.installedExtruders-1);
+    }
+    MENU_ITEM(function, "Print!", print_current_filename);
+    END_MENU();
+}
 void lcd_sdcard_menu()
 {
     if (lcdDrawUpdate == 0 && LCD_CLICKED == 0)
@@ -1071,9 +1110,11 @@ static void reprapworld_keypad_move_y_up() {
     lcd_move_y();
 }
 static void reprapworld_keypad_move_home() {
-    enquecommand_P((PSTR("G28"))); // move all axis home
+    enquecommand_P((PSTR("G28")));      // move all axis home
 }
 #endif
+
+
 
 /** End of menus **/
 
@@ -1113,16 +1154,11 @@ static void menu_action_function_str(const char*, menuFunc_t data)
 {
     (*data)();
 }
-static void menu_action_sdfile(const char* filename, char* longFilename)
+static void menu_action_sdfile(char* filename, char* longFilename)
 {
-    char cmd[30];
-    char* c;
-    sprintf_P(cmd, PSTR("M23 %s"), filename);
-    for (c = &cmd[4]; *c; c++)
-        *c = tolower(*c);
-    enquecommand(cmd);
-    enquecommand_P(PSTR("M24"));
-    lcd_return_to_status();
+    currentMenu_filename = filename;
+    currentMenu = lcd_file_config_pre_print;
+    encoderPosition = 0;
 }
 static void menu_action_sddirectory(const char* filename, char* longFilename)
 {
@@ -1265,7 +1301,10 @@ void lcd_update()
         {
             u8g.setFont(u8g_font_6x10_marlin);
             u8g.setPrintPos(125, 0);
-            if (blink % 2) u8g.setColorIndex(1); else u8g.setColorIndex(0); // Set color for the alive dot
+            if (blink % 2)
+                u8g.setColorIndex(1);
+            else
+                u8g.setColorIndex(0); // Set color for the alive dot
             u8g.drawPixel(127, 63); // draw alive dot
             u8g.setColorIndex(1); // black on white
 
@@ -1473,16 +1512,22 @@ const char *int31_tostr(const int &x)
 
 const char *int3_tostr(const int &x)
 {
+    int i = 0;
     if (x >= 100)
-        conv[0] = (x / 100) % 10 + '0';
-    else
-        conv[0] = ' ';
+    {
+        conv[i] = (x / 100) % 10 + '0';
+        i++;
+    }
+    
     if (x >= 10)
-        conv[1] = (x / 10) % 10 + '0';
-    else
-        conv[1] = ' ';
-    conv[2] = (x) % 10 + '0';
-    conv[3] = 0;
+    {
+        conv[i] = (x / 10) % 10 + '0';
+        i++;
+    }
+    
+    conv[i] = (x) % 10 + '0';
+    i++;
+    conv[i] = 0;
     return conv;
 }
 
@@ -1708,5 +1753,7 @@ void refresh_system_settings()
 {
     systemInfo.Update();
 }
+
+
 
 #endif //ULTRA_LCD

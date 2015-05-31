@@ -1032,7 +1032,9 @@ static void homeaxis(int axis) {
         plan_buffer_line(destination[X_AXIS], destination[Y_AXIS], destination[Z_AXIS], destination[E_AXIS], feedrate / 60, active_extruder);
         st_synchronize();
 
-        destination[axis] = 2 * home_retract_mm(axis) * axis_home_dir;
+        // move to the primary extruder offset
+        destination[axis] = (2 * home_retract_mm(axis) + EXTRUDER_OFFSET(active_extruder)[axis]) * axis_home_dir;
+
 #ifdef DELTA
         feedrate = homing_feedrate[axis]/10;
 #else
@@ -2963,6 +2965,15 @@ void process_commands()
     else if (code_seen('T'))
     {
         tmp_extruder = code_value();
+        
+        // set the correct extruder according to the PRIMARY_EXTRUDER settings
+        if ((INSTALLED_EXTRUDERS > 1) && (PRIMARY_EXTRUDER != 0))
+        {
+            // TDOD - what should we do with 3 extruders?
+            // switch between the extruders
+            tmp_extruder = !tmp_extruder;
+        }
+        
 #if defined(EXTRUDER_FAN_SETUP) && EXTRUDER_FAN_SETUP ==2
         active_FAN = code_value();
 #endif

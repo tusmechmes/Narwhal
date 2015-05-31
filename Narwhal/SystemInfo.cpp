@@ -213,6 +213,9 @@ void SystemInfo::LoadDefaults()
 
         }
     }
+
+    // the default primary extruder is 0
+    this->primaryExtruder = 0;
     
     // lastly, update the syste (this will cause a second update on the extruders, oh well)
     this->Update();
@@ -237,6 +240,9 @@ void SystemInfo::Update()
 
     if (this->installedExtruders == 1)  // Single Extruder Configuration
     {
+        // make sure the primary extruder is not larger than the available extruders
+        this->primaryExtruder = 0;
+        
         //----- Configuration -----//
         si_DISABLE_E = false; // For all extruders
 

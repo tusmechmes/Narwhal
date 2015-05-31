@@ -68,8 +68,13 @@ class SystemInfo
 {
 //----- Properties -----//
 public:
+    // actual installed extruders
     int installedExtruders = 1;
 
+    // the primary extruder (the other would be used for support or secondary)
+    // NOTE: this setting will override the "T" command. if the primaryExtruder is not 0 then T0 would set the actuve_extruder to 1
+    unsigned char primaryExtruder = 0;
+    
     ExtruderInfo* Extruders[MAX_EXTRUDERS];
 
 public:

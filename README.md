@@ -15,6 +15,7 @@ Lastly, I would love it if other developers want to contribute and improve the f
     - Select the extruder settings for each extruder #: type, nozzle size, loaded filament, E steps per mm, nozzle offset.
     - Ability to edit the filament temp configuration inline.
     - Ability to leave the 2nd extruder as "Not Installed" - this will automatically change the system configuration between 1 and 2 extruders setup.
+    - Ability to set which extruder is primary. this is helpful when we want to select the main material the model should be extruded with. This configuration will automatically set T0 commands to be the primary extruder specified.
     - Change PIDC per Extuder type.
     - Supported types: Budaschnozzle, Hexagon, Flexystruder (currently same as Buda)
   - ALL filament settings stored in the EPROM! :) - Now I don't need to figure out every time which x-temp + bed-temp I need to set for my filament, all the various types (from LulzBot.com) are defined within the firmware. yay. see Temprature menu.
@@ -22,6 +23,8 @@ Lastly, I would love it if other developers want to contribute and improve the f
   - Preheat settings now automatically takes into account the actual installed filaments and heats accordingly. i.e. removed the "Preheat PLA, ABS and HIPS" since most often I'm loading different filaments in the extuders.
   - Rearanged some menus to improve accessibility to more common features faster
   - Many small code simplifications and comments here and there to keep track of the crazy #ifdef world of the code.
+  - New "pre-print" MENU:
+    - Set the primary extruder (see description above).
   
 ## Planned features:
   - Long filenames 'ticker' (when highlighted the filename would slowly shift left to reveal the entire name). I found it that many times I'd name my files with a bunch of descriptions like (Fillament, nozzle dia, resolution etc) this makes a long enough filename for the LCD to handle, in addition many times I'd have more than 1 filename that starts exactly the same but ends just with 1 config change (e.g. resolution) this makes it extra hard to figure out which is which.
@@ -37,7 +40,6 @@ Lastly, I would love it if other developers want to contribute and improve the f
   - Ability to manually move the printhead to a "start" location on the model. this would be useful when I want to start with a given physical object or previous print and before I heat up the exturder move it to the location it will start printing from. this could be in x, y & z and will allow multiple colors or additions to other pre-printed objects - this would be cool! :)
   - After a user selects a file to print, provide some extra configurations / info:
     - Ability to override file temp settings
-    - when the file specifies 1 extruder and the system has 2 installed, ability to select which one would extrude. 
     - Ability to select out of 9 "center of mass" positions to print around. I found myself continuously printing at various corders to avoid re-shmearing ABS "glue" on the platform and avoid cooldown/heatup timely cycles. so would be nice to be able to specify: print on top-left cornet or "middle" or "left" etc.
     - Provide alerts (warnings)
       - File temp doesn't equal installed filament temp
