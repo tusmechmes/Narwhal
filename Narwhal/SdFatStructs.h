@@ -640,6 +640,22 @@ static inline uint8_t DIR_IS_SUBDIR(const dir_t* dir) {
 static inline uint8_t DIR_IS_FILE_OR_SUBDIR(const dir_t* dir) {
   return (dir->attributes & DIR_ATT_VOLUME_ID) == 0;
 }
+/** Directory entry is hidden
+ * \param[in] dir Pointer to a directory entry.
+ *
+ * \return true if the entry is hidden else false.
+ */
+static inline uint8_t DIR_IS_HIDDEN(const dir_t* dir) {
+    return (dir->attributes & DIR_ATT_HIDDEN) == 1;
+}
+/** Directory entry is system dir
+ * \param[in] dir Pointer to a directory entry.
+ *
+ * \return true if the entry is System else false.
+ */
+static inline uint8_t DIR_IS_SYSTEM(const dir_t* dir) {
+    return (dir->attributes & DIR_ATT_SYSTEM) == 1;
+}
 #endif  // SdFatStructs_h
 
 

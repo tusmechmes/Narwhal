@@ -25,9 +25,9 @@ Lastly, I would love it if other developers want to contribute and improve the f
   - Many small code simplifications and comments here and there to keep track of the crazy #ifdef world of the code.
   - New "pre-print" MENU:
     - Set the primary extruder (see description above).
+  - Long filenames 'ticker' (when highlighted the filename would slowly shift left to reveal the entire name). I found it that many times I'd name my files with a bunch of descriptions like (Fillament, nozzle dia, resolution etc) this makes a long enough filename for the LCD to handle, in addition many times I'd have more than 1 filename that starts exactly the same but ends just with 1 config change (e.g. resolution) this makes it extra hard to figure out which is which.
   
 ## Planned features:
-  - Long filenames 'ticker' (when highlighted the filename would slowly shift left to reveal the entire name). I found it that many times I'd name my files with a bunch of descriptions like (Fillament, nozzle dia, resolution etc) this makes a long enough filename for the LCD to handle, in addition many times I'd have more than 1 filename that starts exactly the same but ends just with 1 config change (e.g. resolution) this makes it extra hard to figure out which is which.
   - Ability to override settigns from the gcode file, i.e. trust the system over the file.
   - Save named extruder settings. I plan to buy more extruders (Flexy etc.) so it would be great to save the properties of say extruder "A", "B", and "C". Then physically mark the extruders with labels so everytime I change an extruder I can load the default configs without editing the values again. (this is mostly for the type and E_Steps but I'm sure more configs will come in)
   - Change the info screen to be more friendly and include the exturder type first letter, fan % per extruder.

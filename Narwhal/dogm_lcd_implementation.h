@@ -61,7 +61,7 @@
 
 
 #define START_ROW				0
-
+#define FILE_TICKER_DELAY_MS    (700)
 
 /* Custom characters defined in font font_6x10_marlin.c */
 #define LCD_STR_BEDTEMP     "\xFE"
@@ -77,6 +77,7 @@
 #define FONT_STATUSMENU	u8g_font_6x9
 
 int lcd_contrast;
+extern uint8_t lcdDrawUpdate;
 
 // LCD selection
 #ifdef U8GLIB_ST7920
@@ -435,10 +436,49 @@ static void lcd_implementation_draw_row(uint8_t row, char pre_char, const char* 
 
 static void lcd_implementation_draw_row_SDfile(uint8_t row, char pre_char, const char* filename, char* longFilename, char post_char, bool highlightRow)
 {
+    static uint8_t lastRow = -1;
+    static int ticker_pos = 0;
+    static unsigned long ticker_update_timeout = 0;
+
     if (longFilename[0] != '\0')
     {
-        filename = longFilename;
-        longFilename[LCD_WIDTH - 1] = '\0';
+        // filename ticker
+        if (highlightRow)
+        {
+            // reset the ticker for this row
+            if (lastRow != row)
+            {
+                lastRow = row;
+                ticker_pos = 0;
+                ticker_update_timeout = millis() + FILE_TICKER_DELAY_MS;
+            }
+            
+            // updated the ticker position if needed
+            if (ticker_update_timeout <= millis())
+            {
+                ticker_update_timeout = millis() + FILE_TICKER_DELAY_MS;
+                if (strlen(longFilename) - ticker_pos + 1 > LCD_WIDTH)
+                {
+                    ticker_pos++;
+                }
+                else
+                {
+                    ticker_pos = 0;
+                }
+            }
+            
+            // offset the filename according to the ticker position
+            filename = longFilename + ticker_pos;
+            longFilename[LCD_WIDTH + ticker_pos] = '\0';
+            
+            // refresh the LCD screen
+            lcdDrawUpdate = 2;
+        }
+        else
+        {
+            filename = longFilename;
+            longFilename[LCD_WIDTH] = '\0';
+        }
     }
     
     lcd_implementation_draw_row(row, pre_char, NULL, filename, NULL, post_char, highlightRow, false);
