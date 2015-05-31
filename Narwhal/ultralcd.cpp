@@ -38,6 +38,7 @@ char lcd_status_message[LCD_WIDTH + 1] = WELCOME_MSG;
 void copy_and_scalePID_i();
 void copy_and_scalePID_d();
 void refresh_system_settings();
+void send_command_T0();
 
 /* Different menus */
 static void lcd_status_screen();
