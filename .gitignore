@@ -31,3 +31,7 @@
 *.xcuserstate
 *.xcuserdatad/
 Builds/
+
+# macOS metadata files
+.DS_Store
+    

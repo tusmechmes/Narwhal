@@ -486,7 +486,7 @@ void setup()
     servo_init();
 
     lcd_init();
-    _delay_ms(1000);	// wait 1sec to display the splash screen
+    _delay_ms(500);	// wait 1sec to display the splash screen
 
 #if defined(CASEFAN_PIN) && CASEFAN_PIN > -1
     SET_OUTPUT(CASEFAN_PIN); //Set pin used for driver cooling fan
